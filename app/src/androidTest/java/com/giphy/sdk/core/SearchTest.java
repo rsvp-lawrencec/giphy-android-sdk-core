@@ -12,7 +12,11 @@ import org.junit.Test;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-public class TrendingTest {
+/**
+ * Created by bogdantmm on 4/21/17.
+ */
+
+public class SearchTest {
     GiphyApiImpl imp;
 
     @Before
@@ -21,14 +25,15 @@ public class TrendingTest {
     }
 
     /**
-     * Test if trending without params returns 25 gifs and not exception.
+     * Test if search without params returns 25 gifs and not exception.
+     *
      * @throws Exception
      */
     @Test
     public void testBase() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.trending("gifs", null, null, null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.search("gifs", "hack", null, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
             @Override
             public void onComplete(Throwable e, MultipleGifsResponse result) {
                 lock.countDown();
@@ -42,6 +47,28 @@ public class TrendingTest {
     }
 
     /**
+     * Test a search that has no results.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testNoResults() throws Exception {
+        final CountDownLatch lock = new CountDownLatch(1);
+
+        imp.search("gifs", "jjhjhhjhhhjjhhh", null, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
+            @Override
+            public void onComplete(Throwable e, MultipleGifsResponse result) {
+                lock.countDown();
+
+                Assert.assertNull(e);
+                Assert.assertNotNull(result);
+                Assert.assertTrue(result.gifs.size() == 0);
+            }
+        });
+        lock.await(2000, TimeUnit.MILLISECONDS);
+    }
+
+    /**
      * Test if limit returns the exact amount of gifs
      * @throws Exception
      */
@@ -49,7 +76,7 @@ public class TrendingTest {
     public void testLimit() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.trending("gifs", 13, null, null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.search("gifs", "cats", 13, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
             @Override
             public void onComplete(Throwable e, MultipleGifsResponse result) {
                 lock.countDown();
@@ -70,7 +97,7 @@ public class TrendingTest {
     public void testRating() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.trending("gifs", 20, null, "pg", new CompletionHandler<MultipleGifsResponse>() {
+        imp.search("gifs", "cats", 20, null, "pg", null, new CompletionHandler<MultipleGifsResponse>() {
             @Override
             public void onComplete(Throwable e, MultipleGifsResponse result) {
                 lock.countDown();
@@ -92,23 +119,23 @@ public class TrendingTest {
     public void testOffset() throws Exception {
         final CountDownLatch lock = new CountDownLatch(2);
 
-        imp.trending("gifs", 20, 0, "pg", new CompletionHandler<MultipleGifsResponse>() {
+        imp.search("gifs", "cats", 30, 0, "pg", null, new CompletionHandler<MultipleGifsResponse>() {
             @Override
             public void onComplete(Throwable e, final MultipleGifsResponse result1) {
                 lock.countDown();
 
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
-                Assert.assertTrue(result1.gifs.size() == 20);
+                Assert.assertTrue(result1.gifs.size() == 30);
 
-                imp.trending("gifs", 20, 10, "pg", new CompletionHandler<MultipleGifsResponse>() {
+                imp.search("gifs", "cats", 30, 10, "pg", null, new CompletionHandler<MultipleGifsResponse>() {
                     @Override
                     public void onComplete(Throwable e, MultipleGifsResponse result2) {
                         lock.countDown();
 
                         Assert.assertNull(e);
                         Assert.assertNotNull(result2);
-                        Assert.assertTrue(result2.gifs.size() == 20);
+                        Assert.assertTrue(result2.gifs.size() == 30);
 
                         Assert.assertEquals(result1.gifs.get(10).id, result2.gifs.get(0).id);
                     }

@@ -37,7 +37,7 @@ public class GiphyApiImpl implements GiphyApi {
     public AsyncTask search(@NonNull String type, @NonNull  String searchQuery, @Nullable Integer limit,
                             @Nullable Integer offset, @Nullable String rating,
                             @Nullable String lang,
-                            @Nullable final CompletionHandler<GenericResponse> completionHandler) {
+                            @Nullable final CompletionHandler<MultipleGifsResponse> completionHandler) {
 
         final Map<String, String> params = new HashMap<>();
         params.put("api_key", apiKey);
@@ -56,14 +56,14 @@ public class GiphyApiImpl implements GiphyApi {
         }
 
         return queryStringConnectionWrapper(Constants.SERVER_URL,
-                String.format(Constants.Paths.SEARCH, type), "GET", GenericResponse.class, params,
+                String.format(Constants.Paths.SEARCH, type), "GET", MultipleGifsResponse.class, params,
                 null, completionHandler);
     }
 
     @Override
     @NonNull
     public AsyncTask trending(@NonNull String type, @Nullable Integer limit,
-                              @Nullable String rating, @Nullable Integer offset,
+                              @Nullable Integer offset, @Nullable String rating,
                               @Nullable final CompletionHandler<MultipleGifsResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
         params.put("api_key", apiKey);
