@@ -1,7 +1,7 @@
 package com.giphy.sdk.core;
 
 import com.giphy.sdk.core.network.api.CompletionHandler;
-import com.giphy.sdk.core.network.api.GiphyApiImpl;
+import com.giphy.sdk.core.network.api.GiphyApiClient;
 import com.giphy.sdk.core.network.response.MultipleGifsResponse;
 
 import junit.framework.Assert;
@@ -17,11 +17,11 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class SearchTest {
-    GiphyApiImpl imp;
+    GiphyApiClient imp;
 
     @Before
     public void setUp() throws Exception {
-        imp = new GiphyApiImpl("dc6zaTOxFJmzC");
+        imp = new GiphyApiClient("dc6zaTOxFJmzC");
     }
 
     /**
@@ -137,7 +137,7 @@ public class SearchTest {
                         Assert.assertNotNull(result2);
                         Assert.assertTrue(result2.gifs.size() == 30);
 
-                        Assert.assertEquals(result1.gifs.get(10).id, result2.gifs.get(0).id);
+                        Utils.checkOffsetWorks(result1.gifs, result2.gifs);
                     }
                 });
             }

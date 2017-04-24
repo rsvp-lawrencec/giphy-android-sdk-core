@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import java.util.List;
 
 import com.giphy.sdk.core.network.response.GenericResponse;
+import com.giphy.sdk.core.network.response.GifResponse;
 import com.giphy.sdk.core.network.response.MultipleGifsResponse;
 
 /**
@@ -74,7 +75,7 @@ public interface GiphyApi {
      */
     @NonNull
     public AsyncTask gifById(@NonNull String gifId,
-                             @Nullable final CompletionHandler<GenericResponse> completionHandler);
+                             @Nullable final CompletionHandler<GifResponse> completionHandler);
 
     /**
      * Returns meta data about multiple gifs
@@ -83,5 +84,5 @@ public interface GiphyApi {
      */
     @NonNull
     public AsyncTask gifByIds(@NonNull List<String> gifIds,
-                              @Nullable final CompletionHandler<GenericResponse> completionHandler);
+                              @Nullable final CompletionHandler<MultipleGifsResponse> completionHandler);
 }

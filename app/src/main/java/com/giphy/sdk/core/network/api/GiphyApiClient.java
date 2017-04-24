@@ -5,29 +5,30 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.giphy.sdk.core.network.engine.DefaultNetworkSession;
 import com.giphy.sdk.core.network.engine.NetworkSession;
 import com.giphy.sdk.core.network.response.GenericResponse;
+import com.giphy.sdk.core.network.response.GifResponse;
 import com.giphy.sdk.core.network.response.MultipleGifsResponse;
 import com.giphy.sdk.core.threading.ApiTask;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by bogdantmm on 4/19/17.
  */
 
-public class GiphyApiImpl implements GiphyApi {
+public class GiphyApiClient implements GiphyApi {
     private NetworkSession networkSessionImpl;
     private String apiKey;
 
-    public GiphyApiImpl(String apiKey) {
+    public GiphyApiClient(String apiKey) {
         this(apiKey, new DefaultNetworkSession());
     }
 
-    public GiphyApiImpl(String apiKey, NetworkSession session) {
+    public GiphyApiClient(String apiKey, NetworkSession session) {
         this.apiKey = apiKey;
         this.networkSessionImpl = session;
     }
@@ -115,18 +116,18 @@ public class GiphyApiImpl implements GiphyApi {
     @Override
     @NonNull
     public AsyncTask gifById(@NonNull String gifId,
-                             @Nullable final CompletionHandler<GenericResponse> completionHandler) {
+                             @Nullable final CompletionHandler<GifResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
         params.put("api_key", apiKey);
         return queryStringConnectionWrapper(Constants.SERVER_URL,
-                Constants.Paths.GIF_BY_ID, "GET", GenericResponse.class, params, null,
+                String.format(Constants.Paths.GIF_BY_ID, gifId), "GET", GifResponse.class, params, null,
                 completionHandler);
     }
 
     @Override
     @NonNull
     public AsyncTask gifByIds(@NonNull List<String> gifIds,
-                              @Nullable final CompletionHandler<GenericResponse> completionHandler) {
+                              @Nullable final CompletionHandler<MultipleGifsResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
         params.put("api_key", apiKey);
 
@@ -140,7 +141,7 @@ public class GiphyApiImpl implements GiphyApi {
         params.put("ids", str.toString());
 
         return queryStringConnectionWrapper(Constants.SERVER_URL,
-                Constants.Paths.GIF_BY_IDS, "GET", GenericResponse.class, params, null,
+                Constants.Paths.GIF_BY_IDS, "GET", MultipleGifsResponse.class, params, null,
                 completionHandler);
     }
 
