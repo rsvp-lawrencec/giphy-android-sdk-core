@@ -1,7 +1,7 @@
 package com.giphy.sdk.core;
 
 import com.giphy.sdk.core.network.api.CompletionHandler;
-import com.giphy.sdk.core.network.api.GiphyApiClient;
+import com.giphy.sdk.core.network.api.GPHApiClient;
 import com.giphy.sdk.core.network.response.MultipleGifsResponse;
 
 import junit.framework.Assert;
@@ -13,11 +13,11 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 public class TrendingTest {
-    GiphyApiClient imp;
+    GPHApiClient imp;
 
     @Before
     public void setUp() throws Exception {
-        imp = new GiphyApiClient("dc6zaTOxFJmzC");
+        imp = new GPHApiClient("dc6zaTOxFJmzC");
     }
 
     /**

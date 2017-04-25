@@ -20,15 +20,15 @@ import java.util.Map;
  * Created by bogdantmm on 4/19/17.
  */
 
-public class GiphyApiClient implements GiphyApi {
+public class GPHApiClient implements GPHApi {
     private NetworkSession networkSessionImpl;
     private String apiKey;
 
-    public GiphyApiClient(String apiKey) {
+    public GPHApiClient(String apiKey) {
         this(apiKey, new DefaultNetworkSession());
     }
 
-    public GiphyApiClient(String apiKey, NetworkSession session) {
+    public GPHApiClient(String apiKey, NetworkSession session) {
         this.apiKey = apiKey;
         this.networkSessionImpl = session;
     }

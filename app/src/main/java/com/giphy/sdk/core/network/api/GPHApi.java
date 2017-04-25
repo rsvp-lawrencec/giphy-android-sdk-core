@@ -14,7 +14,7 @@ import com.giphy.sdk.core.network.response.MultipleGifsResponse;
  * Created by bogdantmm on 4/19/17.
  */
 
-public interface GiphyApi {
+public interface GPHApi {
     /**
      * Search for gifs or stickers
      * @param type can be sticker or gif
