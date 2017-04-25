@@ -4,11 +4,10 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import java.util.List;
-
-import com.giphy.sdk.core.network.response.GenericResponse;
 import com.giphy.sdk.core.network.response.GifResponse;
 import com.giphy.sdk.core.network.response.MultipleGifsResponse;
+
+import java.util.List;
 
 /**
  * Created by bogdantmm on 4/19/17.
@@ -29,7 +28,7 @@ public interface GPHApi {
     public AsyncTask search(@NonNull String type, @NonNull  String searchQuery, @Nullable Integer limit,
                             @Nullable Integer offset, @Nullable String rating,
                             @Nullable String lang,
-                            @Nullable final CompletionHandler<MultipleGifsResponse> completionHandler);
+                            @NonNull final CompletionHandler<MultipleGifsResponse> completionHandler);
 
     /**
      * Get the trending gifs or stickers
@@ -42,7 +41,7 @@ public interface GPHApi {
     @NonNull
     public AsyncTask trending(@NonNull String type, @Nullable Integer limit,
                               @Nullable Integer offset, @Nullable String rating,
-                              @Nullable final CompletionHandler<MultipleGifsResponse> completionHandler);
+                              @NonNull final CompletionHandler<MultipleGifsResponse> completionHandler);
 
     /**
      * The translate API draws on search, but uses the Giphy "special sauce" to handle translating from one vocabulary to another.
@@ -55,7 +54,7 @@ public interface GPHApi {
     @NonNull
     public AsyncTask translate(@NonNull String type, @NonNull String term, @Nullable String rating,
                                @Nullable String lang,
-                               @Nullable final CompletionHandler<GenericResponse> completionHandler);
+                               @NonNull final CompletionHandler<GifResponse> completionHandler);
 
     /**
      * Returns a random GIF, limited by tag. Excluding the tag parameter will return a random GIF from the Giphy catalog.
@@ -66,7 +65,7 @@ public interface GPHApi {
      */
     @NonNull
     public AsyncTask random(@NonNull String type, @NonNull String tag, @Nullable String rating,
-                            @Nullable final CompletionHandler<GenericResponse> completionHandler);
+                            @NonNull final CompletionHandler<GifResponse> completionHandler);
 
     /**
      * Returns meta data about a GIF, by GIF id
@@ -75,7 +74,7 @@ public interface GPHApi {
      */
     @NonNull
     public AsyncTask gifById(@NonNull String gifId,
-                             @Nullable final CompletionHandler<GifResponse> completionHandler);
+                             @NonNull final CompletionHandler<GifResponse> completionHandler);
 
     /**
      * Returns meta data about multiple gifs
@@ -84,5 +83,6 @@ public interface GPHApi {
      */
     @NonNull
     public AsyncTask gifByIds(@NonNull List<String> gifIds,
-                              @Nullable final CompletionHandler<MultipleGifsResponse> completionHandler);
+                              @NonNull final CompletionHandler<MultipleGifsResponse> completionHandler);
 }
+

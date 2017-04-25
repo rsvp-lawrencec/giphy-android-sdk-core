@@ -9,6 +9,7 @@ public class Image {
     public String width;
     public String height;
     public String size;
+    public String frames;
     public String mp4;
     public String mp4_size;
     public String webp;

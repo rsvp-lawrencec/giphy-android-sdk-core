@@ -42,11 +42,11 @@ public class GifByIdsTest {
         imp.gifByIds(gifIds, new CompletionHandler<MultipleGifsResponse>() {
             @Override
             public void onComplete(Throwable e, MultipleGifsResponse result) {
-                lock.countDown();
-
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertTrue(result.gifs.size() == gifIds.size());
+
+                lock.countDown();
             }
         });
         lock.await(2000, TimeUnit.MILLISECONDS);
@@ -68,14 +68,14 @@ public class GifByIdsTest {
         imp.gifByIds(gifIds, new CompletionHandler<MultipleGifsResponse>() {
             @Override
             public void onComplete(Throwable e, MultipleGifsResponse result) {
-                lock.countDown();
-
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertTrue(result.gifs.size() == gifIds.size());
                 for (int i = 0; i < gifIds.size(); i ++) {
                     Assert.assertEquals(result.gifs.get(i).id, gifIds.get(i));
                 }
+
+                lock.countDown();
             }
         });
         lock.await(2000, TimeUnit.MILLISECONDS);
@@ -97,13 +97,13 @@ public class GifByIdsTest {
         imp.gifByIds(gifIds, new CompletionHandler<MultipleGifsResponse>() {
             @Override
             public void onComplete(Throwable e, MultipleGifsResponse result) {
-                lock.countDown();
-
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertTrue(result.gifs.size() == gifIds.size() - 1);
                 Assert.assertEquals(result.gifs.get(0).id, gifIds.get(0));
                 Assert.assertEquals(result.gifs.get(1).id, gifIds.get(2));
+
+                lock.countDown();
             }
         });
         lock.await(2000, TimeUnit.MILLISECONDS);

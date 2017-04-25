@@ -36,11 +36,11 @@ public class SearchTest {
         imp.search("gifs", "hack", null, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
             @Override
             public void onComplete(Throwable e, MultipleGifsResponse result) {
-                lock.countDown();
-
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertTrue(result.gifs.size() == 25);
+
+                lock.countDown();
             }
         });
         lock.await(2000, TimeUnit.MILLISECONDS);
@@ -58,11 +58,11 @@ public class SearchTest {
         imp.search("gifs", "jjhjhhjhhhjjhhh", null, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
             @Override
             public void onComplete(Throwable e, MultipleGifsResponse result) {
-                lock.countDown();
-
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertTrue(result.gifs.size() == 0);
+
+                lock.countDown();
             }
         });
         lock.await(2000, TimeUnit.MILLISECONDS);
@@ -79,11 +79,11 @@ public class SearchTest {
         imp.search("gifs", "cats", 13, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
             @Override
             public void onComplete(Throwable e, MultipleGifsResponse result) {
-                lock.countDown();
-
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertTrue(result.gifs.size() == 13);
+
+                lock.countDown();
             }
         });
         lock.await(2000, TimeUnit.MILLISECONDS);
@@ -100,11 +100,11 @@ public class SearchTest {
         imp.search("gifs", "cats", 20, null, "pg", null, new CompletionHandler<MultipleGifsResponse>() {
             @Override
             public void onComplete(Throwable e, MultipleGifsResponse result) {
-                lock.countDown();
-
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertTrue(result.gifs.size() == 20);
+
+                lock.countDown();
             }
         });
         lock.await(2000, TimeUnit.MILLISECONDS);
@@ -122,8 +122,6 @@ public class SearchTest {
         imp.search("gifs", "cats", 30, 0, "pg", null, new CompletionHandler<MultipleGifsResponse>() {
             @Override
             public void onComplete(Throwable e, final MultipleGifsResponse result1) {
-                lock.countDown();
-
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
                 Assert.assertTrue(result1.gifs.size() == 30);
@@ -131,17 +129,19 @@ public class SearchTest {
                 imp.search("gifs", "cats", 30, 10, "pg", null, new CompletionHandler<MultipleGifsResponse>() {
                     @Override
                     public void onComplete(Throwable e, MultipleGifsResponse result2) {
-                        lock.countDown();
-
                         Assert.assertNull(e);
                         Assert.assertNotNull(result2);
                         Assert.assertTrue(result2.gifs.size() == 30);
 
                         Utils.checkOffsetWorks(result1.gifs, result2.gifs);
+
+                        lock.countDown();
                     }
                 });
+
+                lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(3000, TimeUnit.MILLISECONDS);
     }
 }
