@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.giphy.sdk.core.models.enums.MediaType;
 import com.giphy.sdk.core.network.engine.DefaultNetworkSession;
 import com.giphy.sdk.core.network.engine.NetworkSession;
 import com.giphy.sdk.core.network.response.CategoriesResponse;
@@ -37,7 +38,7 @@ public class GPHApiClient implements GPHApi {
 
     @Override
     @NonNull
-    public AsyncTask search(@NonNull String type, @NonNull  String searchQuery, @Nullable Integer limit,
+    public AsyncTask search(@NonNull String searchQuery, @Nullable MediaType type, @Nullable Integer limit,
                             @Nullable Integer offset, @Nullable String rating,
                             @Nullable String lang,
                             @NonNull final CompletionHandler<MultipleGifsResponse> completionHandler) {
@@ -59,13 +60,13 @@ public class GPHApiClient implements GPHApi {
         }
 
         return queryStringConnectionWrapper(Constants.SERVER_URL,
-                String.format(Constants.Paths.SEARCH, type), "GET", MultipleGifsResponse.class, params,
+                String.format(Constants.Paths.SEARCH, mediaTypeToEndpoint(type)), "GET", MultipleGifsResponse.class, params,
                 null, completionHandler);
     }
 
     @Override
     @NonNull
-    public AsyncTask trending(@NonNull String type, @Nullable Integer limit,
+    public AsyncTask trending(@Nullable MediaType type, @Nullable Integer limit,
                               @Nullable Integer offset, @Nullable String rating,
                               @NonNull final CompletionHandler<MultipleGifsResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
@@ -80,13 +81,13 @@ public class GPHApiClient implements GPHApi {
             params.put("rating", rating);
         }
         return queryStringConnectionWrapper(Constants.SERVER_URL,
-                String.format(Constants.Paths.TRENDING, type), "GET", MultipleGifsResponse.class, params,
+                String.format(Constants.Paths.TRENDING, mediaTypeToEndpoint(type)), "GET", MultipleGifsResponse.class, params,
                 null, completionHandler);
     }
 
     @Override
     @NonNull
-    public AsyncTask translate(@NonNull String type, @NonNull String term, @Nullable String rating,
+    public AsyncTask translate(@NonNull String term, @Nullable MediaType type, @Nullable String rating,
                                @Nullable String lang,
                                @NonNull final CompletionHandler<GifResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
@@ -99,13 +100,13 @@ public class GPHApiClient implements GPHApi {
             params.put("lang", lang);
         }
         return queryStringConnectionWrapper(Constants.SERVER_URL,
-                String.format(Constants.Paths.TRANSLATE, type), "GET", GifResponse.class, params,
+                String.format(Constants.Paths.TRANSLATE, mediaTypeToEndpoint(type)), "GET", GifResponse.class, params,
                 null, completionHandler);
     }
 
     @Override
     @NonNull
-    public AsyncTask random(@NonNull String type, @NonNull String tag, @Nullable String rating,
+    public AsyncTask random(@NonNull String tag, @Nullable MediaType type, @Nullable String rating,
                             @NonNull final CompletionHandler<GifResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
         params.put("api_key", apiKey);
@@ -116,17 +117,17 @@ public class GPHApiClient implements GPHApi {
 
         final CompletionHandler<RandomGifResponse> completionHandlerWrapper = new CompletionHandler<RandomGifResponse>() {
             @Override
-            public void onComplete(Throwable e, RandomGifResponse result) {
+            public void onComplete(RandomGifResponse result, Throwable e) {
                 if (result != null) {
-                    completionHandler.onComplete(null, result.toGifResponse());
+                    completionHandler.onComplete(result.toGifResponse(), null);
                 } else {
-                    completionHandler.onComplete(e, null);
+                    completionHandler.onComplete(null, e);
                 }
             }
         };
 
         return queryStringConnectionWrapper(Constants.SERVER_URL,
-                String.format(Constants.Paths.RANDOM, type), "GET", RandomGifResponse.class, params,
+                String.format(Constants.Paths.RANDOM, mediaTypeToEndpoint(type)), "GET", RandomGifResponse.class, params,
                 null, completionHandlerWrapper);
     }
 
@@ -216,6 +217,15 @@ public class GPHApiClient implements GPHApi {
                 completionHandler);
     }
 
+    @NonNull
+    private String mediaTypeToEndpoint(@NonNull  MediaType type) {
+        if (type == MediaType.sticker) {
+            return "stickers";
+        } else {
+            return "gifs";
+        }
+    }
+
     // Helper function to provide callback access
     private <T extends GenericResponse> AsyncTask queryStringConnectionWrapper(@NonNull final Uri serverUrl,
                                         @NonNull final String path,
@@ -229,12 +239,12 @@ public class GPHApiClient implements GPHApi {
                 queryStrings, headers).executeAsyncTask(new ApiTask.WrappedAsyncTask<T>() {
             @Override
             protected void onPostExecute(T genericResponse) {
-                completionHandler.onComplete(null, genericResponse);
+                completionHandler.onComplete(genericResponse, null);
             }
 
             @Override
             protected void onError(@NonNull Throwable error) {
-                completionHandler.onComplete(error, null);
+                completionHandler.onComplete(null, error);
             }
         });
     }

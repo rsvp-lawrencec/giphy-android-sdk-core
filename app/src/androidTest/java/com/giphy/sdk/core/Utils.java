@@ -11,14 +11,19 @@ import java.util.List;
  */
 
 public class Utils {
+
+    public static void checkOffsetWorks(List<Gif> result1, List<Gif> result2) {
+        checkOffsetWorks(result1, result2, 20);
+    }
     /**
      * Test if result2 is offseted compared to result1. Because the endpoint is not deterministic,
      * we ignore the offset value
      * @param result1
      * @param result2
+     * @param maxLength
      * @return
      */
-    public static void checkOffsetWorks(List<Gif> result1, List<Gif> result2) {
+    public static void checkOffsetWorks(List<Gif> result1, List<Gif> result2, int maxLength) {
         // We first find the exact offset
         int offset = 0;
         for (int i = 0; i < result1.size(); i ++) {
@@ -30,7 +35,7 @@ public class Utils {
         Assert.assertTrue(offset != 0);
 
         // Check if all results starting from offset match with result2
-        for (int i = 0; i < result2.size() && i + offset < result1.size(); i ++) {
+        for (int i = 0; i < result2.size() && i + offset < result1.size() && i < maxLength; i ++) {
             Assert.assertEquals(result1.get(i + offset).id, result2.get(i).id);
         }
     }

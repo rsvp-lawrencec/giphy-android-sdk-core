@@ -41,7 +41,7 @@ public class GifByIdsTest {
 
         imp.gifByIds(gifIds, new CompletionHandler<MultipleGifsResponse>() {
             @Override
-            public void onComplete(Throwable e, MultipleGifsResponse result) {
+            public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertTrue(result.gifs.size() == gifIds.size());
@@ -67,7 +67,7 @@ public class GifByIdsTest {
 
         imp.gifByIds(gifIds, new CompletionHandler<MultipleGifsResponse>() {
             @Override
-            public void onComplete(Throwable e, MultipleGifsResponse result) {
+            public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertTrue(result.gifs.size() == gifIds.size());
@@ -96,7 +96,7 @@ public class GifByIdsTest {
 
         imp.gifByIds(gifIds, new CompletionHandler<MultipleGifsResponse>() {
             @Override
-            public void onComplete(Throwable e, MultipleGifsResponse result) {
+            public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertTrue(result.gifs.size() == gifIds.size() - 1);

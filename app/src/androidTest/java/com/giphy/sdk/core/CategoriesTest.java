@@ -4,7 +4,6 @@ import com.giphy.sdk.core.models.Category;
 import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApiClient;
 import com.giphy.sdk.core.network.response.CategoriesResponse;
-import com.giphy.sdk.core.network.response.MultipleGifsResponse;
 
 import junit.framework.Assert;
 
@@ -37,7 +36,7 @@ public class CategoriesTest {
 
         imp.categories(null, null, new CompletionHandler<CategoriesResponse>() {
             @Override
-            public void onComplete(Throwable e, CategoriesResponse result) {
+            public void onComplete(CategoriesResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertTrue(result.categories.size() == 25);
@@ -59,7 +58,7 @@ public class CategoriesTest {
 
         imp.categories(15, 0, new CompletionHandler<CategoriesResponse>() {
             @Override
-            public void onComplete(Throwable e, final CategoriesResponse result) {
+            public void onComplete(final CategoriesResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertTrue(result.categories.size() == 15);
@@ -81,7 +80,7 @@ public class CategoriesTest {
 
         imp.categories(15, 0, new CompletionHandler<CategoriesResponse>() {
             @Override
-            public void onComplete(Throwable e, final CategoriesResponse result) {
+            public void onComplete(final CategoriesResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertTrue(result.categories.size() == 15);

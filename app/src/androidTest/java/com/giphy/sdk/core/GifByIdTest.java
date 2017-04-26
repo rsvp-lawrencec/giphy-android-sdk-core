@@ -34,7 +34,7 @@ public class GifByIdTest {
 
         imp.gifById("darAMUceRAs0w", new CompletionHandler<GifResponse>() {
             @Override
-            public void onComplete(Throwable e, GifResponse result) {
+            public void onComplete(GifResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertTrue("darAMUceRAs0w".equals(result.gif.id));
@@ -55,7 +55,7 @@ public class GifByIdTest {
 
         imp.gifById("darAMUceRAs0w_ttttttttt", new CompletionHandler<GifResponse>() {
             @Override
-            public void onComplete(Throwable e, GifResponse result) {
+            public void onComplete(GifResponse result, Throwable e) {
                 Assert.assertNull(result);
                 Assert.assertNotNull(e);
 

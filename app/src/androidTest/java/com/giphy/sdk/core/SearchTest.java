@@ -1,5 +1,6 @@
 package com.giphy.sdk.core;
 
+import com.giphy.sdk.core.models.enums.MediaType;
 import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApiClient;
 import com.giphy.sdk.core.network.response.MultipleGifsResponse;
@@ -33,9 +34,9 @@ public class SearchTest {
     public void testBase() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.search("gifs", "hack", null, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.search("hack", MediaType.gif, null, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
             @Override
-            public void onComplete(Throwable e, MultipleGifsResponse result) {
+            public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertTrue(result.gifs.size() == 25);
@@ -55,9 +56,9 @@ public class SearchTest {
     public void testNoResults() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.search("gifs", "jjhjhhjhhhjjhhh", null, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.search("jjhjhhjhhhjjhhh", MediaType.gif, null, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
             @Override
-            public void onComplete(Throwable e, MultipleGifsResponse result) {
+            public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertTrue(result.gifs.size() == 0);
@@ -76,9 +77,9 @@ public class SearchTest {
     public void testLimit() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.search("gifs", "cats", 13, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.search("cats", MediaType.gif, 13, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
             @Override
-            public void onComplete(Throwable e, MultipleGifsResponse result) {
+            public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertTrue(result.gifs.size() == 13);
@@ -97,9 +98,9 @@ public class SearchTest {
     public void testRating() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.search("gifs", "cats", 20, null, "pg", null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.search("cats", MediaType.gif, 20, null, "pg", null, new CompletionHandler<MultipleGifsResponse>() {
             @Override
-            public void onComplete(Throwable e, MultipleGifsResponse result) {
+            public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertTrue(result.gifs.size() == 20);
@@ -119,16 +120,16 @@ public class SearchTest {
     public void testOffset() throws Exception {
         final CountDownLatch lock = new CountDownLatch(2);
 
-        imp.search("gifs", "cats", 30, 0, "pg", null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.search("cats", MediaType.gif, 30, 0, "pg", null, new CompletionHandler<MultipleGifsResponse>() {
             @Override
-            public void onComplete(Throwable e, final MultipleGifsResponse result1) {
+            public void onComplete(final MultipleGifsResponse result1, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
                 Assert.assertTrue(result1.gifs.size() == 30);
 
-                imp.search("gifs", "cats", 30, 10, "pg", null, new CompletionHandler<MultipleGifsResponse>() {
+                imp.search("cats", MediaType.gif, 30, 10, "pg", null, new CompletionHandler<MultipleGifsResponse>() {
                     @Override
-                    public void onComplete(Throwable e, MultipleGifsResponse result2) {
+                    public void onComplete(MultipleGifsResponse result2, Throwable e) {
                         Assert.assertNull(e);
                         Assert.assertNotNull(result2);
                         Assert.assertTrue(result2.gifs.size() == 30);

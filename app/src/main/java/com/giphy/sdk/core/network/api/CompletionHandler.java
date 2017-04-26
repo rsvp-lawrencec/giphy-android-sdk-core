@@ -5,5 +5,5 @@ package com.giphy.sdk.core.network.api;
  */
 
 public interface CompletionHandler <T> {
-    public void onComplete(Throwable e, T result);
+    public void onComplete(T result, Throwable e);
 }

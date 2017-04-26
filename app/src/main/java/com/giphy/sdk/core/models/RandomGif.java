@@ -1,11 +1,13 @@
 package com.giphy.sdk.core.models;
 
+import com.giphy.sdk.core.models.enums.MediaType;
+
 /**
  * Created by bogdantmm on 4/24/17.
  */
 
 public class RandomGif {
-    public String type;
+    public MediaType type;
     public String id;
     public String url;
     public String image_original_url;

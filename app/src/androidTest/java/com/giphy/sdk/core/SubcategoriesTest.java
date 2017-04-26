@@ -36,7 +36,7 @@ public class SubcategoriesTest {
 
         imp.subcategories("actions", null, null, new CompletionHandler<CategoriesResponse>() {
             @Override
-            public void onComplete(Throwable e, CategoriesResponse result) {
+            public void onComplete(CategoriesResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertTrue(result.categories.size() == 25);
@@ -58,14 +58,14 @@ public class SubcategoriesTest {
 
         imp.subcategories("animals", 15, 0, new CompletionHandler<CategoriesResponse>() {
             @Override
-            public void onComplete(Throwable e, final CategoriesResponse result1) {
+            public void onComplete(final CategoriesResponse result1, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
                 Assert.assertTrue(result1.categories.size() == 15);
 
                 imp.subcategories("animals", 15, 5, new CompletionHandler<CategoriesResponse>() {
                     @Override
-                    public void onComplete(Throwable e, final CategoriesResponse result2) {
+                    public void onComplete(final CategoriesResponse result2, Throwable e) {
                         Assert.assertNull(e);
                         Assert.assertNotNull(result2);
                         Assert.assertTrue(result2.categories.size() == 15);
@@ -92,7 +92,7 @@ public class SubcategoriesTest {
 
         imp.subcategories("animals", 15, 0, new CompletionHandler<CategoriesResponse>() {
             @Override
-            public void onComplete(Throwable e, final CategoriesResponse result) {
+            public void onComplete(final CategoriesResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertTrue(result.categories.size() == 15);

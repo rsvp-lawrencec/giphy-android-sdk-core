@@ -1,5 +1,6 @@
 package com.giphy.sdk.core;
 
+import com.giphy.sdk.core.models.enums.MediaType;
 import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApiClient;
 import com.giphy.sdk.core.network.response.GifResponse;
@@ -32,9 +33,9 @@ public class RandomTest {
     public void testBase() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.random("gifs", "cats dogs", null, new CompletionHandler<GifResponse>() {
+        imp.random("cats dogs", MediaType.gif, null, new CompletionHandler<GifResponse>() {
             @Override
-            public void onComplete(Throwable e, GifResponse result) {
+            public void onComplete(GifResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertNotNull(result.gif);
@@ -54,9 +55,9 @@ public class RandomTest {
     public void testRating() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.random("gifs", "cats dogs", "pg", new CompletionHandler<GifResponse>() {
+        imp.random("cats dogs", MediaType.gif, "pg", new CompletionHandler<GifResponse>() {
             @Override
-            public void onComplete(Throwable e, GifResponse result) {
+            public void onComplete(GifResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertNotNull(result.gif);
@@ -75,9 +76,9 @@ public class RandomTest {
     public void testNoResult() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.random("gifs", "cats_ttttt", "pg", new CompletionHandler<GifResponse>() {
+        imp.random("cats_ttttt", MediaType.gif, "pg", new CompletionHandler<GifResponse>() {
             @Override
-            public void onComplete(Throwable e, GifResponse result) {
+            public void onComplete(GifResponse result, Throwable e) {
                 Assert.assertNull(result);
                 Assert.assertNotNull(e);
 
@@ -95,9 +96,9 @@ public class RandomTest {
     public void testFields() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.random("gifs", "cats dogs", null, new CompletionHandler<GifResponse>() {
+        imp.random("cats dogs", MediaType.gif, null, new CompletionHandler<GifResponse>() {
             @Override
-            public void onComplete(Throwable e, GifResponse result) {
+            public void onComplete(GifResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
 
@@ -142,16 +143,16 @@ public class RandomTest {
     public void testDifferentResults() throws Exception {
         final CountDownLatch lock = new CountDownLatch(2);
 
-        imp.random("gifs", "cats dogs", "pg", new CompletionHandler<GifResponse>() {
+        imp.random("cats dogs", MediaType.gif, "pg", new CompletionHandler<GifResponse>() {
             @Override
-            public void onComplete(Throwable e, final GifResponse result1) {
+            public void onComplete(final GifResponse result1, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
                 Assert.assertNotNull(result1.gif);
 
-                imp.random("gifs", "cats dogs", "pg", new CompletionHandler<GifResponse>() {
+                imp.random("cats dogs", MediaType.gif, "pg", new CompletionHandler<GifResponse>() {
                     @Override
-                    public void onComplete(Throwable e, GifResponse result2) {
+                    public void onComplete(GifResponse result2, Throwable e) {
                         Assert.assertNull(e);
                         Assert.assertNotNull(result2);
                         Assert.assertNotNull(result2.gif);

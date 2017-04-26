@@ -1,5 +1,7 @@
 package com.giphy.sdk.core.models;
 
+import com.giphy.sdk.core.models.enums.MediaType;
+
 import java.util.List;
 
 /**
@@ -7,7 +9,7 @@ import java.util.List;
  */
 
 public class Gif {
-    public String type;
+    public MediaType type;
     public String id;
     public String slug;
     public String url;

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.giphy.sdk.core.models.Gif;
+import com.giphy.sdk.core.models.enums.MediaType;
 import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApiClient;
 import com.giphy.sdk.core.network.engine.NetworkSession;
@@ -49,9 +50,9 @@ public class OkHttpIntegrationTest {
     public void testTrending() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.trending("gifs", null, null, null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.trending(MediaType.gif, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
             @Override
-            public void onComplete(Throwable e, MultipleGifsResponse result) {
+            public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertNotNull(result.gifs);
@@ -76,9 +77,9 @@ public class OkHttpIntegrationTest {
     public void testSearch() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.search("gifs", "hack", null, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.search("hack", MediaType.gif, null, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
             @Override
-            public void onComplete(Throwable e, MultipleGifsResponse result) {
+            public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertNotNull(result.gifs);

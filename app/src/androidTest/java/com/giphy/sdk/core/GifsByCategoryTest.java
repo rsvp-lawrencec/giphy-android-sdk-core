@@ -2,7 +2,6 @@ package com.giphy.sdk.core;
 
 import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApiClient;
-import com.giphy.sdk.core.network.response.CategoriesResponse;
 import com.giphy.sdk.core.network.response.MultipleGifsResponse;
 
 import junit.framework.Assert;
@@ -36,7 +35,7 @@ public class GifsByCategoryTest {
 
         imp.gifsByCategory("animals", "dragon", null, null, new CompletionHandler<MultipleGifsResponse>() {
             @Override
-            public void onComplete(Throwable e, MultipleGifsResponse result) {
+            public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertTrue(result.gifs.size() == 25);
@@ -58,19 +57,19 @@ public class GifsByCategoryTest {
 
         imp.gifsByCategory("animals", "cats", 20, 0, new CompletionHandler<MultipleGifsResponse>() {
             @Override
-            public void onComplete(Throwable e, final MultipleGifsResponse result1) {
+            public void onComplete(final MultipleGifsResponse result1, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
                 Assert.assertTrue(result1.gifs.size() == 20);
 
                 imp.gifsByCategory("animals", "cats", 20, 10, new CompletionHandler<MultipleGifsResponse>() {
                     @Override
-                    public void onComplete(Throwable e, MultipleGifsResponse result2) {
+                    public void onComplete(MultipleGifsResponse result2, Throwable e) {
                         Assert.assertNull(e);
                         Assert.assertNotNull(result2);
                         Assert.assertTrue(result2.gifs.size() == 20);
 
-                        Assert.assertTrue(result2.gifs.get(0).id.equals(result1.gifs.get(10).id));
+                        Utils.checkOffsetWorks(result1.gifs, result2.gifs, 1);
 
                         lock.countDown();
                     }
