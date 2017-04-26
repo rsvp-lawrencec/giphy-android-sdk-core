@@ -38,13 +38,15 @@ public class RandomGif {
         gif.url = url;
         gif.images = new Images();
 
+        gif.user = new User();
+        gif.user.username = username;
+
         gif.images.original = new Image();
         gif.images.original.url = image_original_url;
         gif.images.original.mp4 = image_mp4_url;
         gif.images.original.frames = image_frames;
         gif.images.original.width = image_width;
         gif.images.original.height = image_height;
-        gif.username = username;
 
         gif.images.fixed_height_downsampled = new Image();
         gif.images.fixed_height_downsampled.url = fixed_height_downsampled_url;

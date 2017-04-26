@@ -14,7 +14,6 @@ public class Gif {
     public String bitly_gif_url;
     public String bitly_url;
     public String embed_url;
-    public String username;
     public String source;
     public String rating;
     public String content_url;
