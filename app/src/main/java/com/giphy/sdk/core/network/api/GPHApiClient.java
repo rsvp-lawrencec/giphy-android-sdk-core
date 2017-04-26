@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 
 import com.giphy.sdk.core.network.engine.DefaultNetworkSession;
 import com.giphy.sdk.core.network.engine.NetworkSession;
+import com.giphy.sdk.core.network.response.CategoriesResponse;
 import com.giphy.sdk.core.network.response.GenericResponse;
 import com.giphy.sdk.core.network.response.GifResponse;
 import com.giphy.sdk.core.network.response.MultipleGifsResponse;
@@ -131,6 +132,60 @@ public class GPHApiClient implements GPHApi {
 
     @Override
     @NonNull
+    public AsyncTask categories(@Nullable Integer limit, @Nullable Integer offset,
+                                @NonNull final CompletionHandler<CategoriesResponse> completionHandler) {
+        final Map<String, String> params = new HashMap<>();
+        params.put("api_key", apiKey);
+        if (limit != null) {
+            params.put("limit", limit.toString());
+        }
+        if (offset != null) {
+            params.put("offset", offset.toString());
+        }
+        return queryStringConnectionWrapper(Constants.SERVER_URL,
+                Constants.Paths.CATEGORIES, "GET", CategoriesResponse.class, params,
+                null, completionHandler);
+    }
+
+    @Override
+    @NonNull
+    public AsyncTask subcategories(@NonNull String categoryEncodedName,
+                                   @Nullable Integer limit, @Nullable Integer offset,
+                                   @NonNull final CompletionHandler<CategoriesResponse> completionHandler) {
+        final Map<String, String> params = new HashMap<>();
+        params.put("api_key", apiKey);
+        if (limit != null) {
+            params.put("limit", limit.toString());
+        }
+        if (offset != null) {
+            params.put("offset", offset.toString());
+        }
+        return queryStringConnectionWrapper(Constants.SERVER_URL,
+                String.format(Constants.Paths.SUBCATEGORIES, categoryEncodedName), "GET", CategoriesResponse.class, params,
+                null, completionHandler);
+    }
+
+    @Override
+    @NonNull
+    public AsyncTask gifsByCategory(@NonNull String categoryEncodedName,
+                                    @NonNull String subcategoryEncodedName,
+                                    @Nullable Integer limit, @Nullable Integer offset,
+                                    @NonNull final CompletionHandler<MultipleGifsResponse> completionHandler) {
+        final Map<String, String> params = new HashMap<>();
+        params.put("api_key", apiKey);
+        if (limit != null) {
+            params.put("limit", limit.toString());
+        }
+        if (offset != null) {
+            params.put("offset", offset.toString());
+        }
+        return queryStringConnectionWrapper(Constants.SERVER_URL,
+                String.format(Constants.Paths.GIFS_BY_CATEGORY, categoryEncodedName, subcategoryEncodedName), "GET", MultipleGifsResponse.class, params,
+                null, completionHandler);
+    }
+
+    @Override
+    @NonNull
     public AsyncTask gifById(@NonNull String gifId,
                              @NonNull final CompletionHandler<GifResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
@@ -143,7 +198,7 @@ public class GPHApiClient implements GPHApi {
     @Override
     @NonNull
     public AsyncTask gifByIds(@NonNull List<String> gifIds,
-                              @Nullable final CompletionHandler<MultipleGifsResponse> completionHandler) {
+                              @NonNull final CompletionHandler<MultipleGifsResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
         params.put("api_key", apiKey);
 

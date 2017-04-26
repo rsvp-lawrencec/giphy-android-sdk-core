@@ -16,6 +16,9 @@ public class Constants {
         public static final String TRENDING = "v1/%s/trending";
         public static final String RANDOM = "v1/%s/random";
         public static final String TRANSLATE = "v1/%s/translate";
+        public static final String CATEGORIES = "v1/gifs/categories";
+        public static final String SUBCATEGORIES = "v1/gifs/categories/%s";
+        public static final String GIFS_BY_CATEGORY = "v1/gifs/categories/%s/%s";
         public static final String GIF_BY_ID= "v1/gifs/%s";
         public static final String GIF_BY_IDS= "v1/gifs";
     }

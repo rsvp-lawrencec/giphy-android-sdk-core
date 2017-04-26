@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.giphy.sdk.core.network.response.CategoriesResponse;
 import com.giphy.sdk.core.network.response.GifResponse;
 import com.giphy.sdk.core.network.response.MultipleGifsResponse;
 
@@ -66,6 +67,46 @@ public interface GPHApi {
     @NonNull
     public AsyncTask random(@NonNull String type, @NonNull String tag, @Nullable String rating,
                             @NonNull final CompletionHandler<GifResponse> completionHandler);
+
+
+    /**
+     * Returns a list of categories
+     * @param limit
+     * @param offset
+     * @param completionHandler
+     * @return
+     */
+    @NonNull
+    public AsyncTask categories(@Nullable Integer limit, @Nullable Integer offset,
+                                @NonNull final CompletionHandler<CategoriesResponse> completionHandler);
+
+    /**
+     * Returns a list of subcategories for a category
+     * @param categoryEncodedName
+     * @param limit
+     * @param offset
+     * @param completionHandler
+     * @return
+     */
+    @NonNull
+    public AsyncTask subcategories(@NonNull String categoryEncodedName,
+                                   @Nullable Integer limit, @Nullable Integer offset,
+                                   @NonNull final CompletionHandler<CategoriesResponse> completionHandler);
+
+    /**
+     * Returns a list of gifs based on category & subcategory
+     * @param categoryEncodedName
+     * @param subcategoryEncodedName
+     * @param limit
+     * @param offset
+     * @param completionHandler
+     * @return
+     */
+    @NonNull
+    public AsyncTask gifsByCategory(@NonNull String categoryEncodedName,
+                                    @NonNull String subcategoryEncodedName,
+                                    @Nullable Integer limit, @Nullable Integer offset,
+                                    @NonNull final CompletionHandler<MultipleGifsResponse> completionHandler);
 
     /**
      * Returns meta data about a GIF, by GIF id
