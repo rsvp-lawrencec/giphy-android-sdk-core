@@ -1,6 +1,7 @@
 package com.giphy.sdk.core;
 
 import com.giphy.sdk.core.models.enums.MediaType;
+import com.giphy.sdk.core.models.enums.RatingType;
 import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApiClient;
 import com.giphy.sdk.core.network.response.GifResponse;
@@ -55,7 +56,7 @@ public class RandomTest {
     public void testRating() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.random("cats dogs", MediaType.gif, "pg", new CompletionHandler<GifResponse>() {
+        imp.random("cats dogs", MediaType.gif, RatingType.pg, new CompletionHandler<GifResponse>() {
             @Override
             public void onComplete(GifResponse result, Throwable e) {
                 Assert.assertNull(e);
@@ -76,7 +77,7 @@ public class RandomTest {
     public void testNoResult() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.random("cats_ttttt", MediaType.gif, "pg", new CompletionHandler<GifResponse>() {
+        imp.random("cats_ttttt", MediaType.gif, RatingType.pg, new CompletionHandler<GifResponse>() {
             @Override
             public void onComplete(GifResponse result, Throwable e) {
                 Assert.assertNull(result);
@@ -143,14 +144,14 @@ public class RandomTest {
     public void testDifferentResults() throws Exception {
         final CountDownLatch lock = new CountDownLatch(2);
 
-        imp.random("cats dogs", MediaType.gif, "pg", new CompletionHandler<GifResponse>() {
+        imp.random("cats dogs", MediaType.gif, RatingType.pg, new CompletionHandler<GifResponse>() {
             @Override
             public void onComplete(final GifResponse result1, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
                 Assert.assertNotNull(result1.gif);
 
-                imp.random("cats dogs", MediaType.gif, "pg", new CompletionHandler<GifResponse>() {
+                imp.random("cats dogs", MediaType.gif, RatingType.pg, new CompletionHandler<GifResponse>() {
                     @Override
                     public void onComplete(GifResponse result2, Throwable e) {
                         Assert.assertNull(e);

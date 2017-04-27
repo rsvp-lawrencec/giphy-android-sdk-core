@@ -1,6 +1,7 @@
 package com.giphy.sdk.core;
 
 import com.giphy.sdk.core.models.enums.MediaType;
+import com.giphy.sdk.core.models.enums.RatingType;
 import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApiClient;
 import com.giphy.sdk.core.network.response.MultipleGifsResponse;
@@ -92,7 +93,7 @@ public class TrendingTest {
     public void testRating() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.trending(MediaType.gif, 20, null, "pg", new CompletionHandler<MultipleGifsResponse>() {
+        imp.trending(MediaType.gif, 20, null, RatingType.g, new CompletionHandler<MultipleGifsResponse>() {
             @Override
             public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
@@ -114,21 +115,21 @@ public class TrendingTest {
     public void testOffset() throws Exception {
         final CountDownLatch lock = new CountDownLatch(2);
 
-        imp.trending(MediaType.gif, 20, 0, "pg", new CompletionHandler<MultipleGifsResponse>() {
+        imp.trending(MediaType.gif, 20, 0, RatingType.pg, new CompletionHandler<MultipleGifsResponse>() {
             @Override
             public void onComplete(final MultipleGifsResponse result1, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
                 Assert.assertTrue(result1.gifs.size() == 20);
 
-                imp.trending(MediaType.gif, 20, 10, "pg", new CompletionHandler<MultipleGifsResponse>() {
+                imp.trending(MediaType.gif, 20, 10, RatingType.pg, new CompletionHandler<MultipleGifsResponse>() {
                     @Override
                     public void onComplete(MultipleGifsResponse result2, Throwable e) {
                         Assert.assertNull(e);
                         Assert.assertNotNull(result2);
                         Assert.assertTrue(result2.gifs.size() == 20);
 
-                        Utils.checkOffsetWorks(result1.gifs, result2.gifs);
+                        Utils.checkOffsetWorks(result1.gifs, result2.gifs, 1);
 
                         lock.countDown();
                     }

@@ -1,6 +1,8 @@
 package com.giphy.sdk.core;
 
+import com.giphy.sdk.core.models.enums.LangType;
 import com.giphy.sdk.core.models.enums.MediaType;
+import com.giphy.sdk.core.models.enums.RatingType;
 import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApiClient;
 import com.giphy.sdk.core.network.response.MultipleGifsResponse;
@@ -98,7 +100,51 @@ public class SearchTest {
     public void testRating() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.search("cats", MediaType.gif, 20, null, "pg", null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.search("cats", MediaType.gif, 20, null, RatingType.pg, null, new CompletionHandler<MultipleGifsResponse>() {
+            @Override
+            public void onComplete(MultipleGifsResponse result, Throwable e) {
+                Assert.assertNull(e);
+                Assert.assertNotNull(result);
+                Assert.assertTrue(result.gifs.size() == 20);
+
+                lock.countDown();
+            }
+        });
+        lock.await(2000, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Test if rating returns gifs
+     * @throws Exception
+     */
+    @Test
+    public void testRatingY() throws Exception {
+        final CountDownLatch lock = new CountDownLatch(1);
+
+        imp.search("cars", MediaType.gif, 20, null, RatingType.y, null, new CompletionHandler<MultipleGifsResponse>() {
+            @Override
+            public void onComplete(MultipleGifsResponse result, Throwable e) {
+                Assert.assertNull(e);
+                Assert.assertNotNull(result);
+                Assert.assertTrue(result.gifs.size() == 20);
+
+                Assert.assertTrue(result.gifs.get(0).rating == RatingType.y);
+
+                lock.countDown();
+            }
+        });
+        lock.await(2000, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Test if languages returns gifs
+     * @throws Exception
+     */
+    @Test
+    public void testLang() throws Exception {
+        final CountDownLatch lock = new CountDownLatch(1);
+
+        imp.search("cars", MediaType.gif, 20, null, null, LangType.chineseTraditional, new CompletionHandler<MultipleGifsResponse>() {
             @Override
             public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
@@ -120,21 +166,21 @@ public class SearchTest {
     public void testOffset() throws Exception {
         final CountDownLatch lock = new CountDownLatch(2);
 
-        imp.search("cats", MediaType.gif, 30, 0, "pg", null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.search("cats", MediaType.gif, 30, 0, RatingType.pg, null, new CompletionHandler<MultipleGifsResponse>() {
             @Override
             public void onComplete(final MultipleGifsResponse result1, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
                 Assert.assertTrue(result1.gifs.size() == 30);
 
-                imp.search("cats", MediaType.gif, 30, 10, "pg", null, new CompletionHandler<MultipleGifsResponse>() {
+                imp.search("cats", MediaType.gif, 30, 10, RatingType.pg, null, new CompletionHandler<MultipleGifsResponse>() {
                     @Override
                     public void onComplete(MultipleGifsResponse result2, Throwable e) {
                         Assert.assertNull(e);
                         Assert.assertNotNull(result2);
                         Assert.assertTrue(result2.gifs.size() == 30);
 
-                        Utils.checkOffsetWorks(result1.gifs, result2.gifs);
+                        Utils.checkOffsetWorks(result1.gifs, result2.gifs, 1);
 
                         lock.countDown();
                     }

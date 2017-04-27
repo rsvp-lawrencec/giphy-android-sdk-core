@@ -4,7 +4,9 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.giphy.sdk.core.models.enums.LangType;
 import com.giphy.sdk.core.models.enums.MediaType;
+import com.giphy.sdk.core.models.enums.RatingType;
 import com.giphy.sdk.core.network.response.CategoriesResponse;
 import com.giphy.sdk.core.network.response.GifResponse;
 import com.giphy.sdk.core.network.response.MultipleGifsResponse;
@@ -28,8 +30,8 @@ public interface GPHApi {
      */
     @NonNull
     public AsyncTask search(@NonNull String searchQuery, @Nullable MediaType type, @Nullable Integer limit,
-                            @Nullable Integer offset, @Nullable String rating,
-                            @Nullable String lang,
+                            @Nullable Integer offset, @Nullable RatingType rating,
+                            @Nullable LangType lang,
                             @NonNull final CompletionHandler<MultipleGifsResponse> completionHandler);
 
     /**
@@ -42,7 +44,7 @@ public interface GPHApi {
      */
     @NonNull
     public AsyncTask trending(@Nullable MediaType type, @Nullable Integer limit,
-                              @Nullable Integer offset, @Nullable String rating,
+                              @Nullable Integer offset, @Nullable RatingType rating,
                               @NonNull final CompletionHandler<MultipleGifsResponse> completionHandler);
 
     /**
@@ -54,8 +56,8 @@ public interface GPHApi {
      * @return
      */
     @NonNull
-    public AsyncTask translate(@NonNull String term, @Nullable MediaType type, @Nullable String rating,
-                               @Nullable String lang,
+    public AsyncTask translate(@NonNull String term, @Nullable MediaType type, @Nullable RatingType rating,
+                               @Nullable LangType lang,
                                @NonNull final CompletionHandler<GifResponse> completionHandler);
 
     /**
@@ -66,7 +68,7 @@ public interface GPHApi {
      * @return
      */
     @NonNull
-    public AsyncTask random(@NonNull String tag, @Nullable MediaType type, @Nullable String rating,
+    public AsyncTask random(@NonNull String tag, @Nullable MediaType type, @Nullable RatingType rating,
                             @NonNull final CompletionHandler<GifResponse> completionHandler);
 
 

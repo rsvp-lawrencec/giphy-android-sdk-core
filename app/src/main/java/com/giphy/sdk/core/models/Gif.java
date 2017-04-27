@@ -1,6 +1,7 @@
 package com.giphy.sdk.core.models;
 
 import com.giphy.sdk.core.models.enums.MediaType;
+import com.giphy.sdk.core.models.enums.RatingType;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class Gif {
     public String bitly_url;
     public String embed_url;
     public String source;
-    public String rating;
+    public RatingType rating;
     public String content_url;
     public List<String> tags;
     public List<String> featured_tags;

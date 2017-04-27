@@ -1,6 +1,8 @@
 package com.giphy.sdk.core;
 
+import com.giphy.sdk.core.models.enums.LangType;
 import com.giphy.sdk.core.models.enums.MediaType;
+import com.giphy.sdk.core.models.enums.RatingType;
 import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApiClient;
 import com.giphy.sdk.core.network.response.GifResponse;
@@ -55,7 +57,7 @@ public class TranslateTest {
     public void testRating() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.translate("hungry", MediaType.gif, "pg", null, new CompletionHandler<GifResponse>() {
+        imp.translate("hungry", MediaType.gif, RatingType.pg, null, new CompletionHandler<GifResponse>() {
             @Override
             public void onComplete(GifResponse result, Throwable e) {
                 lock.countDown();
@@ -77,7 +79,7 @@ public class TranslateTest {
     public void testLang() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.translate("hungry", MediaType.gif, "pg", "en", new CompletionHandler<GifResponse>() {
+        imp.translate("hungry", MediaType.gif, RatingType.pg, LangType.english, new CompletionHandler<GifResponse>() {
             @Override
             public void onComplete(GifResponse result, Throwable e) {
                 lock.countDown();
@@ -99,14 +101,14 @@ public class TranslateTest {
     public void testTwoLang() throws Exception {
         final CountDownLatch lock = new CountDownLatch(2);
 
-        imp.translate("hungry", MediaType.gif, "pg", "en", new CompletionHandler<GifResponse>() {
+        imp.translate("hungry", MediaType.gif, RatingType.pg13, LangType.english, new CompletionHandler<GifResponse>() {
             @Override
             public void onComplete(final GifResponse result1, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
                 Assert.assertNotNull(result1.gif);
 
-                imp.translate("hungry", MediaType.gif, "pg", "ro", new CompletionHandler<GifResponse>() {
+                imp.translate("hungry", MediaType.gif, RatingType.pg13, LangType.romanian, new CompletionHandler<GifResponse>() {
                     @Override
                     public void onComplete(GifResponse result2, Throwable e) {
                         Assert.assertNull(e);
@@ -133,14 +135,14 @@ public class TranslateTest {
     public void testTwoTerms() throws Exception {
         final CountDownLatch lock = new CountDownLatch(2);
 
-        imp.translate("people", MediaType.gif, "pg", "en", new CompletionHandler<GifResponse>() {
+        imp.translate("people", MediaType.gif, RatingType.y, LangType.english, new CompletionHandler<GifResponse>() {
             @Override
             public void onComplete(final GifResponse result1, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
                 Assert.assertNotNull(result1.gif);
 
-                imp.translate("cats and dogs", MediaType.gif, "pg", "ro", new CompletionHandler<GifResponse>() {
+                imp.translate("cats and dogs", MediaType.gif, RatingType.y, LangType.english, new CompletionHandler<GifResponse>() {
                     @Override
                     public void onComplete(GifResponse result2, Throwable e) {
                         Assert.assertNull(e);
@@ -167,7 +169,7 @@ public class TranslateTest {
     public void testNoResult() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.translate("tttttttttt", MediaType.gif, "pg", "en", new CompletionHandler<GifResponse>() {
+        imp.translate("tttttttttt", MediaType.gif, RatingType.pg, LangType.english, new CompletionHandler<GifResponse>() {
             @Override
             public void onComplete(GifResponse result, Throwable e) {
                 Assert.assertNull(result);

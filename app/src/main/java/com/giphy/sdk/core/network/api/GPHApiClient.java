@@ -5,7 +5,9 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.giphy.sdk.core.models.enums.LangType;
 import com.giphy.sdk.core.models.enums.MediaType;
+import com.giphy.sdk.core.models.enums.RatingType;
 import com.giphy.sdk.core.network.engine.DefaultNetworkSession;
 import com.giphy.sdk.core.network.engine.NetworkSession;
 import com.giphy.sdk.core.network.response.CategoriesResponse;
@@ -39,8 +41,8 @@ public class GPHApiClient implements GPHApi {
     @Override
     @NonNull
     public AsyncTask search(@NonNull String searchQuery, @Nullable MediaType type, @Nullable Integer limit,
-                            @Nullable Integer offset, @Nullable String rating,
-                            @Nullable String lang,
+                            @Nullable Integer offset, @Nullable RatingType rating,
+                            @Nullable LangType lang,
                             @NonNull final CompletionHandler<MultipleGifsResponse> completionHandler) {
 
         final Map<String, String> params = new HashMap<>();
@@ -53,10 +55,10 @@ public class GPHApiClient implements GPHApi {
             params.put("offset", offset.toString());
         }
         if (rating != null) {
-            params.put("rating", rating);
+            params.put("rating", rating.toString());
         }
         if (lang != null) {
-            params.put("lang", lang);
+            params.put("lang", lang.toString());
         }
 
         return queryStringConnectionWrapper(Constants.SERVER_URL,
@@ -67,7 +69,7 @@ public class GPHApiClient implements GPHApi {
     @Override
     @NonNull
     public AsyncTask trending(@Nullable MediaType type, @Nullable Integer limit,
-                              @Nullable Integer offset, @Nullable String rating,
+                              @Nullable Integer offset, @Nullable RatingType rating,
                               @NonNull final CompletionHandler<MultipleGifsResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
         params.put("api_key", apiKey);
@@ -78,7 +80,7 @@ public class GPHApiClient implements GPHApi {
             params.put("offset", offset.toString());
         }
         if (rating != null) {
-            params.put("rating", rating);
+            params.put("rating", rating.toString());
         }
         return queryStringConnectionWrapper(Constants.SERVER_URL,
                 String.format(Constants.Paths.TRENDING, mediaTypeToEndpoint(type)), "GET", MultipleGifsResponse.class, params,
@@ -87,17 +89,17 @@ public class GPHApiClient implements GPHApi {
 
     @Override
     @NonNull
-    public AsyncTask translate(@NonNull String term, @Nullable MediaType type, @Nullable String rating,
-                               @Nullable String lang,
+    public AsyncTask translate(@NonNull String term, @Nullable MediaType type, @Nullable RatingType rating,
+                               @Nullable LangType lang,
                                @NonNull final CompletionHandler<GifResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
         params.put("api_key", apiKey);
         params.put("s", term);
         if (rating != null) {
-            params.put("rating", rating);
+            params.put("rating", rating.toString());
         }
         if (lang != null) {
-            params.put("lang", lang);
+            params.put("lang", lang.toString());
         }
         return queryStringConnectionWrapper(Constants.SERVER_URL,
                 String.format(Constants.Paths.TRANSLATE, mediaTypeToEndpoint(type)), "GET", GifResponse.class, params,
@@ -106,13 +108,13 @@ public class GPHApiClient implements GPHApi {
 
     @Override
     @NonNull
-    public AsyncTask random(@NonNull String tag, @Nullable MediaType type, @Nullable String rating,
+    public AsyncTask random(@NonNull String tag, @Nullable MediaType type, @Nullable RatingType rating,
                             @NonNull final CompletionHandler<GifResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
         params.put("api_key", apiKey);
         params.put("tag", tag);
         if (rating != null) {
-            params.put("rating", rating);
+            params.put("rating", rating.toString());
         }
 
         final CompletionHandler<RandomGifResponse> completionHandlerWrapper = new CompletionHandler<RandomGifResponse>() {
