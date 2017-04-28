@@ -1,5 +1,7 @@
 package com.giphy.sdk.core.models;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by bogdantmm on 4/19/17.
  */
@@ -11,7 +13,9 @@ public class Image {
     public String size;
     public String frames;
     public String mp4;
-    public String mp4_size;
+    @SerializedName("mp4_size")
+    public String mp4Size;
     public String webp;
-    public String webp_size;
+    @SerializedName("webp_size")
+    public String webpSize;
 }

@@ -1,26 +1,41 @@
 package com.giphy.sdk.core.models;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by bogdantmm on 4/19/17.
  */
 
 public class User {
     public String id;
-    public String avatar_url;
-    public String banner_url;
-    public String profile_url;
+    @SerializedName("avatar_url")
+    public String avatarUrl;
+    @SerializedName("banner_url")
+    public String bannerUrl;
+    @SerializedName("profile_url")
+    public String profileUrl;
     public String username;
-    public String display_name;
+    @SerializedName("display_name")
+    public String displayName;
     public String twitter;
-    public int is_public;
-    public String attribution_display_name;
+    @SerializedName("is_public")
+    public int isPublic;
+    @SerializedName("attribution_display_name")
+    public String attributionDisplayName;
     public String name;
     public String description;
-    public String facebook_url;
-    public String twitter_url;
-    public String instagram_url;
-    public String tumblr_url;
-    public boolean suppress_chrome;
-    public String website_url;
-    public String website_display_url;
+    @SerializedName("facebook_url")
+    public String facebookUrl;
+    @SerializedName("twitter_url")
+    public String twitterUrl;
+    @SerializedName("instagram_url")
+    public String instagramUrl;
+    @SerializedName("tumblr_url")
+    public String tumblrUrl;
+    @SerializedName("suppress_chrome")
+    public boolean suppressChrome;
+    @SerializedName("website_url")
+    public String websiteUrl;
+    @SerializedName("website_display_url")
+    public String websiteDisplayUrl;
 }

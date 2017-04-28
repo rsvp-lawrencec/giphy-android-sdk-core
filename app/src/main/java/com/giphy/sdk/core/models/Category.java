@@ -1,5 +1,7 @@
 package com.giphy.sdk.core.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -8,7 +10,8 @@ import java.util.List;
 
 public class Category {
     public String name;
-    public String name_encoded;
+    @SerializedName("name_encoded")
+    public String nameEncoded;
     public Gif gif;
     public List<Category> subcategories;
 }

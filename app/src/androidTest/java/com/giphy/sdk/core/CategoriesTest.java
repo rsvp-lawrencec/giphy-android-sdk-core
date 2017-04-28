@@ -89,7 +89,7 @@ public class CategoriesTest {
 
                 for (Category category : result.categories) {
                     Assert.assertNotNull(category.name);
-                    Assert.assertNotNull(category.name_encoded);
+                    Assert.assertNotNull(category.nameEncoded);
                     Assert.assertNotNull(category.subcategories);
                     Assert.assertNotNull(category.gif);
                 }

@@ -1,6 +1,7 @@
 package com.giphy.sdk.core.models;
 
 import com.giphy.sdk.core.models.enums.MediaType;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by bogdantmm on 4/24/17.
@@ -10,26 +11,46 @@ public class RandomGif {
     public MediaType type;
     public String id;
     public String url;
-    public String image_original_url;
-    public String image_url;
-    public String image_mp4_url;
-    public String image_frames;
-    public String image_width;
-    public String image_height;
-    public String fixed_height_downsampled_url;
-    public String fixed_height_downsampled_width;
-    public String fixed_height_downsampled_height;
-    public String fixed_width_downsampled_url;
-    public String fixed_width_downsampled_width;
-    public String fixed_width_downsampled_height;
-    public String fixed_height_small_url;
-    public String fixed_height_small_still_url;
-    public String fixed_height_small_width;
-    public String fixed_height_small_height;
-    public String fixed_width_small_url;
-    public String fixed_width_small_still_url;
-    public String fixed_width_small_width;
-    public String fixed_width_small_height;
+    @SerializedName("image_original_url")
+    public String imageOriginalUrl;
+    @SerializedName("image_url")
+    public String imageUrl;
+    @SerializedName("image_mp4_url")
+    public String imageMp4Url;
+    @SerializedName("image_frames")
+    public String imageFrames;
+    @SerializedName("image_width")
+    public String imageWidth;
+    @SerializedName("image_height")
+    public String imageHeight;
+    @SerializedName("fixed_height_downsampled_url")
+    public String fixedHeightDownsampledUrl;
+    @SerializedName("fixed_height_downsampled_width")
+    public String fixedHeightDownsampledWidth;
+    @SerializedName("fixed_height_downsampled_height")
+    public String fixedHeightDownsampledHeight;
+    @SerializedName("fixed_width_downsampled_url")
+    public String fixedWidthDownsampledUrl;
+    @SerializedName("fixed_width_downsampled_width")
+    public String fixedWidthDownsampledWidth;
+    @SerializedName("fixed_width_downsampled_height")
+    public String fixedWidthDownsampledHeight;
+    @SerializedName("fixed_height_small_url")
+    public String fixedHeightSmallUrl;
+    @SerializedName("fixed_height_small_still_url")
+    public String fixedHeightSmallStillUrl;
+    @SerializedName("fixed_height_small_width")
+    public String fixedHeightSmallWidth;
+    @SerializedName("fixed_height_small_height")
+    public String fixedHeightSmallHeight;
+    @SerializedName("fixed_width_small_url")
+    public String fixedWidthSmallUrl;
+    @SerializedName("fixed_width_small_still_url")
+    public String fixedWidthSmallStillUrl;
+    @SerializedName("fixed_width_small_width")
+    public String fixedWidthSmallWidth;
+    @SerializedName("fixed_width_small_height")
+    public String fixedWidthSmallHeight;
     public String username;
     public String caption;
 
@@ -44,37 +65,37 @@ public class RandomGif {
         gif.user.username = username;
 
         gif.images.original = new Image();
-        gif.images.original.url = image_original_url;
-        gif.images.original.mp4 = image_mp4_url;
-        gif.images.original.frames = image_frames;
-        gif.images.original.width = image_width;
-        gif.images.original.height = image_height;
+        gif.images.original.url = imageOriginalUrl;
+        gif.images.original.mp4 = imageMp4Url;
+        gif.images.original.frames = imageFrames;
+        gif.images.original.width = imageWidth;
+        gif.images.original.height = imageHeight;
 
-        gif.images.fixed_height_downsampled = new Image();
-        gif.images.fixed_height_downsampled.url = fixed_height_downsampled_url;
-        gif.images.fixed_height_downsampled.width = fixed_height_downsampled_width;
-        gif.images.fixed_height_downsampled.height= fixed_height_downsampled_height;
+        gif.images.fixedHeightDownsampled = new Image();
+        gif.images.fixedHeightDownsampled.url = fixedHeightDownsampledUrl;
+        gif.images.fixedHeightDownsampled.width = fixedHeightDownsampledWidth;
+        gif.images.fixedHeightDownsampled.height= fixedHeightDownsampledHeight;
 
-        gif.images.fixed_width_downsampled = new Image();
-        gif.images.fixed_width_downsampled.url = fixed_width_downsampled_url;
-        gif.images.fixed_width_downsampled.width = fixed_width_downsampled_width;
-        gif.images.fixed_width_downsampled.height= fixed_width_downsampled_height;
+        gif.images.fixedWidthDownsampled = new Image();
+        gif.images.fixedWidthDownsampled.url = fixedWidthDownsampledUrl;
+        gif.images.fixedWidthDownsampled.width = fixedWidthDownsampledWidth;
+        gif.images.fixedWidthDownsampled.height= fixedWidthDownsampledHeight;
 
-        gif.images.fixed_height_small = new Image();
-        gif.images.fixed_height_small.url = fixed_height_small_url;
-        gif.images.fixed_height_small.width = fixed_height_small_width;
-        gif.images.fixed_height_small.height= fixed_height_small_height;
+        gif.images.fixedHeightSmall = new Image();
+        gif.images.fixedHeightSmall.url = fixedHeightSmallUrl;
+        gif.images.fixedHeightSmall.width = fixedHeightSmallWidth;
+        gif.images.fixedHeightSmall.height= fixedHeightSmallHeight;
 
-        gif.images.fixed_width_small = new Image();
-        gif.images.fixed_width_small.url = fixed_width_small_url;
-        gif.images.fixed_width_small.width = fixed_width_small_width;
-        gif.images.fixed_width_small.height= fixed_width_small_height;
+        gif.images.fixedWidthSmall = new Image();
+        gif.images.fixedWidthSmall.url = fixedWidthSmallUrl;
+        gif.images.fixedWidthSmall.width = fixedWidthSmallWidth;
+        gif.images.fixedWidthSmall.height= fixedWidthSmallHeight;
 
-        gif.images.fixed_height_small_still = new Image();
-        gif.images.fixed_height_small_still.url = fixed_height_small_still_url;
+        gif.images.fixedHeightSmallStill = new Image();
+        gif.images.fixedHeightSmallStill.url = fixedHeightSmallStillUrl;
 
-        gif.images.fixed_width_small_still = new Image();
-        gif.images.fixed_width_small_still.url = fixed_width_small_still_url;
+        gif.images.fixedWidthSmallStill = new Image();
+        gif.images.fixedWidthSmallStill.url = fixedWidthSmallStillUrl;
 
         return gif;
     }

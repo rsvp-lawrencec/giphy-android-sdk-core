@@ -111,23 +111,23 @@ public class RandomTest {
                 Assert.assertNotNull(result.gif.images.original);
                 Assert.assertNotNull(result.gif.images.original.url);
 
-                Assert.assertNotNull(result.gif.images.fixed_height_downsampled);
-                Assert.assertNotNull(result.gif.images.fixed_height_downsampled.url);
+                Assert.assertNotNull(result.gif.images.fixedHeightDownsampled);
+                Assert.assertNotNull(result.gif.images.fixedHeightDownsampled.url);
 
-                Assert.assertNotNull(result.gif.images.fixed_width_downsampled);
-                Assert.assertNotNull(result.gif.images.fixed_width_downsampled.url);
+                Assert.assertNotNull(result.gif.images.fixedWidthDownsampled);
+                Assert.assertNotNull(result.gif.images.fixedWidthDownsampled.url);
 
-                Assert.assertNotNull(result.gif.images.fixed_height_small);
-                Assert.assertNotNull(result.gif.images.fixed_height_small.url);
+                Assert.assertNotNull(result.gif.images.fixedHeightSmall);
+                Assert.assertNotNull(result.gif.images.fixedHeightSmall.url);
 
-                Assert.assertNotNull(result.gif.images.fixed_width_small);
-                Assert.assertNotNull(result.gif.images.fixed_width_small.url);
+                Assert.assertNotNull(result.gif.images.fixedWidthSmall);
+                Assert.assertNotNull(result.gif.images.fixedWidthSmall.url);
 
-                Assert.assertNotNull(result.gif.images.fixed_height_small_still);
-                Assert.assertNotNull(result.gif.images.fixed_height_small_still.url);
+                Assert.assertNotNull(result.gif.images.fixedHeightSmallStill);
+                Assert.assertNotNull(result.gif.images.fixedHeightSmallStill.url);
 
-                Assert.assertNotNull(result.gif.images.fixed_width_small_still);
-                Assert.assertNotNull(result.gif.images.fixed_width_small_still.url);
+                Assert.assertNotNull(result.gif.images.fixedWidthSmallStill);
+                Assert.assertNotNull(result.gif.images.fixedWidthSmallStill.url);
 
                 lock.countDown();
 

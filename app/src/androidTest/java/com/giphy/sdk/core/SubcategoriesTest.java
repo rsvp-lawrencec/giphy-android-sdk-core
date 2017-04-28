@@ -101,7 +101,7 @@ public class SubcategoriesTest {
 
                 for (Category category : result.categories) {
                     Assert.assertNotNull(category.name);
-                    Assert.assertNotNull(category.name_encoded);
+                    Assert.assertNotNull(category.nameEncoded);
                     Assert.assertNotNull(category.gif);
                 }
 
