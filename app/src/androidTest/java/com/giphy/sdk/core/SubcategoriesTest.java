@@ -39,7 +39,7 @@ public class SubcategoriesTest {
             public void onComplete(CategoriesResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.categories.size() == 25);
+                Assert.assertTrue(result.getCategories().size() == 25);
 
                 lock.countDown();
             }
@@ -61,16 +61,16 @@ public class SubcategoriesTest {
             public void onComplete(final CategoriesResponse result1, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
-                Assert.assertTrue(result1.categories.size() == 15);
+                Assert.assertTrue(result1.getCategories().size() == 15);
 
                 imp.subcategories("animals", 15, 5, new CompletionHandler<CategoriesResponse>() {
                     @Override
                     public void onComplete(final CategoriesResponse result2, Throwable e) {
                         Assert.assertNull(e);
                         Assert.assertNotNull(result2);
-                        Assert.assertTrue(result2.categories.size() == 15);
+                        Assert.assertTrue(result2.getCategories().size() == 15);
 
-                        Assert.assertTrue(result2.categories.get(0).name.equals(result1.categories.get(5).name));
+                        Assert.assertTrue(result2.getCategories().get(0).getName().equals(result1.getCategories().get(5).getName()));
                         lock.countDown();
                     }
                 });
@@ -95,14 +95,14 @@ public class SubcategoriesTest {
             public void onComplete(final CategoriesResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.categories.size() == 15);
+                Assert.assertTrue(result.getCategories().size() == 15);
 
-                Assert.assertNotNull(result.categories);
+                Assert.assertNotNull(result.getCategories());
 
-                for (Category category : result.categories) {
-                    Assert.assertNotNull(category.name);
-                    Assert.assertNotNull(category.nameEncoded);
-                    Assert.assertNotNull(category.gif);
+                for (Category category : result.getCategories()) {
+                    Assert.assertNotNull(category.getName());
+                    Assert.assertNotNull(category.getNameEncoded());
+                    Assert.assertNotNull(category.getGif());
                 }
 
                 lock.countDown();

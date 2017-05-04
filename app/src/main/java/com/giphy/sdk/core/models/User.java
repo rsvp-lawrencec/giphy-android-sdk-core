@@ -7,35 +7,179 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class User {
-    public String id;
+    private String id;
     @SerializedName("avatar_url")
-    public String avatarUrl;
+    private String avatarUrl;
     @SerializedName("banner_url")
-    public String bannerUrl;
+    private String bannerUrl;
     @SerializedName("profile_url")
-    public String profileUrl;
-    public String username;
+    private String profileUrl;
+    private String username;
     @SerializedName("display_name")
-    public String displayName;
-    public String twitter;
-    @SerializedName("is_public")
-    public int isPublic;
+    private String displayName;
+    private String twitter;
+    @SerializedName("is_private")
+    private int isprivate;
     @SerializedName("attribution_display_name")
-    public String attributionDisplayName;
-    public String name;
-    public String description;
+    private String attributionDisplayName;
+    private String name;
+    private String description;
     @SerializedName("facebook_url")
-    public String facebookUrl;
+    private String facebookUrl;
     @SerializedName("twitter_url")
-    public String twitterUrl;
+    private String twitterUrl;
     @SerializedName("instagram_url")
-    public String instagramUrl;
+    private String instagramUrl;
     @SerializedName("tumblr_url")
-    public String tumblrUrl;
+    private String tumblrUrl;
     @SerializedName("suppress_chrome")
-    public boolean suppressChrome;
+    private boolean suppressChrome;
     @SerializedName("website_url")
-    public String websiteUrl;
+    private String websiteUrl;
     @SerializedName("website_display_url")
-    public String websiteDisplayUrl;
+    private String websiteDisplayUrl;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public String getBannerUrl() {
+        return bannerUrl;
+    }
+
+    public void setBannerUrl(String bannerUrl) {
+        this.bannerUrl = bannerUrl;
+    }
+
+    public String getProfileUrl() {
+        return profileUrl;
+    }
+
+    public void setProfileUrl(String profileUrl) {
+        this.profileUrl = profileUrl;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getTwitter() {
+        return twitter;
+    }
+
+    public void setTwitter(String twitter) {
+        this.twitter = twitter;
+    }
+
+    public int getIsprivate() {
+        return isprivate;
+    }
+
+    public void setIsprivate(int isprivate) {
+        this.isprivate = isprivate;
+    }
+
+    public String getAttributionDisplayName() {
+        return attributionDisplayName;
+    }
+
+    public void setAttributionDisplayName(String attributionDisplayName) {
+        this.attributionDisplayName = attributionDisplayName;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getFacebookUrl() {
+        return facebookUrl;
+    }
+
+    public void setFacebookUrl(String facebookUrl) {
+        this.facebookUrl = facebookUrl;
+    }
+
+    public String getTwitterUrl() {
+        return twitterUrl;
+    }
+
+    public void setTwitterUrl(String twitterUrl) {
+        this.twitterUrl = twitterUrl;
+    }
+
+    public String getInstagramUrl() {
+        return instagramUrl;
+    }
+
+    public void setInstagramUrl(String instagramUrl) {
+        this.instagramUrl = instagramUrl;
+    }
+
+    public String getTumblrUrl() {
+        return tumblrUrl;
+    }
+
+    public void setTumblrUrl(String tumblrUrl) {
+        this.tumblrUrl = tumblrUrl;
+    }
+
+    public boolean isSuppressChrome() {
+        return suppressChrome;
+    }
+
+    public void setSuppressChrome(boolean suppressChrome) {
+        this.suppressChrome = suppressChrome;
+    }
+
+    public String getWebsiteUrl() {
+        return websiteUrl;
+    }
+
+    public void setWebsiteUrl(String websiteUrl) {
+        this.websiteUrl = websiteUrl;
+    }
+
+    public String getWebsiteDisplayUrl() {
+        return websiteDisplayUrl;
+    }
+
+    public void setWebsiteDisplayUrl(String websiteDisplayUrl) {
+        this.websiteDisplayUrl = websiteDisplayUrl;
+    }
 }

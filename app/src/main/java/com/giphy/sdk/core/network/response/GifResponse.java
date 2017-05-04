@@ -9,5 +9,13 @@ import com.google.gson.annotations.SerializedName;
 
 public class GifResponse implements GenericResponse {
     @SerializedName("data")
-    public Gif gif;
+    private Gif gif;
+
+    public Gif getGif() {
+        return gif;
+    }
+
+    public void setGif(Gif gif) {
+        this.gif = gif;
+    }
 }

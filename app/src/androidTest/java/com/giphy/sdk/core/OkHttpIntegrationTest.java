@@ -55,12 +55,12 @@ public class OkHttpIntegrationTest {
             public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertNotNull(result.gifs);
-                Assert.assertTrue(result.gifs.size() == 25);
+                Assert.assertNotNull(result.getGifs());
+                Assert.assertTrue(result.getGifs().size() == 25);
 
-                for (Gif gif : result.gifs) {
-                    Assert.assertNotNull(gif.id);
-                    Assert.assertNotNull(gif.images);
+                for (Gif gif : result.getGifs()) {
+                    Assert.assertNotNull(gif.getId());
+                    Assert.assertNotNull(gif.getImages());
                 }
                 lock.countDown();
             }
@@ -82,13 +82,13 @@ public class OkHttpIntegrationTest {
             public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertNotNull(result.gifs);
-                Assert.assertTrue(result.gifs.size() == 25);
+                Assert.assertNotNull(result.getGifs());
+                Assert.assertTrue(result.getGifs().size() == 25);
 
-                for (Gif gif : result.gifs) {
-                    Assert.assertNotNull(gif.id);
-                    Assert.assertNotNull(gif.images);
-                    Assert.assertNotNull(gif.type);
+                for (Gif gif : result.getGifs()) {
+                    Assert.assertNotNull(gif.getId());
+                    Assert.assertNotNull(gif.getImages());
+                    Assert.assertNotNull(gif.getType());
                 }
 
                 lock.countDown();

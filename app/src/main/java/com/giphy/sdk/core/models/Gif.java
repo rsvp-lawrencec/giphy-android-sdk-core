@@ -11,54 +11,278 @@ import java.util.List;
  */
 
 public class Gif {
-    public MediaType type;
-    public String id;
-    public String slug;
-    public String url;
+    private MediaType type;
+    private String id;
+    private String slug;
+    private String url;
     @SerializedName("bitly_gif_url")
-    public String bitlyGifUrl;
+    private String bitlyGifUrl;
     @SerializedName("bitly_url")
-    public String bitlyUrl;
+    private String bitlyUrl;
     @SerializedName("embed_url")
-    public String embedUrl;
-    public String source;
-    public RatingType rating;
+    private String embedUrl;
+    private String source;
+    private RatingType rating;
     @SerializedName("content_url")
-    public String contentUrl;
-    public List<String> tags;
+    private String contentUrl;
+    private List<String> tags;
     @SerializedName("featured_tags")
-    public List<String> featuredTags;
-    public User user;
-    public Images images;
+    private List<String> featuredTags;
+    private User user;
+    private Images images;
 
     @SerializedName("source_tld")
-    public String sourceTld;
+    private String sourceTld;
     @SerializedName("source_post_url")
-    public String sourcePostUrl;
+    private String sourcePostUrl;
 
     @SerializedName("update_datetime")
-    public String updateDatetime;
+    private String updateDatetime;
     @SerializedName("create_datetime")
-    public String createDatetime;
+    private String createDatetime;
     @SerializedName("import_datetime")
-    public String importDatetime;
+    private String importDatetime;
     @SerializedName("trending_datetime")
-    public String trendingDatetime;
+    private String trendingDatetime;
 
     @SerializedName("is_hidden")
-    public int isHidden;
+    private int isHidden;
     @SerializedName("is_removed")
-    public int isRemoved;
+    private int isRemoved;
     @SerializedName("is_community")
-    public int isCommunity;
+    private int isCommunity;
     @SerializedName("is_anonymous")
-    public int isAnonymous;
+    private int isAnonymous;
     @SerializedName("is_featured")
-    public int isFeatured;
+    private int isFeatured;
     @SerializedName("is_realtime")
-    public int isRealtime;
+    private int isRealtime;
     @SerializedName("is_indexable")
-    public int isIndexable;
+    private int isIndexable;
     @SerializedName("is_sticker")
-    public int isSticker;
+    private int isSticker;
+
+    public MediaType getType() {
+        return type;
+    }
+
+    public void setType(MediaType type) {
+        this.type = type;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getBitlyGifUrl() {
+        return bitlyGifUrl;
+    }
+
+    public void setBitlyGifUrl(String bitlyGifUrl) {
+        this.bitlyGifUrl = bitlyGifUrl;
+    }
+
+    public String getBitlyUrl() {
+        return bitlyUrl;
+    }
+
+    public void setBitlyUrl(String bitlyUrl) {
+        this.bitlyUrl = bitlyUrl;
+    }
+
+    public String getEmbedUrl() {
+        return embedUrl;
+    }
+
+    public void setEmbedUrl(String embedUrl) {
+        this.embedUrl = embedUrl;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public RatingType getRating() {
+        return rating;
+    }
+
+    public void setRating(RatingType rating) {
+        this.rating = rating;
+    }
+
+    public String getContentUrl() {
+        return contentUrl;
+    }
+
+    public void setContentUrl(String contentUrl) {
+        this.contentUrl = contentUrl;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    public List<String> getFeaturedTags() {
+        return featuredTags;
+    }
+
+    public void setFeaturedTags(List<String> featuredTags) {
+        this.featuredTags = featuredTags;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Images getImages() {
+        return images;
+    }
+
+    public void setImages(Images images) {
+        this.images = images;
+    }
+
+    public String getSourceTld() {
+        return sourceTld;
+    }
+
+    public void setSourceTld(String sourceTld) {
+        this.sourceTld = sourceTld;
+    }
+
+    public String getSourcePostUrl() {
+        return sourcePostUrl;
+    }
+
+    public void setSourcePostUrl(String sourcePostUrl) {
+        this.sourcePostUrl = sourcePostUrl;
+    }
+
+    public String getUpdateDatetime() {
+        return updateDatetime;
+    }
+
+    public void setUpdateDatetime(String updateDatetime) {
+        this.updateDatetime = updateDatetime;
+    }
+
+    public String getCreateDatetime() {
+        return createDatetime;
+    }
+
+    public void setCreateDatetime(String createDatetime) {
+        this.createDatetime = createDatetime;
+    }
+
+    public String getImportDatetime() {
+        return importDatetime;
+    }
+
+    public void setImportDatetime(String importDatetime) {
+        this.importDatetime = importDatetime;
+    }
+
+    public String getTrendingDatetime() {
+        return trendingDatetime;
+    }
+
+    public void setTrendingDatetime(String trendingDatetime) {
+        this.trendingDatetime = trendingDatetime;
+    }
+
+    public int getIsHidden() {
+        return isHidden;
+    }
+
+    public void setIsHidden(int isHidden) {
+        this.isHidden = isHidden;
+    }
+
+    public int getIsRemoved() {
+        return isRemoved;
+    }
+
+    public void setIsRemoved(int isRemoved) {
+        this.isRemoved = isRemoved;
+    }
+
+    public int getIsCommunity() {
+        return isCommunity;
+    }
+
+    public void setIsCommunity(int isCommunity) {
+        this.isCommunity = isCommunity;
+    }
+
+    public int getIsAnonymous() {
+        return isAnonymous;
+    }
+
+    public void setIsAnonymous(int isAnonymous) {
+        this.isAnonymous = isAnonymous;
+    }
+
+    public int getIsFeatured() {
+        return isFeatured;
+    }
+
+    public void setIsFeatured(int isFeatured) {
+        this.isFeatured = isFeatured;
+    }
+
+    public int getIsRealtime() {
+        return isRealtime;
+    }
+
+    public void setIsRealtime(int isRealtime) {
+        this.isRealtime = isRealtime;
+    }
+
+    public int getIsIndexable() {
+        return isIndexable;
+    }
+
+    public void setIsIndexable(int isIndexable) {
+        this.isIndexable = isIndexable;
+    }
+
+    public int getIsSticker() {
+        return isSticker;
+    }
+
+    public void setIsSticker(int isSticker) {
+        this.isSticker = isSticker;
+    }
 }

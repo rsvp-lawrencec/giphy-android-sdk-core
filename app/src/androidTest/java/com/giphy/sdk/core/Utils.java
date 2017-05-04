@@ -27,7 +27,7 @@ public class Utils {
         // We first find the exact offset
         int offset = 0;
         for (int i = 0; i < result1.size(); i ++) {
-            if (result1.get(i).id.equals(result2.get(0).id)) {
+            if (result1.get(i).getId().equals(result2.get(0).getId())) {
                 offset = i;
                 break;
             }
@@ -36,7 +36,7 @@ public class Utils {
 
         // Check if all results starting from offset match with result2
         for (int i = 0; i < result2.size() && i + offset < result1.size() && i < maxLength; i ++) {
-            Assert.assertEquals(result1.get(i + offset).id, result2.get(i).id);
+            Assert.assertEquals(result1.get(i + offset).getId(), result2.get(i).getId());
         }
     }
 }

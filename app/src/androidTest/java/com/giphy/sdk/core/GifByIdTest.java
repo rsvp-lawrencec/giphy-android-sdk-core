@@ -37,7 +37,7 @@ public class GifByIdTest {
             public void onComplete(GifResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue("darAMUceRAs0w".equals(result.gif.id));
+                Assert.assertTrue("darAMUceRAs0w".equals(result.getGif().getId()));
 
                 lock.countDown();
             }

@@ -35,7 +35,7 @@ public class TrendingTest {
             public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.gifs.size() == 25);
+                Assert.assertTrue(result.getGifs().size() == 25);
 
                 lock.countDown();
             }
@@ -56,7 +56,7 @@ public class TrendingTest {
             public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.gifs.size() == 25);
+                Assert.assertTrue(result.getGifs().size() == 25);
 
                 lock.countDown();
             }
@@ -77,7 +77,7 @@ public class TrendingTest {
             public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.gifs.size() == 13);
+                Assert.assertTrue(result.getGifs().size() == 13);
 
                 lock.countDown();
             }
@@ -98,7 +98,7 @@ public class TrendingTest {
             public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.gifs.size() == 20);
+                Assert.assertTrue(result.getGifs().size() == 20);
 
                 lock.countDown();
             }
@@ -120,16 +120,16 @@ public class TrendingTest {
             public void onComplete(final MultipleGifsResponse result1, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
-                Assert.assertTrue(result1.gifs.size() == 20);
+                Assert.assertTrue(result1.getGifs().size() == 20);
 
                 imp.trending(MediaType.gif, 20, 10, RatingType.pg, new CompletionHandler<MultipleGifsResponse>() {
                     @Override
                     public void onComplete(MultipleGifsResponse result2, Throwable e) {
                         Assert.assertNull(e);
                         Assert.assertNotNull(result2);
-                        Assert.assertTrue(result2.gifs.size() == 20);
+                        Assert.assertTrue(result2.getGifs().size() == 20);
 
-                        Utils.checkOffsetWorks(result1.gifs, result2.gifs, 1);
+                        Utils.checkOffsetWorks(result1.getGifs(), result2.getGifs(), 1);
 
                         lock.countDown();
                     }

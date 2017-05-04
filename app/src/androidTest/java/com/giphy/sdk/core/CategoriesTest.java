@@ -39,7 +39,7 @@ public class CategoriesTest {
             public void onComplete(CategoriesResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.categories.size() == 25);
+                Assert.assertTrue(result.getCategories().size() == 25);
 
                 lock.countDown();
             }
@@ -61,7 +61,7 @@ public class CategoriesTest {
             public void onComplete(final CategoriesResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.categories.size() == 15);
+                Assert.assertTrue(result.getCategories().size() == 15);
 
                 lock.countDown();
             }
@@ -83,15 +83,15 @@ public class CategoriesTest {
             public void onComplete(final CategoriesResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.categories.size() == 15);
+                Assert.assertTrue(result.getCategories().size() == 15);
 
-                Assert.assertNotNull(result.categories);
+                Assert.assertNotNull(result.getCategories());
 
-                for (Category category : result.categories) {
-                    Assert.assertNotNull(category.name);
-                    Assert.assertNotNull(category.nameEncoded);
-                    Assert.assertNotNull(category.subcategories);
-                    Assert.assertNotNull(category.gif);
+                for (Category category : result.getCategories()) {
+                    Assert.assertNotNull(category.getName());
+                    Assert.assertNotNull(category.getNameEncoded());
+                    Assert.assertNotNull(category.getSubcategories());
+                    Assert.assertNotNull(category.getGif());
                 }
 
                 lock.countDown();

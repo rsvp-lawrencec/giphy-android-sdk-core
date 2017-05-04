@@ -41,7 +41,7 @@ public class SearchTest {
             public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.gifs.size() == 25);
+                Assert.assertTrue(result.getGifs().size() == 25);
 
                 lock.countDown();
             }
@@ -63,7 +63,7 @@ public class SearchTest {
             public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.gifs.size() == 0);
+                Assert.assertTrue(result.getGifs().size() == 0);
 
                 lock.countDown();
             }
@@ -84,7 +84,7 @@ public class SearchTest {
             public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.gifs.size() == 13);
+                Assert.assertTrue(result.getGifs().size() == 13);
 
                 lock.countDown();
             }
@@ -105,7 +105,7 @@ public class SearchTest {
             public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.gifs.size() == 20);
+                Assert.assertTrue(result.getGifs().size() == 20);
 
                 lock.countDown();
             }
@@ -126,9 +126,9 @@ public class SearchTest {
             public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.gifs.size() == 20);
+                Assert.assertTrue(result.getGifs().size() == 20);
 
-                Assert.assertTrue(result.gifs.get(0).rating == RatingType.y);
+                Assert.assertTrue(result.getGifs().get(0).getRating() == RatingType.y);
 
                 lock.countDown();
             }
@@ -149,7 +149,7 @@ public class SearchTest {
             public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.gifs.size() == 20);
+                Assert.assertTrue(result.getGifs().size() == 20);
 
                 lock.countDown();
             }
@@ -171,16 +171,16 @@ public class SearchTest {
             public void onComplete(final MultipleGifsResponse result1, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
-                Assert.assertTrue(result1.gifs.size() == 30);
+                Assert.assertTrue(result1.getGifs().size() == 30);
 
                 imp.search("cats", MediaType.gif, 30, 10, RatingType.pg, null, new CompletionHandler<MultipleGifsResponse>() {
                     @Override
                     public void onComplete(MultipleGifsResponse result2, Throwable e) {
                         Assert.assertNull(e);
                         Assert.assertNotNull(result2);
-                        Assert.assertTrue(result2.gifs.size() == 30);
+                        Assert.assertTrue(result2.getGifs().size() == 30);
 
-                        Utils.checkOffsetWorks(result1.gifs, result2.gifs, 1);
+                        Utils.checkOffsetWorks(result1.getGifs(), result2.getGifs(), 1);
 
                         lock.countDown();
                     }

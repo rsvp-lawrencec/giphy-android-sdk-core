@@ -12,5 +12,13 @@ import com.giphy.sdk.core.models.Gif;
 
 public class MultipleGifsResponse implements GenericResponse {
     @SerializedName("data")
-    public List<Gif> gifs;
+    private List<Gif> gifs;
+
+    public List<Gif> getGifs() {
+        return gifs;
+    }
+
+    public void setGifs(List<Gif> gifs) {
+        this.gifs = gifs;
+    }
 }

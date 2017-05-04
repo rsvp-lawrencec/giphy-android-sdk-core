@@ -42,7 +42,7 @@ public class TranslateTest {
 
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertNotNull(result.gif);
+                Assert.assertNotNull(result.getGif());
 
             }
         });
@@ -64,7 +64,7 @@ public class TranslateTest {
 
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertNotNull(result.gif);
+                Assert.assertNotNull(result.getGif());
 
             }
         });
@@ -86,7 +86,7 @@ public class TranslateTest {
 
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertNotNull(result.gif);
+                Assert.assertNotNull(result.getGif());
 
             }
         });
@@ -106,16 +106,16 @@ public class TranslateTest {
             public void onComplete(final GifResponse result1, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
-                Assert.assertNotNull(result1.gif);
+                Assert.assertNotNull(result1.getGif());
 
                 imp.translate("hungry", MediaType.gif, RatingType.pg13, LangType.romanian, new CompletionHandler<GifResponse>() {
                     @Override
                     public void onComplete(GifResponse result2, Throwable e) {
                         Assert.assertNull(e);
                         Assert.assertNotNull(result2);
-                        Assert.assertNotNull(result2.gif);
+                        Assert.assertNotNull(result2.getGif());
 
-                        Assert.assertFalse(result2.gif.id.equals(result1.gif.id));
+                        Assert.assertFalse(result2.getGif().getId().equals(result1.getGif().getId()));
 
                         lock.countDown();
                     }
@@ -140,16 +140,16 @@ public class TranslateTest {
             public void onComplete(final GifResponse result1, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
-                Assert.assertNotNull(result1.gif);
+                Assert.assertNotNull(result1.getGif());
 
                 imp.translate("cats and dogs", MediaType.gif, RatingType.y, LangType.english, new CompletionHandler<GifResponse>() {
                     @Override
                     public void onComplete(GifResponse result2, Throwable e) {
                         Assert.assertNull(e);
                         Assert.assertNotNull(result2);
-                        Assert.assertNotNull(result2.gif);
+                        Assert.assertNotNull(result2.getGif());
 
-                        Assert.assertFalse(result2.gif.id.equals(result1.gif.id));
+                        Assert.assertFalse(result2.getGif().getId().equals(result1.getGif().getId()));
 
                         lock.countDown();
                     }

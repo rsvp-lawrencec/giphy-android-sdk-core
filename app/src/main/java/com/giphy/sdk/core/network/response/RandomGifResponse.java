@@ -9,11 +9,19 @@ import com.google.gson.annotations.SerializedName;
 
 public class RandomGifResponse implements GenericResponse {
     @SerializedName("data")
-    public RandomGif randomGif;
+    private RandomGif randomGif;
 
     public GifResponse toGifResponse() {
         final GifResponse gifResponse = new GifResponse();
-        gifResponse.gif = randomGif.toGif();
+        gifResponse.setGif(randomGif.toGif());
         return gifResponse;
+    }
+
+    public RandomGif getRandomGif() {
+        return randomGif;
+    }
+
+    public void setRandomGif(RandomGif randomGif) {
+        this.randomGif = randomGif;
     }
 }

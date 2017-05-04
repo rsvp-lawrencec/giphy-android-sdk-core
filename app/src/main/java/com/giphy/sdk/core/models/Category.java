@@ -9,9 +9,41 @@ import java.util.List;
  */
 
 public class Category {
-    public String name;
+    private String name;
     @SerializedName("name_encoded")
-    public String nameEncoded;
-    public Gif gif;
-    public List<Category> subcategories;
+    private String nameEncoded;
+    private Gif gif;
+    private List<Category> subcategories;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNameEncoded() {
+        return nameEncoded;
+    }
+
+    public void setNameEncoded(String nameEncoded) {
+        this.nameEncoded = nameEncoded;
+    }
+
+    public Gif getGif() {
+        return gif;
+    }
+
+    public void setGif(Gif gif) {
+        this.gif = gif;
+    }
+
+    public List<Category> getSubcategories() {
+        return subcategories;
+    }
+
+    public void setSubcategories(List<Category> subcategories) {
+        this.subcategories = subcategories;
+    }
 }

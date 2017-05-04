@@ -44,7 +44,7 @@ public class GifByIdsTest {
             public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.gifs.size() == gifIds.size());
+                Assert.assertTrue(result.getGifs().size() == gifIds.size());
 
                 lock.countDown();
             }
@@ -70,9 +70,9 @@ public class GifByIdsTest {
             public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.gifs.size() == gifIds.size());
+                Assert.assertTrue(result.getGifs().size() == gifIds.size());
                 for (int i = 0; i < gifIds.size(); i ++) {
-                    Assert.assertEquals(result.gifs.get(i).id, gifIds.get(i));
+                    Assert.assertEquals(result.getGifs().get(i).getId(), gifIds.get(i));
                 }
 
                 lock.countDown();
@@ -99,9 +99,9 @@ public class GifByIdsTest {
             public void onComplete(MultipleGifsResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.gifs.size() == gifIds.size() - 1);
-                Assert.assertEquals(result.gifs.get(0).id, gifIds.get(0));
-                Assert.assertEquals(result.gifs.get(1).id, gifIds.get(2));
+                Assert.assertTrue(result.getGifs().size() == gifIds.size() - 1);
+                Assert.assertEquals(result.getGifs().get(0).getId(), gifIds.get(0));
+                Assert.assertEquals(result.getGifs().get(1).getId(), gifIds.get(2));
 
                 lock.countDown();
             }
