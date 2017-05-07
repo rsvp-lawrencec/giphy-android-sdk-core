@@ -109,25 +109,25 @@ public class RandomTest {
                 Assert.assertNotNull(result.getGif().getImages());
 
                 Assert.assertNotNull(result.getGif().getImages().getOriginal());
-                Assert.assertNotNull(result.getGif().getImages().getOriginal().getUrl());
+                Assert.assertNotNull(result.getGif().getImages().getOriginal().getGifUrl());
 
                 Assert.assertNotNull(result.getGif().getImages().getFixedHeightDownsampled());
-                Assert.assertNotNull(result.getGif().getImages().getFixedHeightDownsampled().getUrl());
+                Assert.assertNotNull(result.getGif().getImages().getFixedHeightDownsampled().getGifUrl());
 
                 Assert.assertNotNull(result.getGif().getImages().getFixedWidthDownsampled());
-                Assert.assertNotNull(result.getGif().getImages().getFixedWidthDownsampled().getUrl());
+                Assert.assertNotNull(result.getGif().getImages().getFixedWidthDownsampled().getGifUrl());
 
                 Assert.assertNotNull(result.getGif().getImages().getFixedHeightSmall());
-                Assert.assertNotNull(result.getGif().getImages().getFixedHeightSmall().getUrl());
+                Assert.assertNotNull(result.getGif().getImages().getFixedHeightSmall().getGifUrl());
 
                 Assert.assertNotNull(result.getGif().getImages().getFixedWidthSmall());
-                Assert.assertNotNull(result.getGif().getImages().getFixedWidthSmall().getUrl());
+                Assert.assertNotNull(result.getGif().getImages().getFixedWidthSmall().getGifUrl());
 
                 Assert.assertNotNull(result.getGif().getImages().getFixedHeightSmallStill());
-                Assert.assertNotNull(result.getGif().getImages().getFixedHeightSmallStill().getUrl());
+                Assert.assertNotNull(result.getGif().getImages().getFixedHeightSmallStill().getGifUrl());
 
                 Assert.assertNotNull(result.getGif().getImages().getFixedWidthSmallStill());
-                Assert.assertNotNull(result.getGif().getImages().getFixedWidthSmallStill().getUrl());
+                Assert.assertNotNull(result.getGif().getImages().getFixedWidthSmallStill().getGifUrl());
 
                 lock.countDown();
 

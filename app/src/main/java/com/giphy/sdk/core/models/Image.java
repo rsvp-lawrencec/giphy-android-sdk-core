@@ -7,24 +7,28 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Image {
-    private String url;
+    @SerializedName("url")
+    private String gifUrl;
     private String width;
     private String height;
-    private String size;
+    @SerializedName("size")
+    private String gifSize;
     private String frames;
-    private String mp4;
+    @SerializedName("mp4")
+    private String mp4Url;
     @SerializedName("mp4_size")
     private String mp4Size;
-    private String webp;
+    @SerializedName("webp")
+    private String webPUrl;
     @SerializedName("webp_size")
-    private String webpSize;
+    private String webPSize;
 
-    public String getUrl() {
-        return url;
+    public String getGifUrl() {
+        return gifUrl;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setGifUrl(String gifUrl) {
+        this.gifUrl = gifUrl;
     }
 
     public String getWidth() {
@@ -43,12 +47,12 @@ public class Image {
         this.height = height;
     }
 
-    public String getSize() {
-        return size;
+    public String getGifSize() {
+        return gifSize;
     }
 
-    public void setSize(String size) {
-        this.size = size;
+    public void setGifSize(String gifSize) {
+        this.gifSize = gifSize;
     }
 
     public String getFrames() {
@@ -59,12 +63,12 @@ public class Image {
         this.frames = frames;
     }
 
-    public String getMp4() {
-        return mp4;
+    public String getMp4Url() {
+        return mp4Url;
     }
 
-    public void setMp4(String mp4) {
-        this.mp4 = mp4;
+    public void setMp4Url(String mp4Url) {
+        this.mp4Url = mp4Url;
     }
 
     public String getMp4Size() {
@@ -75,19 +79,19 @@ public class Image {
         this.mp4Size = mp4Size;
     }
 
-    public String getWebp() {
-        return webp;
+    public String getWebPUrl() {
+        return webPUrl;
     }
 
-    public void setWebp(String webp) {
-        this.webp = webp;
+    public void setWebPUrl(String webPUrl) {
+        this.webPUrl = webPUrl;
     }
 
-    public String getWebpSize() {
-        return webpSize;
+    public String getWebPSize() {
+        return webPSize;
     }
 
-    public void setWebpSize(String webpSize) {
-        this.webpSize = webpSize;
+    public void setWebPSize(String webPSize) {
+        this.webPSize = webPSize;
     }
 }

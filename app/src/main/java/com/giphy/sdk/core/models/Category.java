@@ -13,7 +13,8 @@ public class Category {
     @SerializedName("name_encoded")
     private String nameEncoded;
     private Gif gif;
-    private List<Category> subcategories;
+    @SerializedName("subcategories")
+    private List<Category> subCategories;
 
     public String getName() {
         return name;
@@ -39,11 +40,11 @@ public class Category {
         this.gif = gif;
     }
 
-    public List<Category> getSubcategories() {
-        return subcategories;
+    public List<Category> getSubCategories() {
+        return subCategories;
     }
 
-    public void setSubcategories(List<Category> subcategories) {
-        this.subcategories = subcategories;
+    public void setSubCategories(List<Category> subCategories) {
+        this.subCategories = subCategories;
     }
 }

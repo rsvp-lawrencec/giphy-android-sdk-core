@@ -66,37 +66,37 @@ public class RandomGif {
         gif.setImages(new Images());
 
         gif.getImages().setOriginal(new Image());
-        gif.getImages().getOriginal().setUrl(imageOriginalUrl);
-        gif.getImages().getOriginal().setMp4(imageMp4Url);
+        gif.getImages().getOriginal().setGifUrl(imageOriginalUrl);
+        gif.getImages().getOriginal().setMp4Url(imageMp4Url);
         gif.getImages().getOriginal().setFrames(imageFrames);
         gif.getImages().getOriginal().setWidth(imageWidth);
         gif.getImages().getOriginal().setHeight(imageHeight);
 
         gif.getImages().setFixedHeightDownsampled(new Image());
-        gif.getImages().getFixedHeightDownsampled().setUrl(fixedHeightDownsampledUrl);
+        gif.getImages().getFixedHeightDownsampled().setGifUrl(fixedHeightDownsampledUrl);
         gif.getImages().getFixedHeightDownsampled().setWidth(fixedHeightDownsampledWidth);
         gif.getImages().getFixedHeightDownsampled().setHeight(fixedHeightDownsampledHeight);
 
         gif.getImages().setFixedWidthDownsampled(new Image());
-        gif.getImages().getFixedWidthDownsampled().setUrl(fixedWidthDownsampledUrl);
+        gif.getImages().getFixedWidthDownsampled().setGifUrl(fixedWidthDownsampledUrl);
         gif.getImages().getFixedWidthDownsampled().setWidth(fixedWidthDownsampledWidth);
         gif.getImages().getFixedWidthDownsampled().setHeight(fixedWidthDownsampledHeight);
 
         gif.getImages().setFixedHeightSmall(new Image());
-        gif.getImages().getFixedHeightSmall().setUrl(fixedHeightSmallUrl);
+        gif.getImages().getFixedHeightSmall().setGifUrl(fixedHeightSmallUrl);
         gif.getImages().getFixedHeightSmall().setWidth(fixedHeightSmallWidth);
         gif.getImages().getFixedHeightSmall().setHeight(fixedHeightSmallHeight);
 
         gif.getImages().setFixedWidthSmall(new Image());
-        gif.getImages().getFixedWidthSmall().setUrl(fixedWidthSmallUrl);
+        gif.getImages().getFixedWidthSmall().setGifUrl(fixedWidthSmallUrl);
         gif.getImages().getFixedWidthSmall().setWidth(fixedWidthSmallWidth);
         gif.getImages().getFixedWidthSmall().setHeight(fixedWidthSmallHeight);
 
         gif.getImages().setFixedHeightSmallStill(new Image());
-        gif.getImages().getFixedHeightSmallStill().setUrl(fixedHeightSmallStillUrl);
+        gif.getImages().getFixedHeightSmallStill().setGifUrl(fixedHeightSmallStillUrl);
 
         gif.getImages().setFixedWidthSmallStill(new Image());
-        gif.getImages().getFixedWidthSmallStill().setUrl(fixedWidthSmallStillUrl);
+        gif.getImages().getFixedWidthSmallStill().setGifUrl(fixedWidthSmallStillUrl);
 
         return gif;
     }
