@@ -84,8 +84,6 @@ public class ApiTask<V> {
 
         @Override
         protected  void onPostExecute(V v) {
-            int a =1;
-            a = 2;
         }
 
         /**

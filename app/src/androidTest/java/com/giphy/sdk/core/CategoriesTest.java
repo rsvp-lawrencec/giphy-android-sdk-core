@@ -99,4 +99,55 @@ public class CategoriesTest {
         });
         lock.await(2000, TimeUnit.MILLISECONDS);
     }
+
+    /**
+     * Test if pagination is returned.
+     * @throws Exception
+     */
+    @Test
+    public void testPagination() throws Exception {
+        final CountDownLatch lock = new CountDownLatch(1);
+
+        imp.categories(null, null, new CompletionHandler<CategoriesResponse>() {
+            @Override
+            public void onComplete(CategoriesResponse result, Throwable e) {
+                Assert.assertNull(e);
+                Assert.assertNotNull(result);
+                Assert.assertTrue(result.getCategories().size() == 25);
+
+                Assert.assertNotNull(result.getPagination());
+                Assert.assertTrue(result.getPagination().getTotalCount() == 25);
+                Assert.assertTrue(result.getPagination().getCount() == 25);
+
+                lock.countDown();
+            }
+        });
+        lock.await(2000, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Test if meta is returned.
+     * @throws Exception
+     */
+    @Test
+    public void testMeta() throws Exception {
+        final CountDownLatch lock = new CountDownLatch(1);
+
+        imp.categories(null, null, new CompletionHandler<CategoriesResponse>() {
+            @Override
+            public void onComplete(CategoriesResponse result, Throwable e) {
+                Assert.assertNull(e);
+                Assert.assertNotNull(result);
+                Assert.assertTrue(result.getCategories().size() == 25);
+
+                Assert.assertNotNull(result.getMeta());
+                Assert.assertTrue(result.getMeta().getStatus() == 200);
+                Assert.assertEquals(result.getMeta().getMsg(), "OK");
+                Assert.assertNotNull(result.getMeta().getResponseId());
+
+                lock.countDown();
+            }
+        });
+        lock.await(2000, TimeUnit.MILLISECONDS);
+    }
 }

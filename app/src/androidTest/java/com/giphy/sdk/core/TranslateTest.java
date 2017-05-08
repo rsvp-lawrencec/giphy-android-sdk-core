@@ -108,7 +108,7 @@ public class TranslateTest {
                 Assert.assertNotNull(result1);
                 Assert.assertNotNull(result1.getGif());
 
-                imp.translate("hungry", MediaType.gif, RatingType.pg13, LangType.romanian, new CompletionHandler<GifResponse>() {
+                imp.translate("hungry", MediaType.gif, RatingType.pg13, LangType.chineseSimplified, new CompletionHandler<GifResponse>() {
                     @Override
                     public void onComplete(GifResponse result2, Throwable e) {
                         Assert.assertNull(e);

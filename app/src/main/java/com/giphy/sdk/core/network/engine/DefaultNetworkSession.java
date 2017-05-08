@@ -38,7 +38,6 @@ public class DefaultNetworkSession implements NetworkSession {
         return new ApiTask<>(new Callable<T>() {
             @Override
             public T call() throws Exception {
-                Log.v("yyyy", "queryStringConnection start: " + Thread.currentThread().toString());
                 HttpURLConnection connection = null;
                 try {
                     Uri.Builder uriBuilder = serverUrl.buildUpon().appendEncodedPath(path);
@@ -70,7 +69,6 @@ public class DefaultNetworkSession implements NetworkSession {
                     if (connection != null) {
                         connection.disconnect();
                     }
-                    Log.v("yyyy", "queryStringConnection end: " + Thread.currentThread().toString());
                 }
             }
         });
@@ -100,10 +98,14 @@ public class DefaultNetworkSession implements NetworkSession {
         if (succeeded) {
             return GSON_INSTANCE.fromJson(contents, responseClass);
         } else {
+            // Report if an invalid api key is used
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_UNAUTHORIZED) {
+                Log.e(getClass().toString(), "Api key invalid!");
+            }
             try {
                 throw new ApiException(GSON_INSTANCE.fromJson(contents, ErrorResponse.class));
             } catch (JsonParseException e) {
-                throw new ApiException("Unable to parse server response", new ErrorResponse("server_error", contents));
+                throw new ApiException("Unable to parse server response", new ErrorResponse(connection.getResponseCode(), contents));
             }
         }
     }
