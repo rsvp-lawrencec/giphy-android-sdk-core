@@ -21,5 +21,6 @@ public class Constants {
         public static final String GIFS_BY_CATEGORY = "v1/gifs/categories/%s/%s";
         public static final String GIF_BY_ID= "v1/gifs/%s";
         public static final String GIF_BY_IDS= "v1/gifs";
+        public static final String TERM_SUGGESTIONS= "v1/queries/suggest/%s";
     }
 }

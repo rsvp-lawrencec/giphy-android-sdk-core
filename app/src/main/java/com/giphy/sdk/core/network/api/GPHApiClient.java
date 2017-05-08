@@ -15,6 +15,7 @@ import com.giphy.sdk.core.network.response.GenericResponse;
 import com.giphy.sdk.core.network.response.GifResponse;
 import com.giphy.sdk.core.network.response.MultipleGifsResponse;
 import com.giphy.sdk.core.network.response.RandomGifResponse;
+import com.giphy.sdk.core.network.response.TermSuggestionsResponse;
 import com.giphy.sdk.core.threading.ApiTask;
 
 import java.util.HashMap;
@@ -216,6 +217,17 @@ public class GPHApiClient implements GPHApi {
 
         return queryStringConnectionWrapper(Constants.SERVER_URL,
                 Constants.Paths.GIF_BY_IDS, "GET", MultipleGifsResponse.class, params, null,
+                completionHandler);
+    }
+
+    @NonNull
+    public AsyncTask termSuggestions(@NonNull String term,
+                                     @NonNull final CompletionHandler<TermSuggestionsResponse> completionHandler) {
+        final Map<String, String> params = new HashMap<>();
+        params.put("api_key", apiKey);
+
+        return queryStringConnectionWrapper(Constants.SERVER_URL,
+                String.format(Constants.Paths.TERM_SUGGESTIONS, term), "GET", TermSuggestionsResponse.class, params, null,
                 completionHandler);
     }
 

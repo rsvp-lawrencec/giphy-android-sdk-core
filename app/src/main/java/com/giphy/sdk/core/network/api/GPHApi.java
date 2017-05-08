@@ -10,6 +10,7 @@ import com.giphy.sdk.core.models.enums.RatingType;
 import com.giphy.sdk.core.network.response.CategoriesResponse;
 import com.giphy.sdk.core.network.response.GifResponse;
 import com.giphy.sdk.core.network.response.MultipleGifsResponse;
+import com.giphy.sdk.core.network.response.TermSuggestionsResponse;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ public interface GPHApi {
      * @param offset (optional) results offset, defaults to 0.
      * @param rating (optional) limit results to those rated (y,g, pg, pg-13 or r).
      * @param lang  (optional) specify default country for regional content; format is 2-letter ISO 639-1 country code.
+     * @param completionHandler
      * @return
      */
     @NonNull
@@ -40,6 +42,7 @@ public interface GPHApi {
      * @param limit  (optional) limits the number of results returned. By default returns 25 results.
      * @param offset  (optional) results offset, defaults to 0);
      * @param rating  (optional) limit results to those rated (y,g, pg, pg-13 or r).
+     * @param completionHandler
      * @return
      */
     @NonNull
@@ -53,6 +56,7 @@ public interface GPHApi {
      * @param type can be sticker or gif
      * @param rating  (optional) limit results to those rated (y,g, pg, pg-13 or r).
      * @param lang  (optional) specify default country for regional content; format is 2-letter ISO 639-1 country code.
+     * @param completionHandler
      * @return
      */
     @NonNull
@@ -65,6 +69,7 @@ public interface GPHApi {
      * @param tag the GIF tag to limit randomness by
      * @param type
      * @param rating limit results to those rated (y,g, pg, pg-13 or r).
+     * @param completionHandler
      * @return
      */
     @NonNull
@@ -114,6 +119,7 @@ public interface GPHApi {
     /**
      * Returns meta data about a GIF, by GIF id
      * @param gifId the id of the gif we want to return
+     * @param completionHandler
      * @return
      */
     @NonNull
@@ -128,5 +134,15 @@ public interface GPHApi {
     @NonNull
     public AsyncTask gifByIds(@NonNull List<String> gifIds,
                               @NonNull final CompletionHandler<MultipleGifsResponse> completionHandler);
+
+    /**
+     * Returns meta data about multiple gifs
+     * @param term the list of ids of the gifs we want to return
+     * @param completionHandler
+     * @return
+     */
+    @NonNull
+    public AsyncTask termSuggestions(@NonNull String term,
+                                     @NonNull final CompletionHandler<TermSuggestionsResponse> completionHandler);
 }
 
