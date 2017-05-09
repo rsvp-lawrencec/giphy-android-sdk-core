@@ -2,30 +2,28 @@ package com.giphy.sdk.core.network.response;
 
 import com.giphy.sdk.core.models.Meta;
 import com.giphy.sdk.core.models.RandomGif;
-import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by bogdantmm on 4/24/17.
  */
 
 public class RandomGifResponse implements GenericResponse {
-    @SerializedName("data")
-    private RandomGif randomGif;
+    private RandomGif data;
     public Meta meta;
 
-    public GifResponse toGifResponse() {
-        final GifResponse gifResponse = new GifResponse();
-        gifResponse.setGif(randomGif.toGif());
-        gifResponse.setMeta(meta);
-        return gifResponse;
+    public MediaResponse toGifResponse() {
+        final MediaResponse mediaResponse = new MediaResponse();
+        mediaResponse.setData(data.toGif());
+        mediaResponse.setMeta(meta);
+        return mediaResponse;
     }
 
-    public RandomGif getRandomGif() {
-        return randomGif;
+    public RandomGif getData() {
+        return data;
     }
 
-    public void setRandomGif(RandomGif randomGif) {
-        this.randomGif = randomGif;
+    public void setData(RandomGif data) {
+        this.data = data;
     }
 
     public Meta getMeta() {

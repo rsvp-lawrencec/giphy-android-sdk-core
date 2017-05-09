@@ -7,10 +7,10 @@ import android.support.annotation.Nullable;
 import com.giphy.sdk.core.models.enums.LangType;
 import com.giphy.sdk.core.models.enums.MediaType;
 import com.giphy.sdk.core.models.enums.RatingType;
-import com.giphy.sdk.core.network.response.CategoriesResponse;
-import com.giphy.sdk.core.network.response.GifResponse;
-import com.giphy.sdk.core.network.response.MultipleGifsResponse;
-import com.giphy.sdk.core.network.response.TermSuggestionsResponse;
+import com.giphy.sdk.core.network.response.ListCategoryResponse;
+import com.giphy.sdk.core.network.response.MediaResponse;
+import com.giphy.sdk.core.network.response.ListMediaResponse;
+import com.giphy.sdk.core.network.response.ListTermSuggestionResponse;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public interface GPHApi {
     public AsyncTask search(@NonNull String searchQuery, @Nullable MediaType type, @Nullable Integer limit,
                             @Nullable Integer offset, @Nullable RatingType rating,
                             @Nullable LangType lang,
-                            @NonNull final CompletionHandler<MultipleGifsResponse> completionHandler);
+                            @NonNull final CompletionHandler<ListMediaResponse> completionHandler);
 
     /**
      * Get the trending gifs or stickers
@@ -48,7 +48,7 @@ public interface GPHApi {
     @NonNull
     public AsyncTask trending(@Nullable MediaType type, @Nullable Integer limit,
                               @Nullable Integer offset, @Nullable RatingType rating,
-                              @NonNull final CompletionHandler<MultipleGifsResponse> completionHandler);
+                              @NonNull final CompletionHandler<ListMediaResponse> completionHandler);
 
     /**
      * The translate API draws on search, but uses the Giphy "special sauce" to handle translating from one vocabulary to another.
@@ -62,7 +62,7 @@ public interface GPHApi {
     @NonNull
     public AsyncTask translate(@NonNull String term, @Nullable MediaType type, @Nullable RatingType rating,
                                @Nullable LangType lang,
-                               @NonNull final CompletionHandler<GifResponse> completionHandler);
+                               @NonNull final CompletionHandler<MediaResponse> completionHandler);
 
     /**
      * Returns a random GIF, limited by tag. Excluding the tag parameter will return a random GIF from the Giphy catalog.
@@ -74,7 +74,7 @@ public interface GPHApi {
      */
     @NonNull
     public AsyncTask random(@NonNull String tag, @Nullable MediaType type, @Nullable RatingType rating,
-                            @NonNull final CompletionHandler<GifResponse> completionHandler);
+                            @NonNull final CompletionHandler<MediaResponse> completionHandler);
 
 
     /**
@@ -85,8 +85,8 @@ public interface GPHApi {
      * @return
      */
     @NonNull
-    public AsyncTask categories(@Nullable Integer limit, @Nullable Integer offset,
-                                @NonNull final CompletionHandler<CategoriesResponse> completionHandler);
+    public AsyncTask categoriesForGifs(@Nullable Integer limit, @Nullable Integer offset,
+                                       @NonNull final CompletionHandler<ListCategoryResponse> completionHandler);
 
     /**
      * Returns a list of subcategories for a category
@@ -97,14 +97,14 @@ public interface GPHApi {
      * @return
      */
     @NonNull
-    public AsyncTask subcategories(@NonNull String categoryEncodedName,
-                                   @Nullable Integer limit, @Nullable Integer offset,
-                                   @NonNull final CompletionHandler<CategoriesResponse> completionHandler);
+    public AsyncTask subCategoriesForGifs(@NonNull String categoryEncodedName,
+                                          @Nullable Integer limit, @Nullable Integer offset,
+                                          @NonNull final CompletionHandler<ListCategoryResponse> completionHandler);
 
     /**
      * Returns a list of gifs based on category & subcategory
      * @param categoryEncodedName
-     * @param subcategoryEncodedName
+     * @param subCategoryEncodedName
      * @param limit
      * @param offset
      * @param completionHandler
@@ -112,9 +112,9 @@ public interface GPHApi {
      */
     @NonNull
     public AsyncTask gifsByCategory(@NonNull String categoryEncodedName,
-                                    @NonNull String subcategoryEncodedName,
+                                    @NonNull String subCategoryEncodedName,
                                     @Nullable Integer limit, @Nullable Integer offset,
-                                    @NonNull final CompletionHandler<MultipleGifsResponse> completionHandler);
+                                    @NonNull final CompletionHandler<ListMediaResponse> completionHandler);
 
     /**
      * Returns meta data about a GIF, by GIF id
@@ -124,7 +124,7 @@ public interface GPHApi {
      */
     @NonNull
     public AsyncTask gifById(@NonNull String gifId,
-                             @NonNull final CompletionHandler<GifResponse> completionHandler);
+                             @NonNull final CompletionHandler<MediaResponse> completionHandler);
 
     /**
      * Returns meta data about multiple gifs
@@ -133,7 +133,7 @@ public interface GPHApi {
      */
     @NonNull
     public AsyncTask gifByIds(@NonNull List<String> gifIds,
-                              @NonNull final CompletionHandler<MultipleGifsResponse> completionHandler);
+                              @NonNull final CompletionHandler<ListMediaResponse> completionHandler);
 
     /**
      * Returns meta data about multiple gifs
@@ -143,6 +143,6 @@ public interface GPHApi {
      */
     @NonNull
     public AsyncTask termSuggestions(@NonNull String term,
-                                     @NonNull final CompletionHandler<TermSuggestionsResponse> completionHandler);
+                                     @NonNull final CompletionHandler<ListTermSuggestionResponse> completionHandler);
 }
 

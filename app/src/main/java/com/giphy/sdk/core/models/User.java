@@ -18,8 +18,8 @@ public class User {
     @SerializedName("display_name")
     private String displayName;
     private String twitter;
-    @SerializedName("is_private")
-    private int isPrivate;
+    @SerializedName("is_public")
+    private boolean isPublic;
     @SerializedName("attribution_display_name")
     private String attributionDisplayName;
     private String name;
@@ -95,12 +95,12 @@ public class User {
         this.twitter = twitter;
     }
 
-    public int getIsPrivate() {
-        return isPrivate;
+    public boolean getIsPublic() {
+        return isPublic;
     }
 
-    public void setIsPrivate(int isPrivate) {
-        this.isPrivate = isPrivate;
+    public void setIsPublic(boolean isPublic) {
+        this.isPublic = isPublic;
     }
 
     public String getAttributionDisplayName() {

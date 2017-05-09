@@ -7,8 +7,7 @@ import com.giphy.sdk.core.models.enums.MediaType;
 import com.giphy.sdk.core.models.enums.RatingType;
 import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApiClient;
-import com.giphy.sdk.core.network.response.CategoriesResponse;
-import com.giphy.sdk.core.network.response.MultipleGifsResponse;
+import com.giphy.sdk.core.network.response.ListMediaResponse;
 
 import junit.framework.Assert;
 
@@ -39,12 +38,12 @@ public class SearchTest {
     public void testBase() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.search("hack", MediaType.gif, null, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.search("hack", MediaType.gif, null, null, null, null, new CompletionHandler<ListMediaResponse>() {
             @Override
-            public void onComplete(MultipleGifsResponse result, Throwable e) {
+            public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getGifs().size() == 25);
+                Assert.assertTrue(result.getData().size() == 25);
 
                 lock.countDown();
             }
@@ -61,12 +60,12 @@ public class SearchTest {
     public void testNoResults() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.search("jjhjhhjhhhjjhhh", MediaType.gif, null, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.search("jjhjhhjhhhjjhhh", MediaType.gif, null, null, null, null, new CompletionHandler<ListMediaResponse>() {
             @Override
-            public void onComplete(MultipleGifsResponse result, Throwable e) {
+            public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getGifs().size() == 0);
+                Assert.assertTrue(result.getData().size() == 0);
 
                 lock.countDown();
             }
@@ -82,12 +81,12 @@ public class SearchTest {
     public void testLimit() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.search("cats", MediaType.gif, 13, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.search("cats", MediaType.gif, 13, null, null, null, new CompletionHandler<ListMediaResponse>() {
             @Override
-            public void onComplete(MultipleGifsResponse result, Throwable e) {
+            public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getGifs().size() == 13);
+                Assert.assertTrue(result.getData().size() == 13);
 
                 lock.countDown();
             }
@@ -103,12 +102,12 @@ public class SearchTest {
     public void testRating() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.search("cats", MediaType.gif, 20, null, RatingType.pg, null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.search("cats", MediaType.gif, 20, null, RatingType.pg, null, new CompletionHandler<ListMediaResponse>() {
             @Override
-            public void onComplete(MultipleGifsResponse result, Throwable e) {
+            public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getGifs().size() == 20);
+                Assert.assertTrue(result.getData().size() == 20);
 
                 lock.countDown();
             }
@@ -124,14 +123,14 @@ public class SearchTest {
     public void testRatingY() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.search("cars", MediaType.gif, 20, null, RatingType.y, null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.search("cars", MediaType.gif, 20, null, RatingType.y, null, new CompletionHandler<ListMediaResponse>() {
             @Override
-            public void onComplete(MultipleGifsResponse result, Throwable e) {
+            public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getGifs().size() == 20);
+                Assert.assertTrue(result.getData().size() == 20);
 
-                Assert.assertTrue(result.getGifs().get(0).getRating() == RatingType.y);
+                Assert.assertTrue(result.getData().get(0).getRating() == RatingType.y);
 
                 lock.countDown();
             }
@@ -147,12 +146,12 @@ public class SearchTest {
     public void testLang() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.search("cars", MediaType.gif, 20, null, null, LangType.chineseTraditional, new CompletionHandler<MultipleGifsResponse>() {
+        imp.search("cars", MediaType.gif, 20, null, null, LangType.chineseTraditional, new CompletionHandler<ListMediaResponse>() {
             @Override
-            public void onComplete(MultipleGifsResponse result, Throwable e) {
+            public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getGifs().size() == 20);
+                Assert.assertTrue(result.getData().size() == 20);
 
                 lock.countDown();
             }
@@ -169,21 +168,21 @@ public class SearchTest {
     public void testOffset() throws Exception {
         final CountDownLatch lock = new CountDownLatch(2);
 
-        imp.search("cats", MediaType.gif, 30, 0, RatingType.pg, null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.search("cats", MediaType.gif, 30, 0, RatingType.pg, null, new CompletionHandler<ListMediaResponse>() {
             @Override
-            public void onComplete(final MultipleGifsResponse result1, Throwable e) {
+            public void onComplete(final ListMediaResponse result1, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
-                Assert.assertTrue(result1.getGifs().size() == 30);
+                Assert.assertTrue(result1.getData().size() == 30);
 
-                imp.search("cats", MediaType.gif, 30, 10, RatingType.pg, null, new CompletionHandler<MultipleGifsResponse>() {
+                imp.search("cats", MediaType.gif, 30, 10, RatingType.pg, null, new CompletionHandler<ListMediaResponse>() {
                     @Override
-                    public void onComplete(MultipleGifsResponse result2, Throwable e) {
+                    public void onComplete(ListMediaResponse result2, Throwable e) {
                         Assert.assertNull(e);
                         Assert.assertNotNull(result2);
-                        Assert.assertTrue(result2.getGifs().size() == 30);
+                        Assert.assertTrue(result2.getData().size() == 30);
 
-                        Utils.checkOffsetWorks(result1.getGifs(), result2.getGifs(), 1);
+                        Utils.checkOffsetWorks(result1.getData(), result2.getData(), 1);
 
                         lock.countDown();
                     }
@@ -203,12 +202,12 @@ public class SearchTest {
     public void testPagination() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.search("hack", MediaType.gif, null, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.search("hack", MediaType.gif, null, null, null, null, new CompletionHandler<ListMediaResponse>() {
             @Override
-            public void onComplete(MultipleGifsResponse result, Throwable e) {
+            public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getGifs().size() == 25);
+                Assert.assertTrue(result.getData().size() == 25);
 
                 Assert.assertNotNull(result.getPagination());
                 Assert.assertTrue(result.getPagination().getCount() == 25);
@@ -227,12 +226,12 @@ public class SearchTest {
     public void testMeta() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.search("test", MediaType.gif, null, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.search("test", MediaType.gif, null, null, null, null, new CompletionHandler<ListMediaResponse>() {
             @Override
-            public void onComplete(MultipleGifsResponse result, Throwable e) {
+            public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getGifs().size() == 25);
+                Assert.assertTrue(result.getData().size() == 25);
 
                 Assert.assertNotNull(result.getMeta());
                 Assert.assertTrue(result.getMeta().getStatus() == 200);
@@ -254,9 +253,9 @@ public class SearchTest {
     public void testCancelation() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        final AsyncTask task = imp.search("hack", MediaType.gif, null, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
+        final AsyncTask task = imp.search("hack", MediaType.gif, null, null, null, null, new CompletionHandler<ListMediaResponse>() {
             @Override
-            public void onComplete(MultipleGifsResponse result, Throwable e) {
+            public void onComplete(ListMediaResponse result, Throwable e) {
                 // If we get here, the test will fail, since it wasn't properly canceled
                 Assert.assertNull(result);
                 Assert.assertNull(e);
@@ -279,9 +278,9 @@ public class SearchTest {
     public void testCancelationWithDelay() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        final AsyncTask task = imp.search("hack", MediaType.gif, 2, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
+        final AsyncTask task = imp.search("hack", MediaType.gif, 2, null, null, null, new CompletionHandler<ListMediaResponse>() {
             @Override
-            public void onComplete(MultipleGifsResponse result, Throwable e) {
+            public void onComplete(ListMediaResponse result, Throwable e) {
                 // If we get here, the test will fail, since it wasn't properly canceled
                 Assert.assertNull(result);
                 Assert.assertNull(e);

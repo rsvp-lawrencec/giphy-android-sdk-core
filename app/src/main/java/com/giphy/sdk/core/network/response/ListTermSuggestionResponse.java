@@ -10,7 +10,7 @@ import java.util.List;
  * Created by bogdantmm on 4/21/17.
  */
 
-public class TermSuggestionsResponse implements GenericResponse {
+public class ListTermSuggestionResponse implements GenericResponse {
     private List<TermSuggestion> data;
     private Meta meta;
 

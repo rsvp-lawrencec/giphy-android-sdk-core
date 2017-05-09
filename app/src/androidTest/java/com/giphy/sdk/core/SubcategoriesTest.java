@@ -3,7 +3,7 @@ package com.giphy.sdk.core;
 import com.giphy.sdk.core.models.Category;
 import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApiClient;
-import com.giphy.sdk.core.network.response.CategoriesResponse;
+import com.giphy.sdk.core.network.response.ListCategoryResponse;
 
 import junit.framework.Assert;
 
@@ -34,12 +34,12 @@ public class SubcategoriesTest {
     public void testBase() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.subcategories("actions", null, null, new CompletionHandler<CategoriesResponse>() {
+        imp.subCategoriesForGifs("actions", null, null, new CompletionHandler<ListCategoryResponse>() {
             @Override
-            public void onComplete(CategoriesResponse result, Throwable e) {
+            public void onComplete(ListCategoryResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getCategories().size() == 25);
+                Assert.assertTrue(result.getData().size() == 25);
 
                 lock.countDown();
             }
@@ -56,21 +56,21 @@ public class SubcategoriesTest {
     public void testLimitOffset() throws Exception {
         final CountDownLatch lock = new CountDownLatch(2);
 
-        imp.subcategories("animals", 15, 0, new CompletionHandler<CategoriesResponse>() {
+        imp.subCategoriesForGifs("animals", 15, 0, new CompletionHandler<ListCategoryResponse>() {
             @Override
-            public void onComplete(final CategoriesResponse result1, Throwable e) {
+            public void onComplete(final ListCategoryResponse result1, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
-                Assert.assertTrue(result1.getCategories().size() == 15);
+                Assert.assertTrue(result1.getData().size() == 15);
 
-                imp.subcategories("animals", 15, 5, new CompletionHandler<CategoriesResponse>() {
+                imp.subCategoriesForGifs("animals", 15, 5, new CompletionHandler<ListCategoryResponse>() {
                     @Override
-                    public void onComplete(final CategoriesResponse result2, Throwable e) {
+                    public void onComplete(final ListCategoryResponse result2, Throwable e) {
                         Assert.assertNull(e);
                         Assert.assertNotNull(result2);
-                        Assert.assertTrue(result2.getCategories().size() == 15);
+                        Assert.assertTrue(result2.getData().size() == 15);
 
-                        Assert.assertTrue(result2.getCategories().get(0).getName().equals(result1.getCategories().get(5).getName()));
+                        Assert.assertTrue(result2.getData().get(0).getName().equals(result1.getData().get(5).getName()));
                         lock.countDown();
                     }
                 });
@@ -90,16 +90,16 @@ public class SubcategoriesTest {
     public void testFields() throws Exception {
         final CountDownLatch lock = new CountDownLatch(2);
 
-        imp.subcategories("animals", 15, 0, new CompletionHandler<CategoriesResponse>() {
+        imp.subCategoriesForGifs("animals", 15, 0, new CompletionHandler<ListCategoryResponse>() {
             @Override
-            public void onComplete(final CategoriesResponse result, Throwable e) {
+            public void onComplete(final ListCategoryResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getCategories().size() == 15);
+                Assert.assertTrue(result.getData().size() == 15);
 
-                Assert.assertNotNull(result.getCategories());
+                Assert.assertNotNull(result.getData());
 
-                for (Category category : result.getCategories()) {
+                for (Category category : result.getData()) {
                     Assert.assertNotNull(category.getName());
                     Assert.assertNotNull(category.getNameEncoded());
                     Assert.assertNotNull(category.getGif());

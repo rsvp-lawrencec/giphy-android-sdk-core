@@ -4,7 +4,7 @@ import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApi;
 import com.giphy.sdk.core.network.api.GPHApiClient;
 import com.giphy.sdk.core.network.engine.ApiException;
-import com.giphy.sdk.core.network.response.GifResponse;
+import com.giphy.sdk.core.network.response.MediaResponse;
 
 import junit.framework.Assert;
 
@@ -35,12 +35,12 @@ public class GifByIdTest {
     public void testBase() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.gifById("darAMUceRAs0w", new CompletionHandler<GifResponse>() {
+        imp.gifById("darAMUceRAs0w", new CompletionHandler<MediaResponse>() {
             @Override
-            public void onComplete(GifResponse result, Throwable e) {
+            public void onComplete(MediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue("darAMUceRAs0w".equals(result.getGif().getId()));
+                Assert.assertTrue("darAMUceRAs0w".equals(result.getData().getId()));
 
                 lock.countDown();
             }
@@ -56,9 +56,9 @@ public class GifByIdTest {
     public void testGifNotFound() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.gifById("darAMUceRAs0w_ttttttttt", new CompletionHandler<GifResponse>() {
+        imp.gifById("darAMUceRAs0w_ttttttttt", new CompletionHandler<MediaResponse>() {
             @Override
-            public void onComplete(GifResponse result, Throwable e) {
+            public void onComplete(MediaResponse result, Throwable e) {
                 Assert.assertNull(result);
                 Assert.assertNotNull(e);
                 Assert.assertNotNull(e.getCause());
@@ -81,12 +81,12 @@ public class GifByIdTest {
     public void testMeta() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.gifById("darAMUceRAs0w", new CompletionHandler<GifResponse>() {
+        imp.gifById("darAMUceRAs0w", new CompletionHandler<MediaResponse>() {
             @Override
-            public void onComplete(GifResponse result, Throwable e) {
+            public void onComplete(MediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertNotNull(result.getGif());
+                Assert.assertNotNull(result.getData());
 
                 Assert.assertNotNull(result.getMeta());
                 Assert.assertTrue(result.getMeta().getStatus() == 200);
@@ -108,9 +108,9 @@ public class GifByIdTest {
         final CountDownLatch lock = new CountDownLatch(1);
 
         final GPHApi client = new GPHApiClient("invalid_api_key");
-        client.gifById("darAMUceRAs0w", new CompletionHandler<GifResponse>() {
+        client.gifById("darAMUceRAs0w", new CompletionHandler<MediaResponse>() {
             @Override
-            public void onComplete(GifResponse result, Throwable e) {
+            public void onComplete(MediaResponse result, Throwable e) {
                 Assert.assertNull(result);
                 Assert.assertNotNull(e);
                 Assert.assertNotNull(e.getCause());

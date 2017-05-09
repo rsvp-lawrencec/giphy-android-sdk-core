@@ -2,7 +2,7 @@ package com.giphy.sdk.core;
 
 import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApiClient;
-import com.giphy.sdk.core.network.response.MultipleGifsResponse;
+import com.giphy.sdk.core.network.response.ListMediaResponse;
 
 import junit.framework.Assert;
 
@@ -33,12 +33,12 @@ public class GifsByCategoryTest {
     public void testBase() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.gifsByCategory("animals", "dragon", null, null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.gifsByCategory("animals", "dragon", null, null, new CompletionHandler<ListMediaResponse>() {
             @Override
-            public void onComplete(MultipleGifsResponse result, Throwable e) {
+            public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getGifs().size() == 25);
+                Assert.assertTrue(result.getData().size() == 25);
 
                 lock.countDown();
             }
@@ -55,21 +55,21 @@ public class GifsByCategoryTest {
     public void testLimitOffset() throws Exception {
         final CountDownLatch lock = new CountDownLatch(2);
 
-        imp.gifsByCategory("animals", "cats", 20, 0, new CompletionHandler<MultipleGifsResponse>() {
+        imp.gifsByCategory("animals", "cats", 20, 0, new CompletionHandler<ListMediaResponse>() {
             @Override
-            public void onComplete(final MultipleGifsResponse result1, Throwable e) {
+            public void onComplete(final ListMediaResponse result1, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
-                Assert.assertTrue(result1.getGifs().size() == 20);
+                Assert.assertTrue(result1.getData().size() == 20);
 
-                imp.gifsByCategory("animals", "cats", 20, 10, new CompletionHandler<MultipleGifsResponse>() {
+                imp.gifsByCategory("animals", "cats", 20, 10, new CompletionHandler<ListMediaResponse>() {
                     @Override
-                    public void onComplete(MultipleGifsResponse result2, Throwable e) {
+                    public void onComplete(ListMediaResponse result2, Throwable e) {
                         Assert.assertNull(e);
                         Assert.assertNotNull(result2);
-                        Assert.assertTrue(result2.getGifs().size() == 20);
+                        Assert.assertTrue(result2.getData().size() == 20);
 
-                        Utils.checkOffsetWorks(result1.getGifs(), result2.getGifs(), 1);
+                        Utils.checkOffsetWorks(result1.getData(), result2.getData(), 1);
 
                         lock.countDown();
                     }
@@ -89,12 +89,12 @@ public class GifsByCategoryTest {
     public void testPagination() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.gifsByCategory("animals", "dragon", null, null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.gifsByCategory("animals", "dragon", null, null, new CompletionHandler<ListMediaResponse>() {
             @Override
-            public void onComplete(MultipleGifsResponse result, Throwable e) {
+            public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getGifs().size() == 25);
+                Assert.assertTrue(result.getData().size() == 25);
 
                 Assert.assertNotNull(result.getPagination());
                 Assert.assertTrue(result.getPagination().getCount() == 25);
@@ -113,12 +113,12 @@ public class GifsByCategoryTest {
     public void testMeta() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.gifsByCategory("animals", "dragon", null, null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.gifsByCategory("animals", "dragon", null, null, new CompletionHandler<ListMediaResponse>() {
             @Override
-            public void onComplete(MultipleGifsResponse result, Throwable e) {
+            public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getGifs().size() == 25);
+                Assert.assertTrue(result.getData().size() == 25);
 
                 Assert.assertNotNull(result.getMeta());
                 Assert.assertTrue(result.getMeta().getStatus() == 200);

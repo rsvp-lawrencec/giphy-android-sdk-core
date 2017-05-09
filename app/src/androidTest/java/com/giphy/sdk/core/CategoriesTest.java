@@ -3,7 +3,7 @@ package com.giphy.sdk.core;
 import com.giphy.sdk.core.models.Category;
 import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApiClient;
-import com.giphy.sdk.core.network.response.CategoriesResponse;
+import com.giphy.sdk.core.network.response.ListCategoryResponse;
 
 import junit.framework.Assert;
 
@@ -34,12 +34,12 @@ public class CategoriesTest {
     public void testBase() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.categories(null, null, new CompletionHandler<CategoriesResponse>() {
+        imp.categoriesForGifs(null, null, new CompletionHandler<ListCategoryResponse>() {
             @Override
-            public void onComplete(CategoriesResponse result, Throwable e) {
+            public void onComplete(ListCategoryResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getCategories().size() == 25);
+                Assert.assertTrue(result.getData().size() == 25);
 
                 lock.countDown();
             }
@@ -56,12 +56,12 @@ public class CategoriesTest {
     public void testLimitOffset() throws Exception {
         final CountDownLatch lock = new CountDownLatch(2);
 
-        imp.categories(15, 0, new CompletionHandler<CategoriesResponse>() {
+        imp.categoriesForGifs(15, 0, new CompletionHandler<ListCategoryResponse>() {
             @Override
-            public void onComplete(final CategoriesResponse result, Throwable e) {
+            public void onComplete(final ListCategoryResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getCategories().size() == 15);
+                Assert.assertTrue(result.getData().size() == 15);
 
                 lock.countDown();
             }
@@ -78,16 +78,16 @@ public class CategoriesTest {
     public void testFields() throws Exception {
         final CountDownLatch lock = new CountDownLatch(2);
 
-        imp.categories(15, 0, new CompletionHandler<CategoriesResponse>() {
+        imp.categoriesForGifs(15, 0, new CompletionHandler<ListCategoryResponse>() {
             @Override
-            public void onComplete(final CategoriesResponse result, Throwable e) {
+            public void onComplete(final ListCategoryResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getCategories().size() == 15);
+                Assert.assertTrue(result.getData().size() == 15);
 
-                Assert.assertNotNull(result.getCategories());
+                Assert.assertNotNull(result.getData());
 
-                for (Category category : result.getCategories()) {
+                for (Category category : result.getData()) {
                     Assert.assertNotNull(category.getName());
                     Assert.assertNotNull(category.getNameEncoded());
                     Assert.assertNotNull(category.getSubCategories());
@@ -108,12 +108,12 @@ public class CategoriesTest {
     public void testPagination() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.categories(null, null, new CompletionHandler<CategoriesResponse>() {
+        imp.categoriesForGifs(null, null, new CompletionHandler<ListCategoryResponse>() {
             @Override
-            public void onComplete(CategoriesResponse result, Throwable e) {
+            public void onComplete(ListCategoryResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getCategories().size() == 25);
+                Assert.assertTrue(result.getData().size() == 25);
 
                 Assert.assertNotNull(result.getPagination());
                 Assert.assertTrue(result.getPagination().getTotalCount() == 25);
@@ -133,12 +133,12 @@ public class CategoriesTest {
     public void testMeta() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.categories(null, null, new CompletionHandler<CategoriesResponse>() {
+        imp.categoriesForGifs(null, null, new CompletionHandler<ListCategoryResponse>() {
             @Override
-            public void onComplete(CategoriesResponse result, Throwable e) {
+            public void onComplete(ListCategoryResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getCategories().size() == 25);
+                Assert.assertTrue(result.getData().size() == 25);
 
                 Assert.assertNotNull(result.getMeta());
                 Assert.assertTrue(result.getMeta().getStatus() == 200);

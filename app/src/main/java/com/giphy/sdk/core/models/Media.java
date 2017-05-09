@@ -4,13 +4,14 @@ import com.giphy.sdk.core.models.enums.MediaType;
 import com.giphy.sdk.core.models.enums.RatingType;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by bogdantmm on 4/19/17.
  */
 
-public class Gif {
+public class Media {
     private MediaType type;
     private String id;
     private String slug;
@@ -37,30 +38,30 @@ public class Gif {
     private String sourcePostUrl;
 
     @SerializedName("update_datetime")
-    private String updateDatetime;
+    private String updateDate;
     @SerializedName("create_datetime")
-    private String createDatetime;
+    private Date createDate;
     @SerializedName("import_datetime")
-    private String importDatetime;
+    private Date importDate;
     @SerializedName("trending_datetime")
-    private String trendingDatetime;
+    private Date trendingDate;
 
     @SerializedName("is_hidden")
-    private int isHidden;
+    private boolean isHidden;
     @SerializedName("is_removed")
-    private int isRemoved;
+    private boolean isRemoved;
     @SerializedName("is_community")
-    private int isCommunity;
+    private boolean isCommunity;
     @SerializedName("is_anonymous")
-    private int isAnonymous;
+    private boolean isAnonymous;
     @SerializedName("is_featured")
-    private int isFeatured;
+    private boolean isFeatured;
     @SerializedName("is_realtime")
-    private int isRealtime;
+    private boolean isRealtime;
     @SerializedName("is_indexable")
-    private int isIndexable;
+    private boolean isIndexable;
     @SerializedName("is_sticker")
-    private int isSticker;
+    private boolean isSticker;
 
     public MediaType getType() {
         return type;
@@ -190,99 +191,99 @@ public class Gif {
         this.sourcePostUrl = sourcePostUrl;
     }
 
-    public String getUpdateDatetime() {
-        return updateDatetime;
+    public String getUpdateDate() {
+        return updateDate;
     }
 
-    public void setUpdateDatetime(String updateDatetime) {
-        this.updateDatetime = updateDatetime;
+    public void setUpdateDate(String updateDate) {
+        this.updateDate = updateDate;
     }
 
-    public String getCreateDatetime() {
-        return createDatetime;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setCreateDatetime(String createDatetime) {
-        this.createDatetime = createDatetime;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
-    public String getImportDatetime() {
-        return importDatetime;
+    public Date getImportDate() {
+        return importDate;
     }
 
-    public void setImportDatetime(String importDatetime) {
-        this.importDatetime = importDatetime;
+    public void setImportDate(Date importDate) {
+        this.importDate = importDate;
     }
 
-    public String getTrendingDatetime() {
-        return trendingDatetime;
+    public Date getTrendingDate() {
+        return trendingDate;
     }
 
-    public void setTrendingDatetime(String trendingDatetime) {
-        this.trendingDatetime = trendingDatetime;
+    public void setTrendingDate(Date trendingDate) {
+        this.trendingDate = trendingDate;
     }
 
-    public int getIsHidden() {
+    public boolean getIsHidden() {
         return isHidden;
     }
 
-    public void setIsHidden(int isHidden) {
+    public void setIsHidden(boolean isHidden) {
         this.isHidden = isHidden;
     }
 
-    public int getIsRemoved() {
+    public boolean getIsRemoved() {
         return isRemoved;
     }
 
-    public void setIsRemoved(int isRemoved) {
+    public void setIsRemoved(boolean isRemoved) {
         this.isRemoved = isRemoved;
     }
 
-    public int getIsCommunity() {
+    public boolean getIsCommunity() {
         return isCommunity;
     }
 
-    public void setIsCommunity(int isCommunity) {
+    public void setIsCommunity(boolean isCommunity) {
         this.isCommunity = isCommunity;
     }
 
-    public int getIsAnonymous() {
+    public boolean getIsAnonymous() {
         return isAnonymous;
     }
 
-    public void setIsAnonymous(int isAnonymous) {
+    public void setIsAnonymous(boolean isAnonymous) {
         this.isAnonymous = isAnonymous;
     }
 
-    public int getIsFeatured() {
+    public boolean getIsFeatured() {
         return isFeatured;
     }
 
-    public void setIsFeatured(int isFeatured) {
+    public void setIsFeatured(boolean isFeatured) {
         this.isFeatured = isFeatured;
     }
 
-    public int getIsRealtime() {
+    public boolean getIsRealtime() {
         return isRealtime;
     }
 
-    public void setIsRealtime(int isRealtime) {
+    public void setIsRealtime(boolean isRealtime) {
         this.isRealtime = isRealtime;
     }
 
-    public int getIsIndexable() {
+    public boolean getIsIndexable() {
         return isIndexable;
     }
 
-    public void setIsIndexable(int isIndexable) {
+    public void setIsIndexable(boolean isIndexable) {
         this.isIndexable = isIndexable;
     }
 
-    public int getIsSticker() {
+    public boolean getIsSticker() {
         return isSticker;
     }
 
-    public void setIsSticker(int isSticker) {
+    public void setIsSticker(boolean isSticker) {
         this.isSticker = isSticker;
     }
 }

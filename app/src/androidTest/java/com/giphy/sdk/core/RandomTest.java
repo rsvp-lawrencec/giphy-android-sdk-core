@@ -4,7 +4,7 @@ import com.giphy.sdk.core.models.enums.MediaType;
 import com.giphy.sdk.core.models.enums.RatingType;
 import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApiClient;
-import com.giphy.sdk.core.network.response.GifResponse;
+import com.giphy.sdk.core.network.response.MediaResponse;
 
 import junit.framework.Assert;
 
@@ -34,12 +34,12 @@ public class RandomTest {
     public void testBase() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.random("cats dogs", MediaType.gif, null, new CompletionHandler<GifResponse>() {
+        imp.random("cats dogs", MediaType.gif, null, new CompletionHandler<MediaResponse>() {
             @Override
-            public void onComplete(GifResponse result, Throwable e) {
+            public void onComplete(MediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertNotNull(result.getGif());
+                Assert.assertNotNull(result.getData());
 
                 lock.countDown();
 
@@ -56,12 +56,12 @@ public class RandomTest {
     public void testRating() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.random("cats dogs", MediaType.gif, RatingType.pg, new CompletionHandler<GifResponse>() {
+        imp.random("cats dogs", MediaType.gif, RatingType.pg, new CompletionHandler<MediaResponse>() {
             @Override
-            public void onComplete(GifResponse result, Throwable e) {
+            public void onComplete(MediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertNotNull(result.getGif());
+                Assert.assertNotNull(result.getData());
 
                 lock.countDown();
             }
@@ -77,9 +77,9 @@ public class RandomTest {
     public void testNoResult() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.random("cats_ttttt", MediaType.gif, RatingType.pg, new CompletionHandler<GifResponse>() {
+        imp.random("cats_ttttt", MediaType.gif, RatingType.pg, new CompletionHandler<MediaResponse>() {
             @Override
-            public void onComplete(GifResponse result, Throwable e) {
+            public void onComplete(MediaResponse result, Throwable e) {
                 Assert.assertNull(result);
                 Assert.assertNotNull(e);
 
@@ -97,37 +97,37 @@ public class RandomTest {
     public void testFields() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.random("cats dogs", MediaType.gif, null, new CompletionHandler<GifResponse>() {
+        imp.random("cats dogs", MediaType.gif, null, new CompletionHandler<MediaResponse>() {
             @Override
-            public void onComplete(GifResponse result, Throwable e) {
+            public void onComplete(MediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
 
-                Assert.assertNotNull(result.getGif());
-                Assert.assertNotNull(result.getGif().getId());
+                Assert.assertNotNull(result.getData());
+                Assert.assertNotNull(result.getData().getId());
 
-                Assert.assertNotNull(result.getGif().getImages());
+                Assert.assertNotNull(result.getData().getImages());
 
-                Assert.assertNotNull(result.getGif().getImages().getOriginal());
-                Assert.assertNotNull(result.getGif().getImages().getOriginal().getGifUrl());
+                Assert.assertNotNull(result.getData().getImages().getOriginal());
+                Assert.assertNotNull(result.getData().getImages().getOriginal().getGifUrl());
 
-                Assert.assertNotNull(result.getGif().getImages().getFixedHeightDownsampled());
-                Assert.assertNotNull(result.getGif().getImages().getFixedHeightDownsampled().getGifUrl());
+                Assert.assertNotNull(result.getData().getImages().getFixedHeightDownsampled());
+                Assert.assertNotNull(result.getData().getImages().getFixedHeightDownsampled().getGifUrl());
 
-                Assert.assertNotNull(result.getGif().getImages().getFixedWidthDownsampled());
-                Assert.assertNotNull(result.getGif().getImages().getFixedWidthDownsampled().getGifUrl());
+                Assert.assertNotNull(result.getData().getImages().getFixedWidthDownsampled());
+                Assert.assertNotNull(result.getData().getImages().getFixedWidthDownsampled().getGifUrl());
 
-                Assert.assertNotNull(result.getGif().getImages().getFixedHeightSmall());
-                Assert.assertNotNull(result.getGif().getImages().getFixedHeightSmall().getGifUrl());
+                Assert.assertNotNull(result.getData().getImages().getFixedHeightSmall());
+                Assert.assertNotNull(result.getData().getImages().getFixedHeightSmall().getGifUrl());
 
-                Assert.assertNotNull(result.getGif().getImages().getFixedWidthSmall());
-                Assert.assertNotNull(result.getGif().getImages().getFixedWidthSmall().getGifUrl());
+                Assert.assertNotNull(result.getData().getImages().getFixedWidthSmall());
+                Assert.assertNotNull(result.getData().getImages().getFixedWidthSmall().getGifUrl());
 
-                Assert.assertNotNull(result.getGif().getImages().getFixedHeightSmallStill());
-                Assert.assertNotNull(result.getGif().getImages().getFixedHeightSmallStill().getGifUrl());
+                Assert.assertNotNull(result.getData().getImages().getFixedHeightSmallStill());
+                Assert.assertNotNull(result.getData().getImages().getFixedHeightSmallStill().getGifUrl());
 
-                Assert.assertNotNull(result.getGif().getImages().getFixedWidthSmallStill());
-                Assert.assertNotNull(result.getGif().getImages().getFixedWidthSmallStill().getGifUrl());
+                Assert.assertNotNull(result.getData().getImages().getFixedWidthSmallStill());
+                Assert.assertNotNull(result.getData().getImages().getFixedWidthSmallStill().getGifUrl());
 
                 lock.countDown();
 
@@ -144,22 +144,22 @@ public class RandomTest {
     public void testDifferentResults() throws Exception {
         final CountDownLatch lock = new CountDownLatch(2);
 
-        imp.random("cats dogs", MediaType.gif, RatingType.pg, new CompletionHandler<GifResponse>() {
+        imp.random("cats dogs", MediaType.gif, RatingType.pg, new CompletionHandler<MediaResponse>() {
             @Override
-            public void onComplete(final GifResponse result1, Throwable e) {
+            public void onComplete(final MediaResponse result1, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
-                Assert.assertNotNull(result1.getGif());
+                Assert.assertNotNull(result1.getData());
 
-                imp.random("cats dogs", MediaType.gif, RatingType.pg, new CompletionHandler<GifResponse>() {
+                imp.random("cats dogs", MediaType.gif, RatingType.pg, new CompletionHandler<MediaResponse>() {
                     @Override
-                    public void onComplete(GifResponse result2, Throwable e) {
+                    public void onComplete(MediaResponse result2, Throwable e) {
                         Assert.assertNull(e);
                         Assert.assertNotNull(result2);
-                        Assert.assertNotNull(result2.getGif());
+                        Assert.assertNotNull(result2.getData());
 
                         // The two gifs should be different
-                        Assert.assertFalse(result1.getGif().getId().equals(result2.getGif().getId()));
+                        Assert.assertFalse(result1.getData().getId().equals(result2.getData().getId()));
                         lock.countDown();
                     }
                 });

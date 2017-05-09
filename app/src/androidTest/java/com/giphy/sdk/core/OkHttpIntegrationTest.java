@@ -4,15 +4,19 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.giphy.sdk.core.models.Gif;
+import com.giphy.sdk.core.models.Media;
+import com.giphy.sdk.core.models.deserializers.BooleanDeserializer;
+import com.giphy.sdk.core.models.deserializers.DateDeserializer;
+import com.giphy.sdk.core.models.deserializers.ImagesAdapterFactory;
 import com.giphy.sdk.core.models.enums.MediaType;
 import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApiClient;
 import com.giphy.sdk.core.network.engine.NetworkSession;
 import com.giphy.sdk.core.network.response.GenericResponse;
-import com.giphy.sdk.core.network.response.MultipleGifsResponse;
+import com.giphy.sdk.core.network.response.ListMediaResponse;
 import com.giphy.sdk.core.threading.ApiTask;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import junit.framework.Assert;
 
@@ -20,6 +24,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
@@ -50,17 +55,17 @@ public class OkHttpIntegrationTest {
     public void testTrending() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.trending(MediaType.gif, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.trending(MediaType.gif, null, null, null, new CompletionHandler<ListMediaResponse>() {
             @Override
-            public void onComplete(MultipleGifsResponse result, Throwable e) {
+            public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertNotNull(result.getGifs());
-                Assert.assertTrue(result.getGifs().size() == 25);
+                Assert.assertNotNull(result.getData());
+                Assert.assertTrue(result.getData().size() == 25);
 
-                for (Gif gif : result.getGifs()) {
-                    Assert.assertNotNull(gif.getId());
-                    Assert.assertNotNull(gif.getImages());
+                for (Media media : result.getData()) {
+                    Assert.assertNotNull(media.getId());
+                    Assert.assertNotNull(media.getImages());
                 }
                 lock.countDown();
             }
@@ -77,18 +82,18 @@ public class OkHttpIntegrationTest {
     public void testSearch() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.search("hack", MediaType.gif, null, null, null, null, new CompletionHandler<MultipleGifsResponse>() {
+        imp.search("hack", MediaType.gif, null, null, null, null, new CompletionHandler<ListMediaResponse>() {
             @Override
-            public void onComplete(MultipleGifsResponse result, Throwable e) {
+            public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertNotNull(result.getGifs());
-                Assert.assertTrue(result.getGifs().size() == 25);
+                Assert.assertNotNull(result.getData());
+                Assert.assertTrue(result.getData().size() == 25);
 
-                for (Gif gif : result.getGifs()) {
-                    Assert.assertNotNull(gif.getId());
-                    Assert.assertNotNull(gif.getImages());
-                    Assert.assertNotNull(gif.getType());
+                for (Media media : result.getData()) {
+                    Assert.assertNotNull(media.getId());
+                    Assert.assertNotNull(media.getImages());
+                    Assert.assertNotNull(media.getType());
                 }
 
                 lock.countDown();
@@ -98,7 +103,11 @@ public class OkHttpIntegrationTest {
     }
 
     static class OkHttptNetworkSession implements NetworkSession {
-        private static final Gson GSON_INSTANCE = new Gson();
+        private static final Gson GSON_INSTANCE = new GsonBuilder()
+                .registerTypeHierarchyAdapter(Date.class, new DateDeserializer())
+                .registerTypeHierarchyAdapter(boolean.class, new BooleanDeserializer())
+                .registerTypeAdapterFactory(new ImagesAdapterFactory())
+                .create();
 
         @Override
         public <T extends GenericResponse> ApiTask<T> queryStringConnection(@NonNull final Uri serverUrl,

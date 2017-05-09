@@ -1,5 +1,6 @@
 package com.giphy.sdk.core.models;
 
+import com.giphy.sdk.core.models.enums.RenditionType;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -38,15 +39,9 @@ public class Images {
     @SerializedName("original_still")
     private Image originalStill;
     private Image looping;
-    @SerializedName("original_mp4")
-    private Image originalMp4;
     private Image preview;
     @SerializedName("downsized_small")
     private Image downsizedSmall;
-    @SerializedName("preview_gif")
-    private Image previewGif;
-    @SerializedName("preview_webp")
-    private Image previewWebp;
 
     public Image getFixedHeight() {
         return fixedHeight;
@@ -184,14 +179,6 @@ public class Images {
         this.looping = looping;
     }
 
-    public Image getOriginalMp4() {
-        return originalMp4;
-    }
-
-    public void setOriginalMp4(Image originalMp4) {
-        this.originalMp4 = originalMp4;
-    }
-
     public Image getPreview() {
         return preview;
     }
@@ -208,19 +195,63 @@ public class Images {
         this.downsizedSmall = downsizedSmall;
     }
 
-    public Image getPreviewGif() {
-        return previewGif;
-    }
-
-    public void setPreviewGif(Image previewGif) {
-        this.previewGif = previewGif;
-    }
-
-    public Image getPreviewWebp() {
-        return previewWebp;
-    }
-
-    public void setPreviewWebp(Image previewWebp) {
-        this.previewWebp = previewWebp;
+    public void postProcess() {
+        if (original != null) {
+            original.setRenditionType(RenditionType.original);
+        }
+        if (originalStill != null) {
+            originalStill.setRenditionType(RenditionType.originalStill);
+        }
+        if (fixedHeight != null) {
+            fixedHeight.setRenditionType(RenditionType.fixedHeight);
+        }
+        if (fixedHeightStill != null) {
+            fixedHeightStill.setRenditionType(RenditionType.fixedHeightStill);
+        }
+        if (fixedHeightDownsampled != null) {
+            fixedHeightDownsampled.setRenditionType(RenditionType.fixedHeightDownsampled);
+        }
+        if (fixedWidth != null) {
+            fixedWidth.setRenditionType(RenditionType.fixedWidth);
+        }
+        if (fixedWidthStill != null) {
+            fixedWidthStill.setRenditionType(RenditionType.fixedWidthStill);
+        }
+        if (fixedWidthDownsampled != null) {
+            fixedWidthDownsampled.setRenditionType(RenditionType.fixedWidthDownsampled);
+        }
+        if (fixedHeightSmall != null) {
+            fixedHeightSmall.setRenditionType(RenditionType.fixedHeightSmall);
+        }
+        if (fixedHeightSmallStill != null) {
+            fixedHeightSmallStill.setRenditionType(RenditionType.fixedHeightSmallStill);
+        }
+        if (fixedWidthSmall != null) {
+            fixedWidthSmall.setRenditionType(RenditionType.fixedWidthSmall);
+        }
+        if (fixedWidthSmallStill != null) {
+            fixedWidthSmallStill.setRenditionType(RenditionType.fixedWidthSmallStill);
+        }
+        if (downsized != null) {
+            downsized.setRenditionType(RenditionType.downsized);
+        }
+        if (downsizedStill != null) {
+            downsizedStill.setRenditionType(RenditionType.downsizedStill);
+        }
+        if (downsizedLarge != null) {
+            downsizedLarge.setRenditionType(RenditionType.downsizedLarge);
+        }
+        if (downsizedMedium != null) {
+            downsizedMedium.setRenditionType(RenditionType.downsizedMedium);
+        }
+        if (looping != null) {
+            looping.setRenditionType(RenditionType.looping);
+        }
+        if (preview != null) {
+            preview.setRenditionType(RenditionType.preview);
+        }
+        if (downsizedSmall != null) {
+            downsizedSmall.setRenditionType(RenditionType.downsizedSmall);
+        }
     }
 }

@@ -5,7 +5,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.giphy.sdk.core.models.deserializers.BooleanDeserializer;
+import com.giphy.sdk.core.models.deserializers.DateDeserializer;
+import com.giphy.sdk.core.models.deserializers.ImagesAdapterFactory;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 
 import java.io.BufferedReader;
@@ -14,6 +18,7 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
@@ -26,7 +31,11 @@ import com.giphy.sdk.core.threading.ApiTask;
  */
 
 public class DefaultNetworkSession implements NetworkSession {
-    private static final Gson GSON_INSTANCE = new Gson();
+    private static final Gson GSON_INSTANCE = new GsonBuilder()
+            .registerTypeHierarchyAdapter(Date.class, new DateDeserializer())
+            .registerTypeHierarchyAdapter(boolean.class, new BooleanDeserializer())
+            .registerTypeAdapterFactory(new ImagesAdapterFactory())
+            .create();
 
     @Override
     public <T extends GenericResponse> ApiTask<T> queryStringConnection(@NonNull final Uri serverUrl,

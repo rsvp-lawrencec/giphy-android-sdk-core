@@ -12,7 +12,7 @@ public class Category {
     private String name;
     @SerializedName("name_encoded")
     private String nameEncoded;
-    private Gif gif;
+    private Media gif;
     @SerializedName("subcategories")
     private List<Category> subCategories;
 
@@ -32,11 +32,11 @@ public class Category {
         this.nameEncoded = nameEncoded;
     }
 
-    public Gif getGif() {
+    public Media getGif() {
         return gif;
     }
 
-    public void setGif(Gif gif) {
+    public void setGif(Media gif) {
         this.gif = gif;
     }
 

@@ -5,7 +5,7 @@ import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApi;
 import com.giphy.sdk.core.network.api.GPHApiClient;
 import com.giphy.sdk.core.network.engine.ApiException;
-import com.giphy.sdk.core.network.response.TermSuggestionsResponse;
+import com.giphy.sdk.core.network.response.ListTermSuggestionResponse;
 
 import junit.framework.Assert;
 
@@ -37,9 +37,9 @@ public class TermSuggestionTest {
     public void testBase() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.termSuggestions("come", new CompletionHandler<TermSuggestionsResponse>() {
+        imp.termSuggestions("come", new CompletionHandler<ListTermSuggestionResponse>() {
             @Override
-            public void onComplete(TermSuggestionsResponse result, Throwable e) {
+            public void onComplete(ListTermSuggestionResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertTrue(result.getData().size() > 0);
@@ -64,9 +64,9 @@ public class TermSuggestionTest {
         final CountDownLatch lock = new CountDownLatch(1);
 
         final GPHApi client = new GPHApiClient("dc6zaTOxFJmzC");
-        client.termSuggestions("come", new CompletionHandler<TermSuggestionsResponse>() {
+        client.termSuggestions("come", new CompletionHandler<ListTermSuggestionResponse>() {
             @Override
-            public void onComplete(TermSuggestionsResponse result, Throwable e) {
+            public void onComplete(ListTermSuggestionResponse result, Throwable e) {
                 Assert.assertNull(result);
                 Assert.assertNotNull(e);
                 Assert.assertNotNull(e.getCause());

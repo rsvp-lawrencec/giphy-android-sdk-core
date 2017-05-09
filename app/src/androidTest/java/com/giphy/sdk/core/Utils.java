@@ -1,6 +1,6 @@
 package com.giphy.sdk.core;
 
-import com.giphy.sdk.core.models.Gif;
+import com.giphy.sdk.core.models.Media;
 
 import junit.framework.Assert;
 
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Utils {
 
-    public static void checkOffsetWorks(List<Gif> result1, List<Gif> result2) {
+    public static void checkOffsetWorks(List<Media> result1, List<Media> result2) {
         checkOffsetWorks(result1, result2, 20);
     }
     /**
@@ -23,7 +23,7 @@ public class Utils {
      * @param maxLength
      * @return
      */
-    public static void checkOffsetWorks(List<Gif> result1, List<Gif> result2, int maxLength) {
+    public static void checkOffsetWorks(List<Media> result1, List<Media> result2, int maxLength) {
         // We first find the exact offset
         int offset = 0;
         for (int i = 0; i < result1.size(); i ++) {

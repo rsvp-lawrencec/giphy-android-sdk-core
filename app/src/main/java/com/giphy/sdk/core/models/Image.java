@@ -1,5 +1,6 @@
 package com.giphy.sdk.core.models;
 
+import com.giphy.sdk.core.models.enums.RenditionType;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -22,6 +23,8 @@ public class Image {
     private String webPUrl;
     @SerializedName("webp_size")
     private String webPSize;
+
+    private RenditionType renditionType;
 
     public String getGifUrl() {
         return gifUrl;
@@ -93,5 +96,13 @@ public class Image {
 
     public void setWebPSize(String webPSize) {
         this.webPSize = webPSize;
+    }
+
+    public RenditionType getRenditionType() {
+        return renditionType;
+    }
+
+    public void setRenditionType(RenditionType renditionType) {
+        this.renditionType = renditionType;
     }
 }

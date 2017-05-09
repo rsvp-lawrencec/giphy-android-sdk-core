@@ -2,7 +2,7 @@ package com.giphy.sdk.core;
 
 import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApiClient;
-import com.giphy.sdk.core.network.response.MultipleGifsResponse;
+import com.giphy.sdk.core.network.response.ListMediaResponse;
 
 import junit.framework.Assert;
 
@@ -39,12 +39,12 @@ public class GifByIdsTest {
         gifIds.add("darAMUceRAs0w");
         gifIds.add("l4FGF1Lk3GibtKchO");
 
-        imp.gifByIds(gifIds, new CompletionHandler<MultipleGifsResponse>() {
+        imp.gifByIds(gifIds, new CompletionHandler<ListMediaResponse>() {
             @Override
-            public void onComplete(MultipleGifsResponse result, Throwable e) {
+            public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getGifs().size() == gifIds.size());
+                Assert.assertTrue(result.getData().size() == gifIds.size());
 
                 lock.countDown();
             }
@@ -65,14 +65,14 @@ public class GifByIdsTest {
         gifIds.add("darAMUceRAs0w");
         gifIds.add("l4FGF1Lk3GibtKchO");
 
-        imp.gifByIds(gifIds, new CompletionHandler<MultipleGifsResponse>() {
+        imp.gifByIds(gifIds, new CompletionHandler<ListMediaResponse>() {
             @Override
-            public void onComplete(MultipleGifsResponse result, Throwable e) {
+            public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getGifs().size() == gifIds.size());
+                Assert.assertTrue(result.getData().size() == gifIds.size());
                 for (int i = 0; i < gifIds.size(); i ++) {
-                    Assert.assertEquals(result.getGifs().get(i).getId(), gifIds.get(i));
+                    Assert.assertEquals(result.getData().get(i).getId(), gifIds.get(i));
                 }
 
                 lock.countDown();
@@ -94,14 +94,14 @@ public class GifByIdsTest {
         gifIds.add("darAMUceRAs0w_ttttttttt");
         gifIds.add("l4FGF1Lk3GibtKchO");
 
-        imp.gifByIds(gifIds, new CompletionHandler<MultipleGifsResponse>() {
+        imp.gifByIds(gifIds, new CompletionHandler<ListMediaResponse>() {
             @Override
-            public void onComplete(MultipleGifsResponse result, Throwable e) {
+            public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getGifs().size() == gifIds.size() - 1);
-                Assert.assertEquals(result.getGifs().get(0).getId(), gifIds.get(0));
-                Assert.assertEquals(result.getGifs().get(1).getId(), gifIds.get(2));
+                Assert.assertTrue(result.getData().size() == gifIds.size() - 1);
+                Assert.assertEquals(result.getData().get(0).getId(), gifIds.get(0));
+                Assert.assertEquals(result.getData().get(1).getId(), gifIds.get(2));
 
                 lock.countDown();
             }

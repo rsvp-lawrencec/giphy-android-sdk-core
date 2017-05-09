@@ -2,28 +2,26 @@ package com.giphy.sdk.core.network.response;
 
 import com.giphy.sdk.core.models.Meta;
 import com.giphy.sdk.core.models.Pagination;
-import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import com.giphy.sdk.core.models.Gif;
+import com.giphy.sdk.core.models.Media;
 
 /**
  * Created by bogdantmm on 4/20/17.
  */
 
-public class MultipleGifsResponse implements GenericResponse {
-    @SerializedName("data")
-    private List<Gif> gifs;
+public class ListMediaResponse implements GenericResponse {
+    private List<Media> data;
     public Pagination pagination;
     public Meta meta;
 
-    public List<Gif> getGifs() {
-        return gifs;
+    public List<Media> getData() {
+        return data;
     }
 
-    public void setGifs(List<Gif> gifs) {
-        this.gifs = gifs;
+    public void setData(List<Media> data) {
+        this.data = data;
     }
 
     public Pagination getPagination() {
