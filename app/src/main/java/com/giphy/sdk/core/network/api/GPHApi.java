@@ -81,11 +81,13 @@ public interface GPHApi {
      * Returns a list of categories
      * @param limit
      * @param offset
+     * @param sort
      * @param completionHandler
      * @return
      */
     @NonNull
     public AsyncTask categoriesForGifs(@Nullable Integer limit, @Nullable Integer offset,
+                                       @Nullable String sort,
                                        @NonNull final CompletionHandler<ListCategoryResponse> completionHandler);
 
     /**

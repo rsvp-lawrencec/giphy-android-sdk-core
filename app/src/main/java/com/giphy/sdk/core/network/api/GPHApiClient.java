@@ -137,6 +137,7 @@ public class GPHApiClient implements GPHApi {
     @Override
     @NonNull
     public AsyncTask categoriesForGifs(@Nullable Integer limit, @Nullable Integer offset,
+                                       @Nullable String sort,
                                        @NonNull final CompletionHandler<ListCategoryResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
         params.put("api_key", apiKey);
@@ -145,6 +146,9 @@ public class GPHApiClient implements GPHApi {
         }
         if (offset != null) {
             params.put("offset", offset.toString());
+        }
+        if (sort != null) {
+            params.put("sort", sort);
         }
         return queryStringConnectionWrapper(Constants.SERVER_URL,
                 Constants.Paths.CATEGORIES, "GET", ListCategoryResponse.class, params,
