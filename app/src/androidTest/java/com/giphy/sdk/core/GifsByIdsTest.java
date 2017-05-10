@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  * Created by bogdantmm on 4/21/17.
  */
 
-public class GifByIdsTest {
+public class GifsByIdsTest {
     GPHApiClient imp;
 
     @Before
@@ -39,7 +39,7 @@ public class GifByIdsTest {
         gifIds.add("darAMUceRAs0w");
         gifIds.add("l4FGF1Lk3GibtKchO");
 
-        imp.gifByIds(gifIds, new CompletionHandler<ListMediaResponse>() {
+        imp.gifsByIds(gifIds, new CompletionHandler<ListMediaResponse>() {
             @Override
             public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
@@ -65,7 +65,7 @@ public class GifByIdsTest {
         gifIds.add("darAMUceRAs0w");
         gifIds.add("l4FGF1Lk3GibtKchO");
 
-        imp.gifByIds(gifIds, new CompletionHandler<ListMediaResponse>() {
+        imp.gifsByIds(gifIds, new CompletionHandler<ListMediaResponse>() {
             @Override
             public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
@@ -94,7 +94,7 @@ public class GifByIdsTest {
         gifIds.add("darAMUceRAs0w_ttttttttt");
         gifIds.add("l4FGF1Lk3GibtKchO");
 
-        imp.gifByIds(gifIds, new CompletionHandler<ListMediaResponse>() {
+        imp.gifsByIds(gifIds, new CompletionHandler<ListMediaResponse>() {
             @Override
             public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);

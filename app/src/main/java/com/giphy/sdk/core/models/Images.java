@@ -43,6 +43,8 @@ public class Images {
     @SerializedName("downsized_small")
     private Image downsizedSmall;
 
+    private String mediaId;
+
     public Image getFixedHeight() {
         return fixedHeight;
     }
@@ -195,62 +197,92 @@ public class Images {
         this.downsizedSmall = downsizedSmall;
     }
 
+    public String getMediaId() {
+        return mediaId;
+    }
+
+    public void setMediaId(String mediaId) {
+        this.mediaId = mediaId;
+    }
+
+    /**
+     * Passed down the rendition type and media id to each image
+     */
     public void postProcess() {
         if (original != null) {
+            original.setMediaId(mediaId);
             original.setRenditionType(RenditionType.original);
         }
         if (originalStill != null) {
+            originalStill.setMediaId(mediaId);
             originalStill.setRenditionType(RenditionType.originalStill);
         }
         if (fixedHeight != null) {
+            fixedHeight.setMediaId(mediaId);
             fixedHeight.setRenditionType(RenditionType.fixedHeight);
         }
         if (fixedHeightStill != null) {
+            fixedHeightStill.setMediaId(mediaId);
             fixedHeightStill.setRenditionType(RenditionType.fixedHeightStill);
         }
         if (fixedHeightDownsampled != null) {
+            fixedHeightDownsampled.setMediaId(mediaId);
             fixedHeightDownsampled.setRenditionType(RenditionType.fixedHeightDownsampled);
         }
         if (fixedWidth != null) {
+            fixedWidth.setMediaId(mediaId);
             fixedWidth.setRenditionType(RenditionType.fixedWidth);
         }
         if (fixedWidthStill != null) {
+            fixedWidthStill.setMediaId(mediaId);
             fixedWidthStill.setRenditionType(RenditionType.fixedWidthStill);
         }
         if (fixedWidthDownsampled != null) {
+            fixedWidthDownsampled.setMediaId(mediaId);
             fixedWidthDownsampled.setRenditionType(RenditionType.fixedWidthDownsampled);
         }
         if (fixedHeightSmall != null) {
+            fixedHeightSmall.setMediaId(mediaId);
             fixedHeightSmall.setRenditionType(RenditionType.fixedHeightSmall);
         }
         if (fixedHeightSmallStill != null) {
+            fixedHeightSmallStill.setMediaId(mediaId);
             fixedHeightSmallStill.setRenditionType(RenditionType.fixedHeightSmallStill);
         }
         if (fixedWidthSmall != null) {
+            fixedWidthSmall.setMediaId(mediaId);
             fixedWidthSmall.setRenditionType(RenditionType.fixedWidthSmall);
         }
         if (fixedWidthSmallStill != null) {
+            fixedWidthSmallStill.setMediaId(mediaId);
             fixedWidthSmallStill.setRenditionType(RenditionType.fixedWidthSmallStill);
         }
         if (downsized != null) {
+            downsized.setMediaId(mediaId);
             downsized.setRenditionType(RenditionType.downsized);
         }
         if (downsizedStill != null) {
+            downsizedStill.setMediaId(mediaId);
             downsizedStill.setRenditionType(RenditionType.downsizedStill);
         }
         if (downsizedLarge != null) {
+            downsizedLarge.setMediaId(mediaId);
             downsizedLarge.setRenditionType(RenditionType.downsizedLarge);
         }
         if (downsizedMedium != null) {
+            downsizedMedium.setMediaId(mediaId);
             downsizedMedium.setRenditionType(RenditionType.downsizedMedium);
         }
         if (looping != null) {
+            looping.setMediaId(mediaId);
             looping.setRenditionType(RenditionType.looping);
         }
         if (preview != null) {
+            preview.setMediaId(mediaId);
             preview.setRenditionType(RenditionType.preview);
         }
         if (downsizedSmall != null) {
+            downsizedSmall.setMediaId(mediaId);
             downsizedSmall.setRenditionType(RenditionType.downsizedSmall);
         }
     }

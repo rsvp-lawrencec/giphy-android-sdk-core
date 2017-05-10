@@ -226,11 +226,11 @@ public class TrendingTest {
     }
 
     /**
-     * Test renditions
+     * Test renditions and media id
      * @throws Exception
      */
     @Test
-    public void testRenditions() throws Exception {
+    public void testRenditionsAndMediaId() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
         final GPHApi imp = new GPHApiClient("4OMJYpPoYwVpe");
         imp.trending(MediaType.gif, null, null, null, new CompletionHandler<ListMediaResponse>() {
@@ -242,18 +242,23 @@ public class TrendingTest {
 
                 for (Media media : result.getData()) {
                     if (media.getImages().getOriginal() != null) {
+                        Assert.assertEquals(media.getImages().getOriginal().getMediaId(), media.getId());
                         Assert.assertTrue(media.getImages().getOriginal().getRenditionType() == RenditionType.original);
                     }
                     if (media.getImages().getPreview() != null) {
+                        Assert.assertEquals(media.getImages().getPreview().getMediaId(), media.getId());
                         Assert.assertTrue(media.getImages().getPreview().getRenditionType() == RenditionType.preview);
                     }
                     if (media.getImages().getFixedWidth() != null) {
+                        Assert.assertEquals(media.getImages().getFixedWidth().getMediaId(), media.getId());
                         Assert.assertTrue(media.getImages().getFixedWidth().getRenditionType() == RenditionType.fixedWidth);
                     }
                     if (media.getImages().getFixedHeight() != null) {
+                        Assert.assertEquals(media.getImages().getFixedHeight().getMediaId(), media.getId());
                         Assert.assertTrue(media.getImages().getFixedHeight().getRenditionType() == RenditionType.fixedHeight);
                     }
                     if (media.getImages().getOriginalStill() != null) {
+                        Assert.assertEquals(media.getImages().getOriginalStill().getMediaId(), media.getId());
                         Assert.assertTrue(media.getImages().getOriginalStill().getRenditionType() == RenditionType.originalStill);
                     }
                 }

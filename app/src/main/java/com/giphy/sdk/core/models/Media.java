@@ -38,7 +38,7 @@ public class Media {
     private String sourcePostUrl;
 
     @SerializedName("update_datetime")
-    private String updateDate;
+    private Date updateDate;
     @SerializedName("create_datetime")
     private Date createDate;
     @SerializedName("import_datetime")
@@ -191,11 +191,11 @@ public class Media {
         this.sourcePostUrl = sourcePostUrl;
     }
 
-    public String getUpdateDate() {
+    public Date getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(String updateDate) {
+    public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
 
@@ -285,5 +285,15 @@ public class Media {
 
     public void setIsSticker(boolean isSticker) {
         this.isSticker = isSticker;
+    }
+
+    /**
+     * Passed down the media id to the @images field and call postProcess function on @images field
+     */
+    public void postProcess() {
+        if (images != null) {
+            images.setMediaId(id);
+            images.postProcess();
+        }
     }
 }

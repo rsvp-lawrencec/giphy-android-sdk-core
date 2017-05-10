@@ -134,8 +134,8 @@ public interface GPHApi {
      * @return
      */
     @NonNull
-    public AsyncTask gifByIds(@NonNull List<String> gifIds,
-                              @NonNull final CompletionHandler<ListMediaResponse> completionHandler);
+    public AsyncTask gifsByIds(@NonNull List<String> gifIds,
+                               @NonNull final CompletionHandler<ListMediaResponse> completionHandler);
 
     /**
      * Returns meta data about multiple gifs

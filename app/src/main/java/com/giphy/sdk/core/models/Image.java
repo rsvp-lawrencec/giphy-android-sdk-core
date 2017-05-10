@@ -24,6 +24,7 @@ public class Image {
     @SerializedName("webp_size")
     private String webPSize;
 
+    private String mediaId;
     private RenditionType renditionType;
 
     public String getGifUrl() {
@@ -96,6 +97,14 @@ public class Image {
 
     public void setWebPSize(String webPSize) {
         this.webPSize = webPSize;
+    }
+
+    public String getMediaId() {
+        return mediaId;
+    }
+
+    public void setMediaId(String mediaId) {
+        this.mediaId = mediaId;
     }
 
     public RenditionType getRenditionType() {

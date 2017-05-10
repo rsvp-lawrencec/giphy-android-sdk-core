@@ -205,8 +205,8 @@ public class GPHApiClient implements GPHApi {
 
     @Override
     @NonNull
-    public AsyncTask gifByIds(@NonNull List<String> gifIds,
-                              @NonNull final CompletionHandler<ListMediaResponse> completionHandler) {
+    public AsyncTask gifsByIds(@NonNull List<String> gifIds,
+                               @NonNull final CompletionHandler<ListMediaResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
         params.put("api_key", apiKey);
 

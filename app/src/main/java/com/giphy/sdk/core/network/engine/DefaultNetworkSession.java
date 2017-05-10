@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.giphy.sdk.core.models.deserializers.BooleanDeserializer;
 import com.giphy.sdk.core.models.deserializers.DateDeserializer;
-import com.giphy.sdk.core.models.deserializers.ImagesAdapterFactory;
+import com.giphy.sdk.core.models.deserializers.MainAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
@@ -34,7 +34,7 @@ public class DefaultNetworkSession implements NetworkSession {
     private static final Gson GSON_INSTANCE = new GsonBuilder()
             .registerTypeHierarchyAdapter(Date.class, new DateDeserializer())
             .registerTypeHierarchyAdapter(boolean.class, new BooleanDeserializer())
-            .registerTypeAdapterFactory(new ImagesAdapterFactory())
+            .registerTypeAdapterFactory(new MainAdapterFactory())
             .create();
 
     @Override

@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import com.giphy.sdk.core.models.Media;
 import com.giphy.sdk.core.models.deserializers.BooleanDeserializer;
 import com.giphy.sdk.core.models.deserializers.DateDeserializer;
-import com.giphy.sdk.core.models.deserializers.ImagesAdapterFactory;
+import com.giphy.sdk.core.models.deserializers.MainAdapterFactory;
 import com.giphy.sdk.core.models.enums.MediaType;
 import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApiClient;
@@ -106,7 +106,7 @@ public class OkHttpIntegrationTest {
         private static final Gson GSON_INSTANCE = new GsonBuilder()
                 .registerTypeHierarchyAdapter(Date.class, new DateDeserializer())
                 .registerTypeHierarchyAdapter(boolean.class, new BooleanDeserializer())
-                .registerTypeAdapterFactory(new ImagesAdapterFactory())
+                .registerTypeAdapterFactory(new MainAdapterFactory())
                 .create();
 
         @Override
