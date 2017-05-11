@@ -10,19 +10,19 @@ import com.google.gson.annotations.SerializedName;
 public class Image {
     @SerializedName("url")
     private String gifUrl;
-    private String width;
-    private String height;
+    private int width;
+    private int height;
     @SerializedName("size")
-    private String gifSize;
-    private String frames;
+    private int gifSize;
+    private int frames;
     @SerializedName("mp4")
     private String mp4Url;
     @SerializedName("mp4_size")
-    private String mp4Size;
+    private int mp4Size;
     @SerializedName("webp")
     private String webPUrl;
     @SerializedName("webp_size")
-    private String webPSize;
+    private int webPSize;
 
     private String mediaId;
     private RenditionType renditionType;
@@ -35,35 +35,35 @@ public class Image {
         this.gifUrl = gifUrl;
     }
 
-    public String getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public void setWidth(String width) {
+    public void setWidth(int width) {
         this.width = width;
     }
 
-    public String getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(String height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
-    public String getGifSize() {
+    public int getGifSize() {
         return gifSize;
     }
 
-    public void setGifSize(String gifSize) {
+    public void setGifSize(int gifSize) {
         this.gifSize = gifSize;
     }
 
-    public String getFrames() {
+    public int getFrames() {
         return frames;
     }
 
-    public void setFrames(String frames) {
+    public void setFrames(int frames) {
         this.frames = frames;
     }
 
@@ -75,11 +75,11 @@ public class Image {
         this.mp4Url = mp4Url;
     }
 
-    public String getMp4Size() {
+    public int getMp4Size() {
         return mp4Size;
     }
 
-    public void setMp4Size(String mp4Size) {
+    public void setMp4Size(int mp4Size) {
         this.mp4Size = mp4Size;
     }
 
@@ -91,11 +91,11 @@ public class Image {
         this.webPUrl = webPUrl;
     }
 
-    public String getWebPSize() {
+    public int getWebPSize() {
         return webPSize;
     }
 
-    public void setWebPSize(String webPSize) {
+    public void setWebPSize(int webPSize) {
         this.webPSize = webPSize;
     }
 

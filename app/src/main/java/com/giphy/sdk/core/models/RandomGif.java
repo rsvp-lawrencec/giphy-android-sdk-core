@@ -18,39 +18,39 @@ public class RandomGif {
     @SerializedName("image_mp4_url")
     private String imageMp4Url;
     @SerializedName("image_frames")
-    private String imageFrames;
+    private int imageFrames;
     @SerializedName("image_width")
-    private String imageWidth;
+    private int imageWidth;
     @SerializedName("image_height")
-    private String imageHeight;
+    private int imageHeight;
     @SerializedName("fixed_height_downsampled_url")
     private String fixedHeightDownsampledUrl;
     @SerializedName("fixed_height_downsampled_width")
-    private String fixedHeightDownsampledWidth;
+    private int fixedHeightDownsampledWidth;
     @SerializedName("fixed_height_downsampled_height")
-    private String fixedHeightDownsampledHeight;
+    private int fixedHeightDownsampledHeight;
     @SerializedName("fixed_width_downsampled_url")
     private String fixedWidthDownsampledUrl;
     @SerializedName("fixed_width_downsampled_width")
-    private String fixedWidthDownsampledWidth;
+    private int fixedWidthDownsampledWidth;
     @SerializedName("fixed_width_downsampled_height")
-    private String fixedWidthDownsampledHeight;
+    private int fixedWidthDownsampledHeight;
     @SerializedName("fixed_height_small_url")
     private String fixedHeightSmallUrl;
     @SerializedName("fixed_height_small_still_url")
     private String fixedHeightSmallStillUrl;
     @SerializedName("fixed_height_small_width")
-    private String fixedHeightSmallWidth;
+    private int fixedHeightSmallWidth;
     @SerializedName("fixed_height_small_height")
-    private String fixedHeightSmallHeight;
+    private int fixedHeightSmallHeight;
     @SerializedName("fixed_width_small_url")
     private String fixedWidthSmallUrl;
     @SerializedName("fixed_width_small_still_url")
     private String fixedWidthSmallStillUrl;
     @SerializedName("fixed_width_small_width")
-    private String fixedWidthSmallWidth;
+    private int fixedWidthSmallWidth;
     @SerializedName("fixed_width_small_height")
-    private String fixedWidthSmallHeight;
+    private int fixedWidthSmallHeight;
     private String username;
     private String caption;
 

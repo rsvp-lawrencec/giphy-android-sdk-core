@@ -2,6 +2,7 @@ package com.giphy.sdk.core;
 
 import android.os.AsyncTask;
 
+import com.giphy.sdk.core.models.Media;
 import com.giphy.sdk.core.models.enums.LangType;
 import com.giphy.sdk.core.models.enums.MediaType;
 import com.giphy.sdk.core.models.enums.RatingType;
@@ -294,6 +295,34 @@ public class SearchTest {
         lock.await(20, TimeUnit.MILLISECONDS);
         task.cancel(true);
 
+        lock.await(2000, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Test if images have width & height & frames
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testWidthHeight() throws Exception {
+        final CountDownLatch lock = new CountDownLatch(1);
+
+        imp.search("hack", MediaType.gif, null, null, null, null, new CompletionHandler<ListMediaResponse>() {
+            @Override
+            public void onComplete(ListMediaResponse result, Throwable e) {
+                Assert.assertNull(e);
+                Assert.assertNotNull(result);
+                Assert.assertTrue(result.getData().size() == 25);
+
+                for (Media media : result.getData()) {
+                    Assert.assertTrue(media.getImages().getOriginal().getHeight() > 0);
+                    Assert.assertTrue(media.getImages().getOriginal().getWidth() > 0);
+                    Assert.assertTrue(media.getImages().getOriginal().getFrames() > 0);
+                }
+
+                lock.countDown();
+            }
+        });
         lock.await(2000, TimeUnit.MILLISECONDS);
     }
 }
