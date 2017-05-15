@@ -1,4 +1,260 @@
-# GIPHY Android SDK Core
+# Giphy Core SDK for Android
+
+
+The **Giphy Core SDK** is a wrapper around [Giphy API](https://github.com/Giphy/GiphyAPI).
+
+[Giphy](https://www.giphy.com) is the best way to search, share, and discover GIFs on the Internet. Similar to the way other search engines work, the majority of our content comes from indexing based on the best and most popular GIFs and search terms across the web. We organize all those GIFs so you can find the good content easier and share it out through your social channels. We also feature some of our favorite GIF artists and work with brands to create and promote their original GIF content.
+
+[![](https://media.giphy.com/media/5xaOcLOqNmWHaLeB14I/giphy.gif)]()
+
+# Getting Started
+
+### Supported Platforms
+
+**Android minSdkVersion 14**
+
+### Supported End-points
+
+* [Search Gifs/Stickers](#search-endpoint)
+* [Trending Gifs/Stickers](#trending-endpoint)
+* [Translate Gifs/Stickers](#translate-endpoint)
+* [Random Gifs/Stickers](#random-endpoint)
+* [GIF by ID](#get-gif-by-id-endpoint)
+* [GIFs by IDs](#get-gifs-by-ids-endpoint)
+* [Categories for Gifs](#translate-endpoint)
+* [Subcategories for Gifs](#translate-endpoint)
+* [GIFs by Category](#translate-endpoint)
+* [Query Suggestions](#translate-endpoint)
+
+
+# Setup
+
+### Local gradle dependency
+
+Clone the sdk into the same folder as your app
+```git
+git clone https://github.com/Giphy/giphy-android-sdk-core.git
+```
+Include the sdk as a module by adding the following lines in ```settings.gradle``` file:
+```gradle
+include ':app', ':giphy-android-sdk-core'
+
+project(':giphy-android-sdk-core').projectDir = new File(settingsDir, '../giphy-android-sdk-core/app')
+```
+
+Add the local module as a dependency in your ```build.gradle``` file:
+```gradle
+compile project(':giphy-android-sdk-core')
+```
+
+### Maven dependency (to be done)
+
+### Initialize Giphy SDK
+
+```java
+GPHApi client = new GPHApiClient("YOUR_API_KEY");
+```
+
+### Search Endpoint
+Search all Giphy GIFs for a word or phrase. Punctuation will be stripped and ignored.
+
+```java
+/// Gif Search
+client.search("cats", MediaType.gif, null, null, null, null, new CompletionHandler<ListMediaResponse>() {
+    @Override
+    public void onComplete(ListMediaResponse result, Throwable e) {
+        if (result == null) {
+            // Do what you want to do with the error
+        } else {
+            if (result.getData() != null) {
+                for (Media gif : result.getData()) {
+                    Log.v("giphy", gif.getId());
+                }
+            } else {
+                Log.e("giphy error", "No results found");
+            }
+        }
+    }
+});
+
+/// Sticker Search
+client.search("cats", MediaType.sticker, null, null, null, null, new CompletionHandler<ListMediaResponse>() {
+    @Override
+    public void onComplete(ListMediaResponse result, Throwable e) {
+        if (result == null) {
+            // Do what you want to do with the error
+        } else {
+            if (result.getData() != null) {
+                for (Media gif : result.getData()) {
+                    Log.v("giphy", gif.getId());
+                }
+            } else {
+                Log.e("giphy error", "No results found");
+            }
+        }
+    }
+});
+```
+### Trending Endpoint
+Fetch GIFs currently trending online. Hand curated by the Giphy editorial team. The data returned mirrors the GIFs showcased on the [Giphy](https://www.giphy.com) homepage.
+
+```swift
+/// Trending Gifs
+client.trending(MediaType.gif, null, null, null, new CompletionHandler<ListMediaResponse>() {
+    @Override
+    public void onComplete(MediaResponse result, Throwable e) {
+        if (result == null) {
+            // Do what you want to do with the error
+        } else {
+            if (result.getData() != null) {
+                for (Media gif : result.getData()) {
+                    Log.v("giphy", gif.getId());
+                }
+            } else {
+                Log.e("giphy error", "No results found");
+            }
+        }
+    }
+}
+
+/// Trending Stickers
+client.trending(MediaType.sticker, null, null, null, new CompletionHandler<ListMediaResponse>() {
+    @Override
+    public void onComplete(MediaResponse result, Throwable e) {
+        if (result == null) {
+            // Do what you want to do with the error
+        } else {
+            if (result.getData() != null) {
+                for (Media gif : result.getData()) {
+                    Log.v("giphy", gif.getId());
+                }
+            } else {
+                Log.e("giphy error", "No results found");
+            }
+        }
+    }
+}
+```
+
+### Translate Endpoint
+The translate API draws on search, but uses the Giphy "special sauce" to handle translating from one vocabulary to another. In this case, words and phrases to GIFs. Example implementations of translate can be found in the Giphy Slack, Hipchat, Wire, or Dasher integrations. Use a plus or url encode for phrases.
+
+```swift
+/// Translate to a Gif
+client.translate("hungry", MediaType.gif, null, null, new CompletionHandler<MediaResponse>() {
+    @Override
+    public void onComplete(MediaResponse result, Throwable e) {
+        if (result == null) {
+            // Do what you want to do with the error
+        } else {
+            if (result.getData() != null) {
+                Log.v("giphy", result.getData().getId());
+            } else {
+                Log.e("giphy error", "No results found");
+            }
+        }
+    }
+});
+
+/// Translate to a Sticker
+client.translate("hungry", MediaType.sticker, null, null, new CompletionHandler<MediaResponse>() {
+    @Override
+    public void onComplete(MediaResponse result, Throwable e) {
+        if (result == null) {
+            // Do what you want to do with the error
+        } else {
+            if (result.getData() != null) {
+                Log.v("giphy", result.getData().getId());
+            } else {
+                Log.e("giphy error", "No results found");
+            }
+        }
+    }
+});
+```
+
+### Random Endpoint
+Returns a random GIF, limited by tag. Excluding the tag parameter will return a random GIF from the Giphy catalog.
+
+```swift
+/// Random Gif
+client.random("cats dogs", MediaType.gif, null, new CompletionHandler<MediaResponse>() {
+    @Override
+    public void onComplete(MediaResponse result, Throwable e) {
+        if (result == null) {
+            // Do what you want to do with the error
+        } else {
+            if (result.getData() != null) {
+                Log.v("giphy", result.getData().getId());
+            } else {
+                Log.e("giphy error", "No results found");
+            }
+        }
+    }
+});
+
+/// Random Sticker
+client.random("cats dogs", MediaType.sticker, null, new CompletionHandler<MediaResponse>() {
+    @Override
+    public void onComplete(MediaResponse result, Throwable e) {
+        if (result == null) {
+            // Do what you want to do with the error
+        } else {
+            if (result.getData() != null) {
+                Log.v("giphy", result.getData().getId());
+            } else {
+                Log.e("giphy error", "No results found");
+            }
+        }
+    }
+});
+```
+
+### Get GIF by ID Endpoint
+Returns meta data about a GIF, by GIF id. In the below example, the GIF ID is "feqkVgjJpYtjy"
+
+```swift
+/// Gif by Id
+client.gifById("feqkVgjJpYtjy", new CompletionHandler<MediaResponse>() {
+    @Override
+    public void onComplete(MediaResponse result, Throwable e) {
+        if (result == null) {
+            // Do what you want to do with the error
+        } else {
+            if (result.getData() != null) {
+                Log.v("giphy", result.getData().getId());
+            } else {
+                Log.e("giphy error", "No results found");
+            }
+        }
+    }
+});
+```
+
+### Get GIFs by IDs Endpoint
+A multiget version of the get GIF by ID endpoint. In this case the IDs are feqkVgjJpYtjy and 7rzbxdu0ZEXLy.
+
+```swift
+/// Gifs by Ids
+List<String> gifIds = Arrays.asList("feqkVgjJpYtjy", "7rzbxdu0ZEXLy");
+
+imp.gifsByIds(gifIds, new CompletionHandler<ListMediaResponse>() {
+    @Override
+    public void onComplete(ListMediaResponse result, Throwable e) {
+        if (result == null) {
+            // Do what you want to do with the error
+        } else {
+            if (result.getData() != null) {
+                for (Media gif : result.getData()) {
+                    Log.v("giphy", gif.getId());
+                }
+            } else {
+                Log.e("giphy error", "No results found");
+            }
+        }
+    }
+});
+```
 
 # CONTRIBUTING
 
