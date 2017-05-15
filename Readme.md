@@ -98,7 +98,7 @@ client.search("cats", MediaType.sticker, null, null, null, null, new CompletionH
 ### Trending Endpoint
 Fetch GIFs currently trending online. Hand curated by the Giphy editorial team. The data returned mirrors the GIFs showcased on the [Giphy](https://www.giphy.com) homepage.
 
-```swift
+```java
 /// Trending Gifs
 client.trending(MediaType.gif, null, null, null, new CompletionHandler<ListMediaResponse>() {
     @Override
@@ -139,7 +139,7 @@ client.trending(MediaType.sticker, null, null, null, new CompletionHandler<ListM
 ### Translate Endpoint
 The translate API draws on search, but uses the Giphy "special sauce" to handle translating from one vocabulary to another. In this case, words and phrases to GIFs. Example implementations of translate can be found in the Giphy Slack, Hipchat, Wire, or Dasher integrations. Use a plus or url encode for phrases.
 
-```swift
+```java
 /// Translate to a Gif
 client.translate("hungry", MediaType.gif, null, null, new CompletionHandler<MediaResponse>() {
     @Override
@@ -176,7 +176,7 @@ client.translate("hungry", MediaType.sticker, null, null, new CompletionHandler<
 ### Random Endpoint
 Returns a random GIF, limited by tag. Excluding the tag parameter will return a random GIF from the Giphy catalog.
 
-```swift
+```java
 /// Random Gif
 client.random("cats dogs", MediaType.gif, null, new CompletionHandler<MediaResponse>() {
     @Override
@@ -213,7 +213,7 @@ client.random("cats dogs", MediaType.sticker, null, new CompletionHandler<MediaR
 ### Get GIF by ID Endpoint
 Returns meta data about a GIF, by GIF id. In the below example, the GIF ID is "feqkVgjJpYtjy"
 
-```swift
+```java
 /// Gif by Id
 client.gifById("feqkVgjJpYtjy", new CompletionHandler<MediaResponse>() {
     @Override
@@ -234,7 +234,7 @@ client.gifById("feqkVgjJpYtjy", new CompletionHandler<MediaResponse>() {
 ### Get GIFs by IDs Endpoint
 A multiget version of the get GIF by ID endpoint. In this case the IDs are feqkVgjJpYtjy and 7rzbxdu0ZEXLy.
 
-```swift
+```java
 /// Gifs by Ids
 List<String> gifIds = Arrays.asList("feqkVgjJpYtjy", "7rzbxdu0ZEXLy");
 
