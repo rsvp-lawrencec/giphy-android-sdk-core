@@ -27,8 +27,11 @@ import java.util.Map;
  */
 
 public class GPHApiClient implements GPHApi {
-    private NetworkSession networkSessionImpl;
-    private String apiKey;
+    private static final String HTTP_GET = "GET";
+    public static final String API_KEY = "api_key";
+
+    private final NetworkSession networkSessionImpl;
+    private final String apiKey;
 
     public GPHApiClient(String apiKey) {
         this(apiKey, new DefaultNetworkSession());
@@ -47,7 +50,7 @@ public class GPHApiClient implements GPHApi {
                             @NonNull final CompletionHandler<ListMediaResponse> completionHandler) {
 
         final Map<String, String> params = new HashMap<>();
-        params.put("api_key", apiKey);
+        params.put(API_KEY, apiKey);
         params.put("q", searchQuery);
         if (limit != null) {
             params.put("limit", limit.toString());
@@ -63,7 +66,7 @@ public class GPHApiClient implements GPHApi {
         }
 
         return queryStringConnectionWrapper(Constants.SERVER_URL,
-                String.format(Constants.Paths.SEARCH, mediaTypeToEndpoint(type)), "GET", ListMediaResponse.class, params,
+                String.format(Constants.Paths.SEARCH, mediaTypeToEndpoint(type)), HTTP_GET, ListMediaResponse.class, params,
                 null, completionHandler);
     }
 
@@ -73,7 +76,7 @@ public class GPHApiClient implements GPHApi {
                               @Nullable Integer offset, @Nullable RatingType rating,
                               @NonNull final CompletionHandler<ListMediaResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
-        params.put("api_key", apiKey);
+        params.put(API_KEY, apiKey);
         if (limit != null) {
             params.put("limit", limit.toString());
         }
@@ -84,7 +87,7 @@ public class GPHApiClient implements GPHApi {
             params.put("rating", rating.toString());
         }
         return queryStringConnectionWrapper(Constants.SERVER_URL,
-                String.format(Constants.Paths.TRENDING, mediaTypeToEndpoint(type)), "GET", ListMediaResponse.class, params,
+                String.format(Constants.Paths.TRENDING, mediaTypeToEndpoint(type)), HTTP_GET, ListMediaResponse.class, params,
                 null, completionHandler);
     }
 
@@ -94,7 +97,7 @@ public class GPHApiClient implements GPHApi {
                                @Nullable LangType lang,
                                @NonNull final CompletionHandler<MediaResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
-        params.put("api_key", apiKey);
+        params.put(API_KEY, apiKey);
         params.put("s", term);
         if (rating != null) {
             params.put("rating", rating.toString());
@@ -103,7 +106,7 @@ public class GPHApiClient implements GPHApi {
             params.put("lang", lang.toString());
         }
         return queryStringConnectionWrapper(Constants.SERVER_URL,
-                String.format(Constants.Paths.TRANSLATE, mediaTypeToEndpoint(type)), "GET", MediaResponse.class, params,
+                String.format(Constants.Paths.TRANSLATE, mediaTypeToEndpoint(type)), HTTP_GET, MediaResponse.class, params,
                 null, completionHandler);
     }
 
@@ -112,7 +115,7 @@ public class GPHApiClient implements GPHApi {
     public AsyncTask random(@NonNull String tag, @Nullable MediaType type, @Nullable RatingType rating,
                             @NonNull final CompletionHandler<MediaResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
-        params.put("api_key", apiKey);
+        params.put(API_KEY, apiKey);
         params.put("tag", tag);
         if (rating != null) {
             params.put("rating", rating.toString());
@@ -130,7 +133,7 @@ public class GPHApiClient implements GPHApi {
         };
 
         return queryStringConnectionWrapper(Constants.SERVER_URL,
-                String.format(Constants.Paths.RANDOM, mediaTypeToEndpoint(type)), "GET", RandomGifResponse.class, params,
+                String.format(Constants.Paths.RANDOM, mediaTypeToEndpoint(type)), HTTP_GET, RandomGifResponse.class, params,
                 null, completionHandlerWrapper);
     }
 
@@ -140,7 +143,7 @@ public class GPHApiClient implements GPHApi {
                                        @Nullable String sort,
                                        @NonNull final CompletionHandler<ListCategoryResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
-        params.put("api_key", apiKey);
+        params.put(API_KEY, apiKey);
         if (limit != null) {
             params.put("limit", limit.toString());
         }
@@ -151,7 +154,7 @@ public class GPHApiClient implements GPHApi {
             params.put("sort", sort);
         }
         return queryStringConnectionWrapper(Constants.SERVER_URL,
-                Constants.Paths.CATEGORIES, "GET", ListCategoryResponse.class, params,
+                Constants.Paths.CATEGORIES, HTTP_GET, ListCategoryResponse.class, params,
                 null, completionHandler);
     }
 
@@ -161,7 +164,7 @@ public class GPHApiClient implements GPHApi {
                                           @Nullable Integer limit, @Nullable Integer offset,
                                           @NonNull final CompletionHandler<ListCategoryResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
-        params.put("api_key", apiKey);
+        params.put(API_KEY, apiKey);
         if (limit != null) {
             params.put("limit", limit.toString());
         }
@@ -169,7 +172,7 @@ public class GPHApiClient implements GPHApi {
             params.put("offset", offset.toString());
         }
         return queryStringConnectionWrapper(Constants.SERVER_URL,
-                String.format(Constants.Paths.SUBCATEGORIES, categoryEncodedName), "GET", ListCategoryResponse.class, params,
+                String.format(Constants.Paths.SUBCATEGORIES, categoryEncodedName), HTTP_GET, ListCategoryResponse.class, params,
                 null, completionHandler);
     }
 
@@ -180,7 +183,7 @@ public class GPHApiClient implements GPHApi {
                                     @Nullable Integer limit, @Nullable Integer offset,
                                     @NonNull final CompletionHandler<ListMediaResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
-        params.put("api_key", apiKey);
+        params.put(API_KEY, apiKey);
         if (limit != null) {
             params.put("limit", limit.toString());
         }
@@ -188,7 +191,7 @@ public class GPHApiClient implements GPHApi {
             params.put("offset", offset.toString());
         }
         return queryStringConnectionWrapper(Constants.SERVER_URL,
-                String.format(Constants.Paths.GIFS_BY_CATEGORY, categoryEncodedName, subCategoryEncodedName), "GET", ListMediaResponse.class, params,
+                String.format(Constants.Paths.GIFS_BY_CATEGORY, categoryEncodedName, subCategoryEncodedName), HTTP_GET, ListMediaResponse.class, params,
                 null, completionHandler);
     }
 
@@ -197,9 +200,9 @@ public class GPHApiClient implements GPHApi {
     public AsyncTask gifById(@NonNull String gifId,
                              @NonNull final CompletionHandler<MediaResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
-        params.put("api_key", apiKey);
+        params.put(API_KEY, apiKey);
         return queryStringConnectionWrapper(Constants.SERVER_URL,
-                String.format(Constants.Paths.GIF_BY_ID, gifId), "GET", MediaResponse.class, params, null,
+                String.format(Constants.Paths.GIF_BY_ID, gifId), HTTP_GET, MediaResponse.class, params, null,
                 completionHandler);
     }
 
@@ -208,7 +211,7 @@ public class GPHApiClient implements GPHApi {
     public AsyncTask gifsByIds(@NonNull List<String> gifIds,
                                @NonNull final CompletionHandler<ListMediaResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
-        params.put("api_key", apiKey);
+        params.put(API_KEY, apiKey);
 
         final StringBuilder str = new StringBuilder();
         for (int i = 0; i < gifIds.size(); i ++) {
@@ -220,7 +223,7 @@ public class GPHApiClient implements GPHApi {
         params.put("ids", str.toString());
 
         return queryStringConnectionWrapper(Constants.SERVER_URL,
-                Constants.Paths.GIF_BY_IDS, "GET", ListMediaResponse.class, params, null,
+                Constants.Paths.GIF_BY_IDS, HTTP_GET, ListMediaResponse.class, params, null,
                 completionHandler);
     }
 
@@ -228,10 +231,10 @@ public class GPHApiClient implements GPHApi {
     public AsyncTask termSuggestions(@NonNull String term,
                                      @NonNull final CompletionHandler<ListTermSuggestionResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
-        params.put("api_key", apiKey);
+        params.put(API_KEY, apiKey);
 
         return queryStringConnectionWrapper(Constants.SERVER_URL,
-                String.format(Constants.Paths.TERM_SUGGESTIONS, term), "GET", ListTermSuggestionResponse.class, params, null,
+                String.format(Constants.Paths.TERM_SUGGESTIONS, term), HTTP_GET, ListTermSuggestionResponse.class, params, null,
                 completionHandler);
     }
 

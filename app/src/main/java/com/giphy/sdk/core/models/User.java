@@ -1,12 +1,15 @@
 package com.giphy.sdk.core.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by bogdantmm on 4/19/17.
  */
 
-public class User {
+public class User implements Parcelable {
     private String id;
     @SerializedName("avatar_url")
     private String avatarUrl;
@@ -39,6 +42,32 @@ public class User {
     @SerializedName("website_display_url")
     private String websiteDisplayUrl;
 
+    public User() {}
+
+    public User(final Parcel in) {
+        id = in.readString();
+        avatarUrl = in.readString();
+        bannerUrl = in.readString();
+        profileUrl = in.readString();
+        username = in.readString();
+        displayName = in.readString();
+        twitter = in.readString();
+        isPublic = in.readByte() != 0;
+        attributionDisplayName = in.readString();
+        name = in.readString();
+        description = in.readString();
+        facebookUrl = in.readString();
+        twitterUrl = in.readString();
+        instagramUrl = in.readString();
+        tumblrUrl = in.readString();
+        suppressChrome = in.readByte() != 0;
+        websiteUrl = in.readString();
+        websiteDisplayUrl = in.readString();
+    }
+
+    /**
+     * @return user id
+     */
     public String getId() {
         return id;
     }
@@ -47,6 +76,9 @@ public class User {
         this.id = id;
     }
 
+    /**
+     * @return avatar url
+     */
     public String getAvatarUrl() {
         return avatarUrl;
     }
@@ -55,6 +87,9 @@ public class User {
         this.avatarUrl = avatarUrl;
     }
 
+    /**
+     * @return banner url
+     */
     public String getBannerUrl() {
         return bannerUrl;
     }
@@ -63,6 +98,9 @@ public class User {
         this.bannerUrl = bannerUrl;
     }
 
+    /**
+     * @return profile url
+     */
     public String getProfileUrl() {
         return profileUrl;
     }
@@ -71,6 +109,9 @@ public class User {
         this.profileUrl = profileUrl;
     }
 
+    /**
+     * @return username
+     */
     public String getUsername() {
         return username;
     }
@@ -79,6 +120,9 @@ public class User {
         this.username = username;
     }
 
+    /**
+     * @return display name
+     */
     public String getDisplayName() {
         return displayName;
     }
@@ -87,6 +131,9 @@ public class User {
         this.displayName = displayName;
     }
 
+    /**
+     * @return twitter handle
+     */
     public String getTwitter() {
         return twitter;
     }
@@ -95,6 +142,9 @@ public class User {
         this.twitter = twitter;
     }
 
+    /**
+     * @return true if the user is public, false otherwise
+     */
     public boolean getIsPublic() {
         return isPublic;
     }
@@ -103,6 +153,9 @@ public class User {
         this.isPublic = isPublic;
     }
 
+    /**
+     * @return attribution display name
+     */
     public String getAttributionDisplayName() {
         return attributionDisplayName;
     }
@@ -111,6 +164,9 @@ public class User {
         this.attributionDisplayName = attributionDisplayName;
     }
 
+    /**
+     * @return name
+     */
     public String getName() {
         return name;
     }
@@ -119,6 +175,9 @@ public class User {
         this.name = name;
     }
 
+    /**
+     * @return description
+     */
     public String getDescription() {
         return description;
     }
@@ -127,6 +186,9 @@ public class User {
         this.description = description;
     }
 
+    /**
+     * @return facebook url
+     */
     public String getFacebookUrl() {
         return facebookUrl;
     }
@@ -135,6 +197,9 @@ public class User {
         this.facebookUrl = facebookUrl;
     }
 
+    /**
+     * @return twitter url
+     */
     public String getTwitterUrl() {
         return twitterUrl;
     }
@@ -143,6 +208,9 @@ public class User {
         this.twitterUrl = twitterUrl;
     }
 
+    /**
+     * @return instagram url
+     */
     public String getInstagramUrl() {
         return instagramUrl;
     }
@@ -151,6 +219,9 @@ public class User {
         this.instagramUrl = instagramUrl;
     }
 
+    /**
+     * @return tumblr url
+     */
     public String getTumblrUrl() {
         return tumblrUrl;
     }
@@ -159,6 +230,9 @@ public class User {
         this.tumblrUrl = tumblrUrl;
     }
 
+    /**
+     * @return supress chrome
+     */
     public boolean isSuppressChrome() {
         return suppressChrome;
     }
@@ -167,6 +241,9 @@ public class User {
         this.suppressChrome = suppressChrome;
     }
 
+    /**
+     * @return website url
+     */
     public String getWebsiteUrl() {
         return websiteUrl;
     }
@@ -175,11 +252,53 @@ public class User {
         this.websiteUrl = websiteUrl;
     }
 
+    /**
+     * @return displayable url of the website
+     */
     public String getWebsiteDisplayUrl() {
         return websiteDisplayUrl;
     }
 
     public void setWebsiteDisplayUrl(String websiteDisplayUrl) {
         this.websiteDisplayUrl = websiteDisplayUrl;
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(avatarUrl);
+        parcel.writeString(bannerUrl);
+        parcel.writeString(profileUrl);
+        parcel.writeString(username);
+        parcel.writeString(displayName);
+        parcel.writeString(twitter);
+        parcel.writeByte((byte) (isPublic ? 1 : 0));
+        parcel.writeString(attributionDisplayName);
+        parcel.writeString(name);
+        parcel.writeString(description);
+        parcel.writeString(facebookUrl);
+        parcel.writeString(twitterUrl);
+        parcel.writeString(instagramUrl);
+        parcel.writeString(tumblrUrl);
+        parcel.writeByte((byte) (suppressChrome ? 1 : 0));
+        parcel.writeString(websiteUrl);
+        parcel.writeString(websiteDisplayUrl);
     }
 }

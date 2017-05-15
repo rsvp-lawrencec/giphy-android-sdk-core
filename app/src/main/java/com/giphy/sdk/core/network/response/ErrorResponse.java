@@ -10,19 +10,13 @@ import com.giphy.sdk.core.models.Meta;
  */
 
 public class ErrorResponse implements GenericResponse {
-    private Meta meta;
+    private final Meta meta;
 
     public ErrorResponse(@NonNull int serverStatus, @Nullable String message) {
-        meta = new Meta();
-        meta.setStatus(serverStatus);
-        meta.setMsg(message);
+        meta = new Meta(serverStatus, message);
     }
 
     public Meta getMeta() {
         return meta;
-    }
-
-    public void setMeta(Meta meta) {
-        this.meta = meta;
     }
 }

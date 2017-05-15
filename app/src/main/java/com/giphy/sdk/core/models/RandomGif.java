@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by bogdantmm on 4/24/17.
  */
 
-public class RandomGif {
+ public class RandomGif {
     private MediaType type;
     private String id;
     private String url;

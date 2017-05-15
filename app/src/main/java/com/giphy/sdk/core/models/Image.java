@@ -1,5 +1,8 @@
 package com.giphy.sdk.core.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.giphy.sdk.core.models.enums.RenditionType;
 import com.google.gson.annotations.SerializedName;
 
@@ -7,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by bogdantmm on 4/19/17.
  */
 
-public class Image {
+public class Image implements Parcelable {
     @SerializedName("url")
     private String gifUrl;
     private int width;
@@ -27,6 +30,39 @@ public class Image {
     private String mediaId;
     private RenditionType renditionType;
 
+    protected Image() {
+    }
+
+    protected Image(Parcel in) {
+        gifUrl = in.readString();
+        width = in.readInt();
+        height = in.readInt();
+        gifSize = in.readInt();
+        frames = in.readInt();
+        mp4Url = in.readString();
+        mp4Size = in.readInt();
+        webPUrl = in.readString();
+        webPSize = in.readInt();
+        mediaId = in.readString();
+        final int renditionOrdinal = in.readInt();
+        renditionType = renditionOrdinal != -1 ? RenditionType.values()[renditionOrdinal] : null;
+    }
+
+    public static final Creator<Image> CREATOR = new Creator<Image>() {
+        @Override
+        public Image createFromParcel(Parcel in) {
+            return new Image(in);
+        }
+
+        @Override
+        public Image[] newArray(int size) {
+            return new Image[size];
+        }
+    };
+
+    /**
+     * @return ID of the Represented Object
+     */
     public String getGifUrl() {
         return gifUrl;
     }
@@ -35,6 +71,9 @@ public class Image {
         this.gifUrl = gifUrl;
     }
 
+    /**
+     * @return width of the image
+     */
     public int getWidth() {
         return width;
     }
@@ -43,6 +82,9 @@ public class Image {
         this.width = width;
     }
 
+    /**
+     * @return height of the image
+     */
     public int getHeight() {
         return height;
     }
@@ -51,6 +93,9 @@ public class Image {
         this.height = height;
     }
 
+    /**
+     * @return Gif file size in bytes
+     */
     public int getGifSize() {
         return gifSize;
     }
@@ -59,6 +104,9 @@ public class Image {
         this.gifSize = gifSize;
     }
 
+    /**
+     * @return number of frames
+     */
     public int getFrames() {
         return frames;
     }
@@ -67,6 +115,9 @@ public class Image {
         this.frames = frames;
     }
 
+    /**
+     * @return URL of the mp4 file
+     */
     public String getMp4Url() {
         return mp4Url;
     }
@@ -75,6 +126,9 @@ public class Image {
         this.mp4Url = mp4Url;
     }
 
+    /**
+     * @return mp4 file size in bytes
+     */
     public int getMp4Size() {
         return mp4Size;
     }
@@ -83,6 +137,9 @@ public class Image {
         this.mp4Size = mp4Size;
     }
 
+    /**
+     * @return URL of the webP file
+     */
     public String getWebPUrl() {
         return webPUrl;
     }
@@ -91,6 +148,9 @@ public class Image {
         this.webPUrl = webPUrl;
     }
 
+    /**
+     * @return webP file size in bytes
+     */
     public int getWebPSize() {
         return webPSize;
     }
@@ -99,6 +159,9 @@ public class Image {
         this.webPSize = webPSize;
     }
 
+    /**
+     * @return ID of the represented Media object
+     */
     public String getMediaId() {
         return mediaId;
     }
@@ -107,11 +170,34 @@ public class Image {
         this.mediaId = mediaId;
     }
 
+    /**
+     * @return Rendition type of the represented Media object
+     */
     public RenditionType getRenditionType() {
         return renditionType;
     }
 
     public void setRenditionType(RenditionType renditionType) {
         this.renditionType = renditionType;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(gifUrl);
+        parcel.writeInt(width);
+        parcel.writeInt(height);
+        parcel.writeInt(gifSize);
+        parcel.writeInt(frames);
+        parcel.writeString(mp4Url);
+        parcel.writeInt(mp4Size);
+        parcel.writeString(webPUrl);
+        parcel.writeInt(webPSize);
+        parcel.writeString(mediaId);
+        parcel.writeInt(renditionType != null ? renditionType.ordinal() : -1);
     }
 }

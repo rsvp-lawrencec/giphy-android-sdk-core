@@ -1,11 +1,14 @@
 package com.giphy.sdk.core;
 
+import android.os.Parcel;
+
 import com.giphy.sdk.core.models.TermSuggestion;
 import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApi;
 import com.giphy.sdk.core.network.api.GPHApiClient;
 import com.giphy.sdk.core.network.engine.ApiException;
 import com.giphy.sdk.core.network.response.ListTermSuggestionResponse;
+import com.google.gson.Gson;
 
 import junit.framework.Assert;
 
@@ -74,6 +77,37 @@ public class TermSuggestionTest {
                 Assert.assertNotNull(((ApiException)e.getCause()).getErrorResponse());
                 Assert.assertNotNull(((ApiException)e.getCause()).getErrorResponse().getMeta());
                 Assert.assertEquals(((ApiException)e.getCause()).getErrorResponse().getMeta().getStatus(), HttpURLConnection.HTTP_FORBIDDEN);
+
+                lock.countDown();
+            }
+        });
+        lock.await(2000, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Test if parcelable is implemeted correctly for the models
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testParcelable() throws Exception {
+        final CountDownLatch lock = new CountDownLatch(1);
+
+        imp.termSuggestions("come", new CompletionHandler<ListTermSuggestionResponse>() {
+            @Override
+            public void onComplete(ListTermSuggestionResponse result, Throwable e) {
+                Assert.assertNull(e);
+                Assert.assertNotNull(result);
+
+                Gson gson = new Gson();
+                for (TermSuggestion termSuggestion : result.getData()) {
+                    Parcel parcel = Parcel.obtain();
+                    termSuggestion.writeToParcel(parcel, 0);
+                    parcel.setDataPosition(0);
+                    TermSuggestion parcelTermSuggestion = TermSuggestion.CREATOR.createFromParcel(parcel);
+                    // Compare the initial object with the one obtained from parcel
+                    Assert.assertEquals(gson.toJson(parcelTermSuggestion), gson.toJson(termSuggestion));
+                }
 
                 lock.countDown();
             }

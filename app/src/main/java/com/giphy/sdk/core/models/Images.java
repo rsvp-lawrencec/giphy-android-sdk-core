@@ -1,5 +1,8 @@
 package com.giphy.sdk.core.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.giphy.sdk.core.models.enums.RenditionType;
 import com.google.gson.annotations.SerializedName;
 
@@ -7,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by bogdantmm on 4/19/17.
  */
 
-public class Images {
+public class Images implements Parcelable {
     @SerializedName("fixed_height")
     private Image fixedHeight;
     @SerializedName("fixed_height_still")
@@ -42,9 +45,37 @@ public class Images {
     private Image preview;
     @SerializedName("downsized_small")
     private Image downsizedSmall;
-
+    
     private String mediaId;
 
+    public Images() {}
+
+    public Images(Parcel in) {
+        fixedHeight = in.readParcelable(Image.class.getClassLoader());
+        fixedHeightStill = in.readParcelable(Image.class.getClassLoader());
+        fixedHeightDownsampled = in.readParcelable(Image.class.getClassLoader());
+        fixedWidth = in.readParcelable(Image.class.getClassLoader());
+        fixedWidthStill = in.readParcelable(Image.class.getClassLoader());
+        fixedWidthDownsampled = in.readParcelable(Image.class.getClassLoader());
+        fixedHeightSmall = in.readParcelable(Image.class.getClassLoader());
+        fixedHeightSmallStill = in.readParcelable(Image.class.getClassLoader());
+        fixedWidthSmall = in.readParcelable(Image.class.getClassLoader());
+        fixedWidthSmallStill = in.readParcelable(Image.class.getClassLoader());
+        downsized = in.readParcelable(Image.class.getClassLoader());
+        downsizedStill = in.readParcelable(Image.class.getClassLoader());
+        downsizedLarge = in.readParcelable(Image.class.getClassLoader());
+        downsizedMedium = in.readParcelable(Image.class.getClassLoader());
+        original = in.readParcelable(Image.class.getClassLoader());
+        originalStill = in.readParcelable(Image.class.getClassLoader());
+        looping = in.readParcelable(Image.class.getClassLoader());
+        preview = in.readParcelable(Image.class.getClassLoader());
+        downsizedSmall = in.readParcelable(Image.class.getClassLoader());
+        mediaId = in.readString();
+    }
+
+    /**
+     *  Height set to 200px. Good for mobile use
+     */
     public Image getFixedHeight() {
         return fixedHeight;
     }
@@ -53,6 +84,9 @@ public class Images {
         this.fixedHeight = fixedHeight;
     }
 
+    /**
+     *  Static preview image for fixed_height
+     */
     public Image getFixedHeightStill() {
         return fixedHeightStill;
     }
@@ -61,6 +95,10 @@ public class Images {
         this.fixedHeightStill = fixedHeightStill;
     }
 
+    /**
+     * Height set to 200px. Reduced to 6 frames to minimize file size to the lowest.
+     * Works well for unlimited scroll on mobile and as animated previews. See Giphy.com on mobile web as an example.
+     */
     public Image getFixedHeightDownsampled() {
         return fixedHeightDownsampled;
     }
@@ -69,6 +107,9 @@ public class Images {
         this.fixedHeightDownsampled = fixedHeightDownsampled;
     }
 
+    /**
+     * Width set to 200px. Good for mobile use
+     */
     public Image getFixedWidth() {
         return fixedWidth;
     }
@@ -77,6 +118,9 @@ public class Images {
         this.fixedWidth = fixedWidth;
     }
 
+    /**
+     * Static preview image for fixed_width
+     */
     public Image getFixedWidthStill() {
         return fixedWidthStill;
     }
@@ -85,6 +129,9 @@ public class Images {
         this.fixedWidthStill = fixedWidthStill;
     }
 
+    /**
+     * Width set to 200px. Reduced to 6 frames. Works well for unlimited scroll on mobile and as animated previews.
+     */
     public Image getFixedWidthDownsampled() {
         return fixedWidthDownsampled;
     }
@@ -93,6 +140,9 @@ public class Images {
         this.fixedWidthDownsampled = fixedWidthDownsampled;
     }
 
+    /**
+     * Height set to 100px. Good for mobile keyboards
+     */
     public Image getFixedHeightSmall() {
         return fixedHeightSmall;
     }
@@ -101,6 +151,9 @@ public class Images {
         this.fixedHeightSmall = fixedHeightSmall;
     }
 
+    /**
+     * Static preview image for fixed_height_small
+     */
     public Image getFixedHeightSmallStill() {
         return fixedHeightSmallStill;
     }
@@ -109,6 +162,9 @@ public class Images {
         this.fixedHeightSmallStill = fixedHeightSmallStill;
     }
 
+    /**
+     * Width set to 100px. Good for mobile keyboards
+     */
     public Image getFixedWidthSmall() {
         return fixedWidthSmall;
     }
@@ -117,6 +173,9 @@ public class Images {
         this.fixedWidthSmall = fixedWidthSmall;
     }
 
+    /**
+     * Static preview image for fixed_width_small
+     */
     public Image getFixedWidthSmallStill() {
         return fixedWidthSmallStill;
     }
@@ -125,6 +184,9 @@ public class Images {
         this.fixedWidthSmallStill = fixedWidthSmallStill;
     }
 
+    /**
+     * File size under 2mb
+     */
     public Image getDownsized() {
         return downsized;
     }
@@ -133,6 +195,9 @@ public class Images {
         this.downsized = downsized;
     }
 
+    /**
+     * Static preview image for downsized
+     */
     public Image getDownsizedStill() {
         return downsizedStill;
     }
@@ -141,6 +206,9 @@ public class Images {
         this.downsizedStill = downsizedStill;
     }
 
+    /**
+     * File size under 8mb
+     */
     public Image getDownsizedLarge() {
         return downsizedLarge;
     }
@@ -149,6 +217,9 @@ public class Images {
         this.downsizedLarge = downsizedLarge;
     }
 
+    /**
+     * File size under 5mb
+     */
     public Image getDownsizedMedium() {
         return downsizedMedium;
     }
@@ -157,6 +228,9 @@ public class Images {
         this.downsizedMedium = downsizedMedium;
     }
 
+    /**
+     * Original file size and file dimensions. Good for desktop use
+     */
     public Image getOriginal() {
         return original;
     }
@@ -165,6 +239,9 @@ public class Images {
         this.original = original;
     }
 
+    /**
+     * Preview image for original
+     */
     public Image getOriginalStill() {
         return originalStill;
     }
@@ -173,6 +250,9 @@ public class Images {
         this.originalStill = originalStill;
     }
 
+    /**
+     * Duration set to loop for 15 seconds. Only recommended for this exact use case
+     */
     public Image getLooping() {
         return looping;
     }
@@ -181,6 +261,9 @@ public class Images {
         this.looping = looping;
     }
 
+    /**
+     * File size under 50kb. Duration may be truncated to meet file size requirements. Good for thumbnails and previews.
+     */
     public Image getPreview() {
         return preview;
     }
@@ -189,6 +272,9 @@ public class Images {
         this.preview = preview;
     }
 
+    /**
+     * File size under 200kb
+     */
     public Image getDownsizedSmall() {
         return downsizedSmall;
     }
@@ -197,6 +283,9 @@ public class Images {
         this.downsizedSmall = downsizedSmall;
     }
 
+    /**
+     * ID of the Represented Object
+     */
     public String getMediaId() {
         return mediaId;
     }
@@ -285,5 +374,46 @@ public class Images {
             downsizedSmall.setMediaId(mediaId);
             downsizedSmall.setRenditionType(RenditionType.downsizedSmall);
         }
+    }
+
+    public static final Creator<Images> CREATOR = new Creator<Images>() {
+        @Override
+        public Images createFromParcel(Parcel in) {
+            return new Images(in);
+        }
+
+        @Override
+        public Images[] newArray(int size) {
+            return new Images[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeParcelable(fixedHeight, i);
+        parcel.writeParcelable(fixedHeightStill, i);
+        parcel.writeParcelable(fixedHeightDownsampled, i);
+        parcel.writeParcelable(fixedWidth, i);
+        parcel.writeParcelable(fixedWidthStill, i);
+        parcel.writeParcelable(fixedWidthDownsampled, i);
+        parcel.writeParcelable(fixedHeightSmall, i);
+        parcel.writeParcelable(fixedHeightSmallStill, i);
+        parcel.writeParcelable(fixedWidthSmall, i);
+        parcel.writeParcelable(fixedWidthSmallStill, i);
+        parcel.writeParcelable(downsized, i);
+        parcel.writeParcelable(downsizedStill, i);
+        parcel.writeParcelable(downsizedLarge, i);
+        parcel.writeParcelable(downsizedMedium, i);
+        parcel.writeParcelable(original, i);
+        parcel.writeParcelable(originalStill, i);
+        parcel.writeParcelable(looping, i);
+        parcel.writeParcelable(preview, i);
+        parcel.writeParcelable(downsizedSmall, i);
+        parcel.writeString(mediaId);
     }
 }
