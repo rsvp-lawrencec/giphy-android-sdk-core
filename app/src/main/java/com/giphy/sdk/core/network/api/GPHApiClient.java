@@ -28,6 +28,7 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.giphy.sdk.core.models.Category;
 import com.giphy.sdk.core.models.enums.LangType;
 import com.giphy.sdk.core.models.enums.MediaType;
 import com.giphy.sdk.core.models.enums.RatingType;
@@ -179,7 +180,7 @@ public class GPHApiClient implements GPHApi {
 
     @Override
     @NonNull
-    public AsyncTask subCategoriesForGifs(@NonNull String categoryEncodedName,
+    public AsyncTask subCategoriesForGifs(@NonNull final String categoryEncodedName,
                                           @Nullable Integer limit, @Nullable Integer offset,
                                           @NonNull final CompletionHandler<ListCategoryResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
@@ -190,9 +191,25 @@ public class GPHApiClient implements GPHApi {
         if (offset != null) {
             params.put("offset", offset.toString());
         }
+        final CompletionHandler<ListCategoryResponse> completionHandlerWrapper = new CompletionHandler<ListCategoryResponse>() {
+            @Override
+            public void onComplete(ListCategoryResponse result, Throwable e) {
+                if (result != null) {
+                    if (result.getData() != null) {
+                        for (Category subCategory : result.getData()) {
+                            subCategory.setEncodedPath(categoryEncodedName + "/" + subCategory.getNameEncoded());
+                        }
+                    }
+                    completionHandler.onComplete(result, null);
+                } else {
+                    completionHandler.onComplete(null, e);
+                }
+            }
+        };
+
         return queryStringConnectionWrapper(Constants.SERVER_URL,
                 String.format(Constants.Paths.SUBCATEGORIES, categoryEncodedName), HTTP_GET, ListCategoryResponse.class, params,
-                null, completionHandler);
+                null, completionHandlerWrapper);
     }
 
     @Override

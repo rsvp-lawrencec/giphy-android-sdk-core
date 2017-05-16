@@ -37,6 +37,7 @@ public class Category implements Parcelable {
     private Media gif;
     @SerializedName("subcategories")
     private List<Category> subCategories;
+    private String encodedPath;
 
     public Category() {}
 
@@ -94,6 +95,17 @@ public class Category implements Parcelable {
 
     public void setSubCategories(List<Category> subCategories) {
         this.subCategories = subCategories;
+    }
+
+    /**
+     * @return URL Encoded path of the Category (to make sure we have the full-path for subcategories).
+     */
+    public String getEncodedPath() {
+        return encodedPath;
+    }
+
+    public void setEncodedPath(String encodedPath) {
+        this.encodedPath = encodedPath;
     }
 
     public static final Creator<Category> CREATOR = new Creator<Category>() {

@@ -107,7 +107,7 @@ public class SubcategoriesTest {
      */
     @Test
     public void testFields() throws Exception {
-        final CountDownLatch lock = new CountDownLatch(2);
+        final CountDownLatch lock = new CountDownLatch(1);
 
         imp.subCategoriesForGifs("animals", 15, 0, new CompletionHandler<ListCategoryResponse>() {
             @Override
@@ -122,12 +122,13 @@ public class SubcategoriesTest {
                     Assert.assertNotNull(category.getName());
                     Assert.assertNotNull(category.getNameEncoded());
                     Assert.assertNotNull(category.getGif());
+                    Assert.assertNotNull(category.getEncodedPath());
+                    Assert.assertEquals(category.getEncodedPath(), "animals/" + category.getNameEncoded());
                 }
 
                 lock.countDown();
             }
         });
-        lock.await(3000, TimeUnit.MILLISECONDS);
+        lock.await(2000, TimeUnit.MILLISECONDS);
     }
-
 }
