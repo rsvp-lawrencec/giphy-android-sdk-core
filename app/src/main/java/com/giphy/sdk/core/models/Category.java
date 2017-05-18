@@ -46,6 +46,7 @@ public class Category implements Parcelable {
         nameEncoded = in.readString();
         gif = in.readParcelable(Media.class.getClassLoader());
         subCategories = in.createTypedArrayList(Category.CREATOR);
+        encodedPath = in.readString();
     }
 
     public Category(String name, String nameEncoded) {
@@ -131,5 +132,6 @@ public class Category implements Parcelable {
         parcel.writeString(nameEncoded);
         parcel.writeParcelable(gif, i);
         parcel.writeTypedList(subCategories);
+        parcel.writeString(encodedPath);
     }
 }

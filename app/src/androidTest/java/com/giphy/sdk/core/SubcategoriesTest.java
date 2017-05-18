@@ -23,10 +23,13 @@
 
 package com.giphy.sdk.core;
 
+import android.os.Parcel;
+
 import com.giphy.sdk.core.models.Category;
 import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApiClient;
 import com.giphy.sdk.core.network.response.ListCategoryResponse;
+import com.google.gson.Gson;
 
 import junit.framework.Assert;
 
@@ -124,6 +127,38 @@ public class SubcategoriesTest {
                     Assert.assertNotNull(category.getGif());
                     Assert.assertNotNull(category.getEncodedPath());
                     Assert.assertEquals(category.getEncodedPath(), "animals/" + category.getNameEncoded());
+                }
+
+                lock.countDown();
+            }
+        });
+        lock.await(2000, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Test if parcelable is implemeted correctly for the models
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testParcelable() throws Exception {
+        final CountDownLatch lock = new CountDownLatch(1);
+
+        imp.subCategoriesForGifs("animals", 15, 0, new CompletionHandler<ListCategoryResponse>() {
+            @Override
+            public void onComplete(ListCategoryResponse result, Throwable e) {
+                Assert.assertNull(e);
+                Assert.assertNotNull(result);
+                Assert.assertTrue(result.getData().size() == 15);
+
+                Gson gson = new Gson();
+                for (Category category : result.getData()) {
+                    Parcel parcel = Parcel.obtain();
+                    category.writeToParcel(parcel, 0);
+                    parcel.setDataPosition(0);
+                    Category parcelCategory = Category.CREATOR.createFromParcel(parcel);
+                    // Compare the initial object with the one obtained from parcel
+                    Assert.assertEquals(gson.toJson(parcelCategory), gson.toJson(category));
                 }
 
                 lock.countDown();
