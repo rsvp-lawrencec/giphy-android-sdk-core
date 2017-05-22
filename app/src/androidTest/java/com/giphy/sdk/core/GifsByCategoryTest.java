@@ -62,7 +62,7 @@ public class GifsByCategoryTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -97,7 +97,7 @@ public class GifsByCategoryTest {
                 lock.countDown();
             }
         });
-        lock.await(3000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.MEDIUM_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -108,20 +108,22 @@ public class GifsByCategoryTest {
     public void testPagination() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.gifsByCategory("animals", "dragon", null, null, new CompletionHandler<ListMediaResponse>() {
+        imp.gifsByCategory("animals", "dragon", 13, 12, new CompletionHandler<ListMediaResponse>() {
             @Override
             public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getData().size() == 25);
+                Assert.assertTrue(result.getData().size() == 13);
 
                 Assert.assertNotNull(result.getPagination());
-                Assert.assertTrue(result.getPagination().getCount() == 25);
+                Assert.assertTrue(result.getPagination().getCount() == 13);
+                Assert.assertTrue(result.getPagination().getOffset() == 12);
+                Assert.assertTrue(result.getPagination().getTotalCount() > 100);
 
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -147,6 +149,6 @@ public class GifsByCategoryTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 }

@@ -69,7 +69,7 @@ public class TrendingTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -90,7 +90,7 @@ public class TrendingTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -111,7 +111,7 @@ public class TrendingTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -132,7 +132,7 @@ public class TrendingTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -167,7 +167,7 @@ public class TrendingTest {
                 lock.countDown();
             }
         });
-        lock.await(3000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.MEDIUM_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -178,20 +178,21 @@ public class TrendingTest {
     public void testPagination() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.trending(MediaType.gif, null, null, null, new CompletionHandler<ListMediaResponse>() {
+        imp.trending(MediaType.gif, 13, 12, null, new CompletionHandler<ListMediaResponse>() {
             @Override
             public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getData().size() == 25);
+                Assert.assertTrue(result.getData().size() == 13);
 
                 Assert.assertNotNull(result.getPagination());
-                Assert.assertTrue(result.getPagination().getCount() == 25);
+                Assert.assertTrue(result.getPagination().getCount() == 13);
+                Assert.assertTrue(result.getPagination().getOffset() == 12);
 
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -217,7 +218,7 @@ public class TrendingTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -248,7 +249,7 @@ public class TrendingTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -287,11 +288,14 @@ public class TrendingTest {
                         Assert.assertEquals(media.getImages().getOriginalStill().getMediaId(), media.getId());
                         Assert.assertTrue(media.getImages().getOriginalStill().getRenditionType() == RenditionType.originalStill);
                     }
+
+                    Assert.assertTrue(media.getType() == MediaType.gif);
+                    Assert.assertNotNull(media.getId());
                 }
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -323,6 +327,6 @@ public class TrendingTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 }

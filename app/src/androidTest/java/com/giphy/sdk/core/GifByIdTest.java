@@ -23,6 +23,7 @@
 
 package com.giphy.sdk.core;
 
+import com.giphy.sdk.core.models.enums.MediaType;
 import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApi;
 import com.giphy.sdk.core.network.api.GPHApiClient;
@@ -60,11 +61,13 @@ public class GifByIdTest {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
                 Assert.assertTrue("darAMUceRAs0w".equals(result.getData().getId()));
+                Assert.assertTrue(result.getData().getType() == MediaType.gif);
+                Assert.assertNotNull(result.getData().getId());
 
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -89,7 +92,7 @@ public class GifByIdTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -115,7 +118,7 @@ public class GifByIdTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -141,6 +144,6 @@ public class GifByIdTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 }

@@ -66,7 +66,7 @@ public class SubcategoriesTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -100,7 +100,7 @@ public class SubcategoriesTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -132,7 +132,7 @@ public class SubcategoriesTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -164,6 +164,6 @@ public class SubcategoriesTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 }

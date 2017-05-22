@@ -30,6 +30,8 @@ import junit.framework.Assert;
 import java.util.List;
 
 public class Utils {
+    public static long SMALL_DELAY = 2000;
+    public static long MEDIUM_DELAY = 3000;
 
     public static void checkOffsetWorks(List<Media> result1, List<Media> result2) {
         checkOffsetWorks(result1, result2, 20);

@@ -64,7 +64,7 @@ public class RandomTest {
 
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -85,7 +85,7 @@ public class RandomTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -105,7 +105,7 @@ public class RandomTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -152,7 +152,7 @@ public class RandomTest {
 
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -186,6 +186,6 @@ public class RandomTest {
 
             }
         });
-        lock.await(3000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.MEDIUM_DELAY, TimeUnit.MILLISECONDS);
     }
 }

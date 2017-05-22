@@ -74,7 +74,7 @@ public class SearchTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -96,7 +96,7 @@ public class SearchTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -117,7 +117,7 @@ public class SearchTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -138,7 +138,7 @@ public class SearchTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -161,7 +161,7 @@ public class SearchTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -182,7 +182,7 @@ public class SearchTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -217,7 +217,7 @@ public class SearchTest {
                 lock.countDown();
             }
         });
-        lock.await(3000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.MEDIUM_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -228,20 +228,22 @@ public class SearchTest {
     public void testPagination() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.search("hack", MediaType.gif, null, null, null, null, new CompletionHandler<ListMediaResponse>() {
+        imp.search("hack", MediaType.gif, 13, 12, null, null, new CompletionHandler<ListMediaResponse>() {
             @Override
             public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result);
-                Assert.assertTrue(result.getData().size() == 25);
+                Assert.assertTrue(result.getData().size() == 13);
 
                 Assert.assertNotNull(result.getPagination());
-                Assert.assertTrue(result.getPagination().getCount() == 25);
+                Assert.assertTrue(result.getPagination().getCount() == 13);
+                Assert.assertTrue(result.getPagination().getOffset() == 12);
+                Assert.assertTrue(result.getPagination().getTotalCount() > 100);
 
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -267,7 +269,7 @@ public class SearchTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -292,7 +294,7 @@ public class SearchTest {
         // Cancel imediately
         task.cancel(true);
 
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -320,7 +322,7 @@ public class SearchTest {
         lock.await(20, TimeUnit.MILLISECONDS);
         task.cancel(true);
 
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -348,7 +350,7 @@ public class SearchTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -380,6 +382,6 @@ public class SearchTest {
                 lock.countDown();
             }
         });
-        lock.await(2000, TimeUnit.MILLISECONDS);
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 }
