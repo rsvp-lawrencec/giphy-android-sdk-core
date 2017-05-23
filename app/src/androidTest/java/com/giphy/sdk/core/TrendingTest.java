@@ -115,14 +115,56 @@ public class TrendingTest {
     }
 
     /**
-     * Test if rating returns gifs
+     * Test if rating 'g' returns gifs
      * @throws Exception
      */
     @Test
-    public void testRating() throws Exception {
+    public void testRatingG() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
         imp.trending(MediaType.gif, 20, null, RatingType.g, new CompletionHandler<ListMediaResponse>() {
+            @Override
+            public void onComplete(ListMediaResponse result, Throwable e) {
+                Assert.assertNull(e);
+                Assert.assertNotNull(result);
+                Assert.assertTrue(result.getData().size() == 20);
+
+                lock.countDown();
+            }
+        });
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Test if rating 'unrated' returns gifs
+     * @throws Exception
+     */
+    @Test
+    public void testRatingUnrated() throws Exception {
+        final CountDownLatch lock = new CountDownLatch(1);
+
+        imp.trending(MediaType.gif, 20, null, RatingType.unrated, new CompletionHandler<ListMediaResponse>() {
+            @Override
+            public void onComplete(ListMediaResponse result, Throwable e) {
+                Assert.assertNull(e);
+                Assert.assertNotNull(result);
+                Assert.assertTrue(result.getData().size() == 20);
+
+                lock.countDown();
+            }
+        });
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Test if rating 'nsfw' returns gifs
+     * @throws Exception
+     */
+    @Test
+    public void testRatingNsfw() throws Exception {
+        final CountDownLatch lock = new CountDownLatch(1);
+
+        imp.trending(MediaType.gif, 20, null, RatingType.nsfw, new CompletionHandler<ListMediaResponse>() {
             @Override
             public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);

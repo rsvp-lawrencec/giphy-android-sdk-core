@@ -165,6 +165,48 @@ public class SearchTest {
     }
 
     /**
+     * Test if rating 'unrated' returns gifs
+     * @throws Exception
+     */
+    @Test
+    public void testRatingUnrated() throws Exception {
+        final CountDownLatch lock = new CountDownLatch(1);
+
+        imp.search("cars", MediaType.gif, 20, null, RatingType.unrated, null, new CompletionHandler<ListMediaResponse>() {
+            @Override
+            public void onComplete(ListMediaResponse result, Throwable e) {
+                Assert.assertNull(e);
+                Assert.assertNotNull(result);
+                Assert.assertTrue(result.getData().size() == 20);
+
+                lock.countDown();
+            }
+        });
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Test if rating 'nsfw' returns gifs
+     * @throws Exception
+     */
+    @Test
+    public void testRatingNsfw() throws Exception {
+        final CountDownLatch lock = new CountDownLatch(1);
+
+        imp.search("cars", MediaType.gif, 20, null, RatingType.nsfw, null, new CompletionHandler<ListMediaResponse>() {
+            @Override
+            public void onComplete(ListMediaResponse result, Throwable e) {
+                Assert.assertNull(e);
+                Assert.assertNotNull(result);
+                Assert.assertTrue(result.getData().size() == 20);
+
+                lock.countDown();
+            }
+        });
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
+    }
+
+    /**
      * Test if languages returns gifs
      * @throws Exception
      */

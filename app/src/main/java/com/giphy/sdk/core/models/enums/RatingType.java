@@ -31,7 +31,9 @@ public enum RatingType {
     g("g"),
     pg("pg"),
     @SerializedName("pg-13")
-    pg13("pg-13");
+    pg13("pg-13"),
+    unrated("unrated"),
+    nsfw("nsfw");
 
     private final String rating;
 
