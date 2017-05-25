@@ -28,7 +28,7 @@ import com.giphy.sdk.core.models.RandomGif;
 
 public class RandomGifResponse implements GenericResponse {
     private RandomGif data;
-    public Meta meta;
+    private Meta meta;
 
     public MediaResponse toGifResponse() {
         final MediaResponse mediaResponse = new MediaResponse();

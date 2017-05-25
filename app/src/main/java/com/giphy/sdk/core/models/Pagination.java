@@ -49,10 +49,6 @@ public class Pagination implements Parcelable {
         return totalCount;
     }
 
-    public void setTotalCount(int totalCount) {
-        this.totalCount = totalCount;
-    }
-
     /**
      * @return number of results in the current response
      */
@@ -60,19 +56,11 @@ public class Pagination implements Parcelable {
         return count;
     }
 
-    public void setCount(int count) {
-        this.count = count;
-    }
-
     /**
      * @return offset used for current response
      */
     public int getOffset() {
         return offset;
-    }
-
-    public void setOffset(int offset) {
-        this.offset = offset;
     }
 
     public static final Creator<Pagination> CREATOR = new Creator<Pagination>() {

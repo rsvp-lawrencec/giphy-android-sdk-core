@@ -61,19 +61,11 @@ public class Category implements Parcelable {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     /**
      * @return encoded category name, used for constructing the URL to fetch gifs
      */
     public String getNameEncoded() {
         return nameEncoded;
-    }
-
-    public void setNameEncoded(String nameEncoded) {
-        this.nameEncoded = nameEncoded;
     }
 
     /**
@@ -83,19 +75,11 @@ public class Category implements Parcelable {
         return gif;
     }
 
-    public void setGif(Media gif) {
-        this.gif = gif;
-    }
-
     /**
      * @return subcategories of the category
      */
     public List<Category> getSubCategories() {
         return subCategories;
-    }
-
-    public void setSubCategories(List<Category> subCategories) {
-        this.subCategories = subCategories;
     }
 
     /**

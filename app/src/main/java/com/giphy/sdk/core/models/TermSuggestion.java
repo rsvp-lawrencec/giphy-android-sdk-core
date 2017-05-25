@@ -45,10 +45,6 @@ public class TermSuggestion implements Parcelable {
         return term;
     }
 
-    public void setTerm(String term) {
-        this.term = term;
-    }
-
     public static final Creator<TermSuggestion> CREATOR = new Creator<TermSuggestion>() {
         @Override
         public TermSuggestion createFromParcel(Parcel in) {

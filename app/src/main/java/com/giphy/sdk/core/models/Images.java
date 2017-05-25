@@ -99,19 +99,11 @@ public class Images implements Parcelable {
         return fixedHeight;
     }
 
-    public void setFixedHeight(Image fixedHeight) {
-        this.fixedHeight = fixedHeight;
-    }
-
     /**
      *  Static preview image for fixed_height
      */
     public Image getFixedHeightStill() {
         return fixedHeightStill;
-    }
-
-    public void setFixedHeightStill(Image fixedHeightStill) {
-        this.fixedHeightStill = fixedHeightStill;
     }
 
     /**
@@ -122,7 +114,7 @@ public class Images implements Parcelable {
         return fixedHeightDownsampled;
     }
 
-    public void setFixedHeightDownsampled(Image fixedHeightDownsampled) {
+    void setFixedHeightDownsampled(Image fixedHeightDownsampled) {
         this.fixedHeightDownsampled = fixedHeightDownsampled;
     }
 
@@ -133,19 +125,11 @@ public class Images implements Parcelable {
         return fixedWidth;
     }
 
-    public void setFixedWidth(Image fixedWidth) {
-        this.fixedWidth = fixedWidth;
-    }
-
     /**
      * Static preview image for fixed_width
      */
     public Image getFixedWidthStill() {
         return fixedWidthStill;
-    }
-
-    public void setFixedWidthStill(Image fixedWidthStill) {
-        this.fixedWidthStill = fixedWidthStill;
     }
 
     /**
@@ -155,7 +139,7 @@ public class Images implements Parcelable {
         return fixedWidthDownsampled;
     }
 
-    public void setFixedWidthDownsampled(Image fixedWidthDownsampled) {
+    void setFixedWidthDownsampled(Image fixedWidthDownsampled) {
         this.fixedWidthDownsampled = fixedWidthDownsampled;
     }
 
@@ -166,7 +150,7 @@ public class Images implements Parcelable {
         return fixedHeightSmall;
     }
 
-    public void setFixedHeightSmall(Image fixedHeightSmall) {
+    void setFixedHeightSmall(Image fixedHeightSmall) {
         this.fixedHeightSmall = fixedHeightSmall;
     }
 
@@ -177,7 +161,7 @@ public class Images implements Parcelable {
         return fixedHeightSmallStill;
     }
 
-    public void setFixedHeightSmallStill(Image fixedHeightSmallStill) {
+    void setFixedHeightSmallStill(Image fixedHeightSmallStill) {
         this.fixedHeightSmallStill = fixedHeightSmallStill;
     }
 
@@ -188,7 +172,7 @@ public class Images implements Parcelable {
         return fixedWidthSmall;
     }
 
-    public void setFixedWidthSmall(Image fixedWidthSmall) {
+    void setFixedWidthSmall(Image fixedWidthSmall) {
         this.fixedWidthSmall = fixedWidthSmall;
     }
 
@@ -199,7 +183,7 @@ public class Images implements Parcelable {
         return fixedWidthSmallStill;
     }
 
-    public void setFixedWidthSmallStill(Image fixedWidthSmallStill) {
+    void setFixedWidthSmallStill(Image fixedWidthSmallStill) {
         this.fixedWidthSmallStill = fixedWidthSmallStill;
     }
 
@@ -210,19 +194,11 @@ public class Images implements Parcelable {
         return downsized;
     }
 
-    public void setDownsized(Image downsized) {
-        this.downsized = downsized;
-    }
-
     /**
      * Static preview image for downsized
      */
     public Image getDownsizedStill() {
         return downsizedStill;
-    }
-
-    public void setDownsizedStill(Image downsizedStill) {
-        this.downsizedStill = downsizedStill;
     }
 
     /**
@@ -232,19 +208,11 @@ public class Images implements Parcelable {
         return downsizedLarge;
     }
 
-    public void setDownsizedLarge(Image downsizedLarge) {
-        this.downsizedLarge = downsizedLarge;
-    }
-
     /**
      * File size under 5mb
      */
     public Image getDownsizedMedium() {
         return downsizedMedium;
-    }
-
-    public void setDownsizedMedium(Image downsizedMedium) {
-        this.downsizedMedium = downsizedMedium;
     }
 
     /**
@@ -254,7 +222,7 @@ public class Images implements Parcelable {
         return original;
     }
 
-    public void setOriginal(Image original) {
+    void setOriginal(Image original) {
         this.original = original;
     }
 
@@ -265,19 +233,11 @@ public class Images implements Parcelable {
         return originalStill;
     }
 
-    public void setOriginalStill(Image originalStill) {
-        this.originalStill = originalStill;
-    }
-
     /**
      * Duration set to loop for 15 seconds. Only recommended for this exact use case
      */
     public Image getLooping() {
         return looping;
-    }
-
-    public void setLooping(Image looping) {
-        this.looping = looping;
     }
 
     /**
@@ -287,19 +247,11 @@ public class Images implements Parcelable {
         return preview;
     }
 
-    public void setPreview(Image preview) {
-        this.preview = preview;
-    }
-
     /**
      * File size under 200kb
      */
     public Image getDownsizedSmall() {
         return downsizedSmall;
-    }
-
-    public void setDownsizedSmall(Image downsizedSmall) {
-        this.downsizedSmall = downsizedSmall;
     }
 
     /**
@@ -309,14 +261,14 @@ public class Images implements Parcelable {
         return mediaId;
     }
 
-    public void setMediaId(String mediaId) {
+    void setMediaId(String mediaId) {
         this.mediaId = mediaId;
     }
 
     /**
      * Passed down the rendition type and media id to each image
      */
-    public void postProcess() {
+    void postProcess() {
         if (original != null) {
             original.setMediaId(mediaId);
             original.setRenditionType(RenditionType.original);

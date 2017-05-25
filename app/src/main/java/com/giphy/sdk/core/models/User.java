@@ -91,19 +91,11 @@ public class User implements Parcelable {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     /**
      * @return avatar url
      */
     public String getAvatarUrl() {
         return avatarUrl;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
     }
 
     /**
@@ -113,19 +105,11 @@ public class User implements Parcelable {
         return bannerUrl;
     }
 
-    public void setBannerUrl(String bannerUrl) {
-        this.bannerUrl = bannerUrl;
-    }
-
     /**
      * @return profile url
      */
     public String getProfileUrl() {
         return profileUrl;
-    }
-
-    public void setProfileUrl(String profileUrl) {
-        this.profileUrl = profileUrl;
     }
 
     /**
@@ -135,7 +119,7 @@ public class User implements Parcelable {
         return username;
     }
 
-    public void setUsername(String username) {
+    void setUsername(String username) {
         this.username = username;
     }
 
@@ -146,19 +130,11 @@ public class User implements Parcelable {
         return displayName;
     }
 
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
     /**
      * @return twitter handle
      */
     public String getTwitter() {
         return twitter;
-    }
-
-    public void setTwitter(String twitter) {
-        this.twitter = twitter;
     }
 
     /**
@@ -168,19 +144,11 @@ public class User implements Parcelable {
         return isPublic;
     }
 
-    public void setIsPublic(boolean isPublic) {
-        this.isPublic = isPublic;
-    }
-
     /**
      * @return attribution display name
      */
     public String getAttributionDisplayName() {
         return attributionDisplayName;
-    }
-
-    public void setAttributionDisplayName(String attributionDisplayName) {
-        this.attributionDisplayName = attributionDisplayName;
     }
 
     /**
@@ -190,19 +158,11 @@ public class User implements Parcelable {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     /**
      * @return description
      */
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     /**
@@ -212,19 +172,11 @@ public class User implements Parcelable {
         return facebookUrl;
     }
 
-    public void setFacebookUrl(String facebookUrl) {
-        this.facebookUrl = facebookUrl;
-    }
-
     /**
      * @return twitter url
      */
     public String getTwitterUrl() {
         return twitterUrl;
-    }
-
-    public void setTwitterUrl(String twitterUrl) {
-        this.twitterUrl = twitterUrl;
     }
 
     /**
@@ -234,19 +186,11 @@ public class User implements Parcelable {
         return instagramUrl;
     }
 
-    public void setInstagramUrl(String instagramUrl) {
-        this.instagramUrl = instagramUrl;
-    }
-
     /**
      * @return tumblr url
      */
     public String getTumblrUrl() {
         return tumblrUrl;
-    }
-
-    public void setTumblrUrl(String tumblrUrl) {
-        this.tumblrUrl = tumblrUrl;
     }
 
     /**
@@ -256,10 +200,6 @@ public class User implements Parcelable {
         return suppressChrome;
     }
 
-    public void setSuppressChrome(boolean suppressChrome) {
-        this.suppressChrome = suppressChrome;
-    }
-
     /**
      * @return website url
      */
@@ -267,19 +207,11 @@ public class User implements Parcelable {
         return websiteUrl;
     }
 
-    public void setWebsiteUrl(String websiteUrl) {
-        this.websiteUrl = websiteUrl;
-    }
-
     /**
      * @return displayable url of the website
      */
     public String getWebsiteDisplayUrl() {
         return websiteDisplayUrl;
-    }
-
-    public void setWebsiteDisplayUrl(String websiteDisplayUrl) {
-        this.websiteDisplayUrl = websiteDisplayUrl;
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {

@@ -49,10 +49,10 @@ public class Image implements Parcelable {
     private String mediaId;
     private RenditionType renditionType;
 
-    protected Image() {
+    public Image() {
     }
 
-    protected Image(Parcel in) {
+    public Image(Parcel in) {
         gifUrl = in.readString();
         width = in.readInt();
         height = in.readInt();
@@ -86,7 +86,7 @@ public class Image implements Parcelable {
         return gifUrl;
     }
 
-    public void setGifUrl(String gifUrl) {
+    void setGifUrl(String gifUrl) {
         this.gifUrl = gifUrl;
     }
 
@@ -97,7 +97,7 @@ public class Image implements Parcelable {
         return width;
     }
 
-    public void setWidth(int width) {
+    void setWidth(int width) {
         this.width = width;
     }
 
@@ -108,7 +108,7 @@ public class Image implements Parcelable {
         return height;
     }
 
-    public void setHeight(int height) {
+    void setHeight(int height) {
         this.height = height;
     }
 
@@ -119,10 +119,6 @@ public class Image implements Parcelable {
         return gifSize;
     }
 
-    public void setGifSize(int gifSize) {
-        this.gifSize = gifSize;
-    }
-
     /**
      * @return number of frames
      */
@@ -130,7 +126,7 @@ public class Image implements Parcelable {
         return frames;
     }
 
-    public void setFrames(int frames) {
+    void setFrames(int frames) {
         this.frames = frames;
     }
 
@@ -141,7 +137,7 @@ public class Image implements Parcelable {
         return mp4Url;
     }
 
-    public void setMp4Url(String mp4Url) {
+    void setMp4Url(String mp4Url) {
         this.mp4Url = mp4Url;
     }
 
@@ -152,19 +148,11 @@ public class Image implements Parcelable {
         return mp4Size;
     }
 
-    public void setMp4Size(int mp4Size) {
-        this.mp4Size = mp4Size;
-    }
-
     /**
      * @return URL of the webP file
      */
     public String getWebPUrl() {
         return webPUrl;
-    }
-
-    public void setWebPUrl(String webPUrl) {
-        this.webPUrl = webPUrl;
     }
 
     /**
@@ -174,10 +162,6 @@ public class Image implements Parcelable {
         return webPSize;
     }
 
-    public void setWebPSize(int webPSize) {
-        this.webPSize = webPSize;
-    }
-
     /**
      * @return ID of the represented Media object
      */
@@ -185,7 +169,7 @@ public class Image implements Parcelable {
         return mediaId;
     }
 
-    public void setMediaId(String mediaId) {
+    void setMediaId(String mediaId) {
         this.mediaId = mediaId;
     }
 
@@ -196,7 +180,7 @@ public class Image implements Parcelable {
         return renditionType;
     }
 
-    public void setRenditionType(RenditionType renditionType) {
+    void setRenditionType(RenditionType renditionType) {
         this.renditionType = renditionType;
     }
 

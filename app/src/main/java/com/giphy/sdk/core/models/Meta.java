@@ -54,10 +54,6 @@ public class Meta implements Parcelable {
         return status;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
     /**
      * @return error message
      */
@@ -65,19 +61,11 @@ public class Meta implements Parcelable {
         return msg;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
     /**
      * @return response id of the request
      */
     public String getResponseId() {
         return responseId;
-    }
-
-    public void setResponseId(String responseId) {
-        this.responseId = responseId;
     }
 
     public static final Creator<Meta> CREATOR = new Creator<Meta>() {

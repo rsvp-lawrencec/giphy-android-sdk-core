@@ -133,7 +133,7 @@ public class Media implements Parcelable {
         return type;
     }
 
-    public void setType(MediaType type) {
+    void setType(MediaType type) {
         this.type = type;
     }
 
@@ -144,7 +144,7 @@ public class Media implements Parcelable {
         return id;
     }
 
-    public void setId(String id) {
+    void setId(String id) {
         this.id = id;
     }
 
@@ -155,10 +155,6 @@ public class Media implements Parcelable {
         return slug;
     }
 
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
     /**
      * @return url
      */
@@ -166,7 +162,7 @@ public class Media implements Parcelable {
         return url;
     }
 
-    public void setUrl(String url) {
+    void setUrl(String url) {
         this.url = url;
     }
 
@@ -177,19 +173,11 @@ public class Media implements Parcelable {
         return bitlyGifUrl;
     }
 
-    public void setBitlyGifUrl(String bitlyGifUrl) {
-        this.bitlyGifUrl = bitlyGifUrl;
-    }
-
     /**
      * @return bitly version of the gif url
      */
     public String getBitlyUrl() {
         return bitlyUrl;
-    }
-
-    public void setBitlyUrl(String bitlyUrl) {
-        this.bitlyUrl = bitlyUrl;
     }
 
     /**
@@ -199,19 +187,11 @@ public class Media implements Parcelable {
         return embedUrl;
     }
 
-    public void setEmbedUrl(String embedUrl) {
-        this.embedUrl = embedUrl;
-    }
-
     /**
      * @return source
      */
     public String getSource() {
         return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
     }
 
     /**
@@ -221,19 +201,11 @@ public class Media implements Parcelable {
         return rating;
     }
 
-    public void setRating(RatingType rating) {
-        this.rating = rating;
-    }
-
     /**
      * @return content url
      */
     public String getContentUrl() {
         return contentUrl;
-    }
-
-    public void setContentUrl(String contentUrl) {
-        this.contentUrl = contentUrl;
     }
 
     /**
@@ -243,19 +215,11 @@ public class Media implements Parcelable {
         return tags;
     }
 
-    public void setTags(List<String> tags) {
-        this.tags = tags;
-    }
-
     /**
      * @return featured tags
      */
     public List<String> getFeaturedTags() {
         return featuredTags;
-    }
-
-    public void setFeaturedTags(List<String> featuredTags) {
-        this.featuredTags = featuredTags;
     }
 
     /**
@@ -265,7 +229,7 @@ public class Media implements Parcelable {
         return user;
     }
 
-    public void setUser(User user) {
+    void setUser(User user) {
         this.user = user;
     }
 
@@ -276,7 +240,7 @@ public class Media implements Parcelable {
         return images;
     }
 
-    public void setImages(Images images) {
+    void setImages(Images images) {
         this.images = images;
     }
 
@@ -287,19 +251,11 @@ public class Media implements Parcelable {
         return sourceTld;
     }
 
-    public void setSourceTld(String sourceTld) {
-        this.sourceTld = sourceTld;
-    }
-
     /**
      * @return source post url
      */
     public String getSourcePostUrl() {
         return sourcePostUrl;
-    }
-
-    public void setSourcePostUrl(String sourcePostUrl) {
-        this.sourcePostUrl = sourcePostUrl;
     }
 
     /**
@@ -309,19 +265,11 @@ public class Media implements Parcelable {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
-
     /**
      * @return date when the gif was created
      */
     public Date getCreateDate() {
         return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
     }
 
     /**
@@ -331,19 +279,11 @@ public class Media implements Parcelable {
         return importDate;
     }
 
-    public void setImportDate(Date importDate) {
-        this.importDate = importDate;
-    }
-
     /**
      * @return date when the gif was trending
      */
     public Date getTrendingDate() {
         return trendingDate;
-    }
-
-    public void setTrendingDate(Date trendingDate) {
-        this.trendingDate = trendingDate;
     }
 
     /**
@@ -353,19 +293,11 @@ public class Media implements Parcelable {
         return isHidden;
     }
 
-    public void setIsHidden(boolean isHidden) {
-        this.isHidden = isHidden;
-    }
-
     /**
      * @return true if this gif was removed, false otherwise
      */
     public boolean getIsRemoved() {
         return isRemoved;
-    }
-
-    public void setIsRemoved(boolean isRemoved) {
-        this.isRemoved = isRemoved;
     }
 
     /**
@@ -375,19 +307,11 @@ public class Media implements Parcelable {
         return isCommunity;
     }
 
-    public void setIsCommunity(boolean isCommunity) {
-        this.isCommunity = isCommunity;
-    }
-
     /**
      * @return true if is anonymous
      */
     public boolean getIsAnonymous() {
         return isAnonymous;
-    }
-
-    public void setIsAnonymous(boolean isAnonymous) {
-        this.isAnonymous = isAnonymous;
     }
 
     /**
@@ -397,19 +321,11 @@ public class Media implements Parcelable {
         return isFeatured;
     }
 
-    public void setIsFeatured(boolean isFeatured) {
-        this.isFeatured = isFeatured;
-    }
-
     /**
      * @return true if realtime
      */
     public boolean getIsRealtime() {
         return isRealtime;
-    }
-
-    public void setIsRealtime(boolean isRealtime) {
-        this.isRealtime = isRealtime;
     }
 
     /**
@@ -419,21 +335,12 @@ public class Media implements Parcelable {
         return isIndexable;
     }
 
-    public void setIsIndexable(boolean isIndexable) {
-        this.isIndexable = isIndexable;
-    }
-
     /**
      * @return true if sticker, false otherwise
      */
     public boolean getIsSticker() {
         return isSticker;
     }
-
-    public void setIsSticker(boolean isSticker) {
-        this.isSticker = isSticker;
-    }
-
 
     /**
      * Passed down the media id to the @images field and call postProcess function on @images field
