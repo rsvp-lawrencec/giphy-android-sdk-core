@@ -104,7 +104,7 @@ Fetch GIFs currently trending online. Hand curated by the Giphy editorial team. 
 /// Trending Gifs
 client.trending(MediaType.gif, null, null, null, new CompletionHandler<ListMediaResponse>() {
     @Override
-    public void onComplete(MediaResponse result, Throwable e) {
+    public void onComplete(ListMediaResponse result, Throwable e) {
         if (result == null) {
             // Do what you want to do with the error
         } else {
@@ -122,7 +122,7 @@ client.trending(MediaType.gif, null, null, null, new CompletionHandler<ListMedia
 /// Trending Stickers
 client.trending(MediaType.sticker, null, null, null, new CompletionHandler<ListMediaResponse>() {
     @Override
-    public void onComplete(MediaResponse result, Throwable e) {
+    public void onComplete(ListMediaResponse result, Throwable e) {
         if (result == null) {
             // Do what you want to do with the error
         } else {
@@ -256,6 +256,98 @@ imp.gifsByIds(gifIds, new CompletionHandler<ListMediaResponse>() {
         }
     }
 });
+```
+
+### Categories Endpoint
+Fetch giphy categories
+
+```java
+/// Categories
+client.categoriesForGifs(null, null, null, new CompletionHandler<ListCategoryResponse>() {
+    @Override
+    public void onComplete(ListCategoryResponse result, Throwable e) {
+        if (result == null) {
+            // Do what you want to do with the error
+        } else {
+            if (result.getData() != null) {
+                for (Category category : result.getData()) {
+                    Log.v("giphy", category.getName());
+                }
+            } else {
+                Log.e("giphy error", "No results found");
+            }
+        }
+    }
+}
+```
+
+### Subcategories Endpoint
+Fetch sub categories(tags) for a given category
+
+```java
+/// Categories
+client.subCategoriesForGifs("actions", null, null, new CompletionHandler<ListCategoryResponse>() {
+    @Override
+    public void onComplete(ListCategoryResponse result, Throwable e) {
+        if (result == null) {
+            // Do what you want to do with the error
+        } else {
+            if (result.getData() != null) {
+                for (Category category : result.getData()) {
+                    Log.v("giphy", category.getName());
+                }
+            } else {
+                Log.e("giphy error", "No results found");
+            }
+        }
+    }
+}
+```
+
+### Gifs by Category Endpoint
+Fetch GIFs with a specific category & subcategory(tags)
+
+```java
+/// Gifs by Category
+client.gifsByCategory("animals", "cats", null, null, new CompletionHandler<ListMediaResponse>() {
+    @Override
+    public void onComplete(ListMediaResponse result, Throwable e) {
+        if (result == null) {
+            // Do what you want to do with the error
+        } else {
+            if (result.getData() != null) {
+                for (Media gif : result.getData()) {
+                    Log.v("giphy", gif.getId());
+                }
+            } else {
+                Log.e("giphy error", "No results found");
+            }
+        }
+    }
+}
+```
+
+### Term suggestions Endpoint
+Fetch suggestion for a specific term
+
+```java
+/// Term suggestions
+client.termSuggestions("come", new CompletionHandler<ListTermSuggestionResponse>() {
+    @Override
+    public void onComplete(ListTermSuggestionResponse result, Throwable e) {
+        if (result == null) {
+            // Do what you want to do with the error
+        } else {
+            if (result.getData() != null) {
+                for (TermSuggestion term : result.getData()) {
+                    Log.v("giphy", term.getTerm());
+                }
+            } else {
+                Log.e("giphy error", "No results found");
+            }
+        }
+    }
+}
 ```
 
 # CONTRIBUTING
