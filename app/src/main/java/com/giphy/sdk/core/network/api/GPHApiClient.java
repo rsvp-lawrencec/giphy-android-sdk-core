@@ -44,7 +44,7 @@ import java.util.Map;
 import java.util.concurrent.Future;
 
 public class GPHApiClient implements GPHApi {
-    private static final String HTTP_GET = "GET";
+    public static final String HTTP_GET = "GET";
     public static final String API_KEY = "api_key";
 
     private final NetworkSession networkSessionImpl;
@@ -280,5 +280,13 @@ public class GPHApiClient implements GPHApi {
         } else {
             return "gifs";
         }
+    }
+
+    public NetworkSession getNetworkSession() {
+        return networkSessionImpl;
+    }
+
+    public String getApiKey() {
+        return apiKey;
     }
 }
