@@ -32,6 +32,7 @@ import com.giphy.sdk.core.models.deserializers.BooleanDeserializer;
 import com.giphy.sdk.core.models.deserializers.DateDeserializer;
 import com.giphy.sdk.core.models.deserializers.IntDeserializer;
 import com.giphy.sdk.core.models.deserializers.MainAdapterFactory;
+import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.response.ErrorResponse;
 import com.giphy.sdk.core.network.response.GenericResponse;
 import com.giphy.sdk.core.threading.ApiTask;
@@ -48,6 +49,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 
 public class DefaultNetworkSession implements NetworkSession {
     private static final Gson GSON_INSTANCE = new GsonBuilder()
@@ -59,11 +61,11 @@ public class DefaultNetworkSession implements NetworkSession {
 
     @Override
     public <T extends GenericResponse> ApiTask<T> queryStringConnection(@NonNull final Uri serverUrl,
-                                                                        @NonNull final String path,
-                                                                        @NonNull final String method,
-                                                                        @NonNull final Class<T> responseClass,
-                                                                        @Nullable final Map<String, String> queryStrings,
-                                                                        @Nullable final Map<String, String> headers) {
+                                                                       @NonNull final String path,
+                                                                       @NonNull final String method,
+                                                                       @NonNull final Class<T> responseClass,
+                                                                       @Nullable final Map<String, String> queryStrings,
+                                                                       @Nullable final Map<String, String> headers) {
         return new ApiTask<>(new Callable<T>() {
             @Override
             public T call() throws Exception {

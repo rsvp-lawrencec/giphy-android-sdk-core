@@ -23,7 +23,6 @@
 
 package com.giphy.sdk.core.network.api;
 
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -31,11 +30,12 @@ import com.giphy.sdk.core.models.enums.LangType;
 import com.giphy.sdk.core.models.enums.MediaType;
 import com.giphy.sdk.core.models.enums.RatingType;
 import com.giphy.sdk.core.network.response.ListCategoryResponse;
-import com.giphy.sdk.core.network.response.MediaResponse;
 import com.giphy.sdk.core.network.response.ListMediaResponse;
 import com.giphy.sdk.core.network.response.ListTermSuggestionResponse;
+import com.giphy.sdk.core.network.response.MediaResponse;
 
 import java.util.List;
+import java.util.concurrent.Future;
 
 public interface GPHApi {
     /**
@@ -50,10 +50,10 @@ public interface GPHApi {
      * @return
      */
     @NonNull
-    public AsyncTask search(@NonNull String searchQuery, @Nullable MediaType type, @Nullable Integer limit,
-                            @Nullable Integer offset, @Nullable RatingType rating,
-                            @Nullable LangType lang,
-                            @NonNull final CompletionHandler<ListMediaResponse> completionHandler);
+    public Future search(@NonNull String searchQuery, @Nullable MediaType type, @Nullable Integer limit,
+                         @Nullable Integer offset, @Nullable RatingType rating,
+                         @Nullable LangType lang,
+                         @NonNull final CompletionHandler<ListMediaResponse> completionHandler);
 
     /**
      * Get the trending gifs or stickers
@@ -65,9 +65,9 @@ public interface GPHApi {
      * @return
      */
     @NonNull
-    public AsyncTask trending(@Nullable MediaType type, @Nullable Integer limit,
-                              @Nullable Integer offset, @Nullable RatingType rating,
-                              @NonNull final CompletionHandler<ListMediaResponse> completionHandler);
+    public Future trending(@Nullable MediaType type, @Nullable Integer limit,
+                                  @Nullable Integer offset, @Nullable RatingType rating,
+                                  @NonNull final CompletionHandler<ListMediaResponse> completionHandler);
 
     /**
      * The translate API draws on search, but uses the Giphy "special sauce" to handle translating from one vocabulary to another.
@@ -79,7 +79,7 @@ public interface GPHApi {
      * @return
      */
     @NonNull
-    public AsyncTask translate(@NonNull String term, @Nullable MediaType type, @Nullable RatingType rating,
+    public Future translate(@NonNull String term, @Nullable MediaType type, @Nullable RatingType rating,
                                @Nullable LangType lang,
                                @NonNull final CompletionHandler<MediaResponse> completionHandler);
 
@@ -92,7 +92,7 @@ public interface GPHApi {
      * @return
      */
     @NonNull
-    public AsyncTask random(@NonNull String tag, @Nullable MediaType type, @Nullable RatingType rating,
+    public Future random(@NonNull String tag, @Nullable MediaType type, @Nullable RatingType rating,
                             @NonNull final CompletionHandler<MediaResponse> completionHandler);
 
 
@@ -105,7 +105,7 @@ public interface GPHApi {
      * @return
      */
     @NonNull
-    public AsyncTask categoriesForGifs(@Nullable Integer limit, @Nullable Integer offset,
+    public Future categoriesForGifs(@Nullable Integer limit, @Nullable Integer offset,
                                        @Nullable String sort,
                                        @NonNull final CompletionHandler<ListCategoryResponse> completionHandler);
 
@@ -118,7 +118,7 @@ public interface GPHApi {
      * @return
      */
     @NonNull
-    public AsyncTask subCategoriesForGifs(@NonNull String categoryEncodedName,
+    public Future subCategoriesForGifs(@NonNull String categoryEncodedName,
                                           @Nullable Integer limit, @Nullable Integer offset,
                                           @NonNull final CompletionHandler<ListCategoryResponse> completionHandler);
 
@@ -132,7 +132,7 @@ public interface GPHApi {
      * @return
      */
     @NonNull
-    public AsyncTask gifsByCategory(@NonNull String categoryEncodedName,
+    public Future gifsByCategory(@NonNull String categoryEncodedName,
                                     @NonNull String subCategoryEncodedName,
                                     @Nullable Integer limit, @Nullable Integer offset,
                                     @NonNull final CompletionHandler<ListMediaResponse> completionHandler);
@@ -144,7 +144,7 @@ public interface GPHApi {
      * @return
      */
     @NonNull
-    public AsyncTask gifById(@NonNull String gifId,
+    public Future gifById(@NonNull String gifId,
                              @NonNull final CompletionHandler<MediaResponse> completionHandler);
 
     /**
@@ -153,7 +153,7 @@ public interface GPHApi {
      * @return
      */
     @NonNull
-    public AsyncTask gifsByIds(@NonNull List<String> gifIds,
+    public Future gifsByIds(@NonNull List<String> gifIds,
                                @NonNull final CompletionHandler<ListMediaResponse> completionHandler);
 
     /**
@@ -163,7 +163,7 @@ public interface GPHApi {
      * @return
      */
     @NonNull
-    public AsyncTask termSuggestions(@NonNull String term,
+    public Future termSuggestions(@NonNull String term,
                                      @NonNull final CompletionHandler<ListTermSuggestionResponse> completionHandler);
 }
 

@@ -23,7 +23,6 @@
 
 package com.giphy.sdk.core;
 
-import android.os.AsyncTask;
 import android.os.Parcel;
 
 import com.giphy.sdk.core.models.Media;
@@ -41,6 +40,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -323,7 +323,7 @@ public class SearchTest {
     public void testCancelation() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        final AsyncTask task = imp.search("hack", MediaType.gif, null, null, null, null, new CompletionHandler<ListMediaResponse>() {
+        final Future task = imp.search("hack", MediaType.gif, null, null, null, null, new CompletionHandler<ListMediaResponse>() {
             @Override
             public void onComplete(ListMediaResponse result, Throwable e) {
                 // If we get here, the test will fail, since it wasn't properly canceled
@@ -348,7 +348,7 @@ public class SearchTest {
     public void testCancelationWithDelay() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        final AsyncTask task = imp.search("hack", MediaType.gif, 2, null, null, null, new CompletionHandler<ListMediaResponse>() {
+        final Future task = imp.search("hack", MediaType.gif, 2, null, null, null, new CompletionHandler<ListMediaResponse>() {
             @Override
             public void onComplete(ListMediaResponse result, Throwable e) {
                 // If we get here, the test will fail, since it wasn't properly canceled
