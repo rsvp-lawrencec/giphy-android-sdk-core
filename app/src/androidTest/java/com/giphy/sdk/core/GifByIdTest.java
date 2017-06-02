@@ -83,11 +83,10 @@ public class GifByIdTest {
             public void onComplete(MediaResponse result, Throwable e) {
                 Assert.assertNull(result);
                 Assert.assertNotNull(e);
-                Assert.assertNotNull(e.getCause());
-                Assert.assertTrue(e.getCause() instanceof ApiException);
-                Assert.assertNotNull(((ApiException)e.getCause()).getErrorResponse());
-                Assert.assertNotNull(((ApiException)e.getCause()).getErrorResponse().getMeta());
-                Assert.assertEquals(((ApiException)e.getCause()).getErrorResponse().getMeta().getStatus(), HttpURLConnection.HTTP_NOT_FOUND);
+                Assert.assertTrue(e instanceof ApiException);
+                Assert.assertNotNull(((ApiException)e).getErrorResponse());
+                Assert.assertNotNull(((ApiException)e).getErrorResponse().getMeta());
+                Assert.assertEquals(((ApiException)e).getErrorResponse().getMeta().getStatus(), HttpURLConnection.HTTP_NOT_FOUND);
 
                 lock.countDown();
             }
@@ -135,11 +134,10 @@ public class GifByIdTest {
             public void onComplete(MediaResponse result, Throwable e) {
                 Assert.assertNull(result);
                 Assert.assertNotNull(e);
-                Assert.assertNotNull(e.getCause());
-                Assert.assertTrue(e.getCause() instanceof ApiException);
-                Assert.assertNotNull(((ApiException)e.getCause()).getErrorResponse());
-                Assert.assertNotNull(((ApiException)e.getCause()).getErrorResponse().getMeta());
-                Assert.assertEquals(((ApiException)e.getCause()).getErrorResponse().getMeta().getStatus(), HttpURLConnection.HTTP_UNAUTHORIZED);
+                Assert.assertTrue(e instanceof ApiException);
+                Assert.assertNotNull(((ApiException)e).getErrorResponse());
+                Assert.assertNotNull(((ApiException)e).getErrorResponse().getMeta());
+                Assert.assertEquals(((ApiException)e).getErrorResponse().getMeta().getStatus(), HttpURLConnection.HTTP_UNAUTHORIZED);
 
                 lock.countDown();
             }

@@ -128,14 +128,16 @@ public interface GPHApi {
      * @param subCategoryEncodedName
      * @param limit
      * @param offset
-     * @param completionHandler
-     * @return
+     * @param ratingType
+     * @param langType
+     * @param completionHandler  @return
      */
     @NonNull
     public Future gifsByCategory(@NonNull String categoryEncodedName,
-                                    @NonNull String subCategoryEncodedName,
-                                    @Nullable Integer limit, @Nullable Integer offset,
-                                    @NonNull final CompletionHandler<ListMediaResponse> completionHandler);
+                                 @NonNull String subCategoryEncodedName,
+                                 @Nullable Integer limit, @Nullable Integer offset,
+                                 @Nullable RatingType ratingType, @Nullable LangType langType,
+                                 @NonNull final CompletionHandler<ListMediaResponse> completionHandler);
 
     /**
      * Returns meta data about a GIF, by GIF id

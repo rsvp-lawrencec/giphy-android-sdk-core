@@ -77,33 +77,6 @@ public class TermSuggestionTest {
     }
 
     /**
-     * Test if term suggestion endpoint returns data
-     *
-     * @throws Exception
-     */
-    @Test
-    public void testForbidden() throws Exception {
-        final CountDownLatch lock = new CountDownLatch(1);
-
-        final GPHApi client = new GPHApiClient("dc6zaTOxFJmzC");
-        client.termSuggestions("come", new CompletionHandler<ListTermSuggestionResponse>() {
-            @Override
-            public void onComplete(ListTermSuggestionResponse result, Throwable e) {
-                Assert.assertNull(result);
-                Assert.assertNotNull(e);
-                Assert.assertNotNull(e.getCause());
-                Assert.assertTrue(e.getCause() instanceof ApiException);
-                Assert.assertNotNull(((ApiException)e.getCause()).getErrorResponse());
-                Assert.assertNotNull(((ApiException)e.getCause()).getErrorResponse().getMeta());
-                Assert.assertEquals(((ApiException)e.getCause()).getErrorResponse().getMeta().getStatus(), HttpURLConnection.HTTP_FORBIDDEN);
-
-                lock.countDown();
-            }
-        });
-        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
-    }
-
-    /**
      * Test if parcelable is implemeted correctly for the models
      *
      * @throws Exception

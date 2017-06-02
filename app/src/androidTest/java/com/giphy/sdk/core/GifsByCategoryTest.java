@@ -52,7 +52,7 @@ public class GifsByCategoryTest {
     public void testBase() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.gifsByCategory("animals", "dragon", null, null, new CompletionHandler<ListMediaResponse>() {
+        imp.gifsByCategory("animals", "dragon", null, null, null, null, new CompletionHandler<ListMediaResponse>() {
             @Override
             public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
@@ -74,14 +74,14 @@ public class GifsByCategoryTest {
     public void testLimitOffset() throws Exception {
         final CountDownLatch lock = new CountDownLatch(2);
 
-        imp.gifsByCategory("animals", "cats", 20, 0, new CompletionHandler<ListMediaResponse>() {
+        imp.gifsByCategory("animals", "cats", 20, 0, null, null, new CompletionHandler<ListMediaResponse>() {
             @Override
             public void onComplete(final ListMediaResponse result1, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
                 Assert.assertTrue(result1.getData().size() == 20);
 
-                imp.gifsByCategory("animals", "cats", 20, 10, new CompletionHandler<ListMediaResponse>() {
+                imp.gifsByCategory("animals", "cats", 20, 10, null, null, new CompletionHandler<ListMediaResponse>() {
                     @Override
                     public void onComplete(ListMediaResponse result2, Throwable e) {
                         Assert.assertNull(e);
@@ -108,7 +108,7 @@ public class GifsByCategoryTest {
     public void testPagination() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.gifsByCategory("animals", "dragon", 13, 12, new CompletionHandler<ListMediaResponse>() {
+        imp.gifsByCategory("animals", "dragon", 13, 12, null, null, new CompletionHandler<ListMediaResponse>() {
             @Override
             public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);
@@ -134,7 +134,7 @@ public class GifsByCategoryTest {
     public void testMeta() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.gifsByCategory("animals", "dragon", null, null, new CompletionHandler<ListMediaResponse>() {
+        imp.gifsByCategory("animals", "dragon", null, null, null, null, new CompletionHandler<ListMediaResponse>() {
             @Override
             public void onComplete(ListMediaResponse result, Throwable e) {
                 Assert.assertNull(e);

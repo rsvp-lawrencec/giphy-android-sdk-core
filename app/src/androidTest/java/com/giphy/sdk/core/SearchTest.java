@@ -327,8 +327,7 @@ public class SearchTest {
             @Override
             public void onComplete(ListMediaResponse result, Throwable e) {
                 // If we get here, the test will fail, since it wasn't properly canceled
-                Assert.assertNull(result);
-                Assert.assertNull(e);
+                Assert.assertTrue(false);
 
                 lock.countDown();
             }
@@ -352,8 +351,7 @@ public class SearchTest {
             @Override
             public void onComplete(ListMediaResponse result, Throwable e) {
                 // If we get here, the test will fail, since it wasn't properly canceled
-                Assert.assertNull(result);
-                Assert.assertNull(e);
+                Assert.assertTrue(false);
 
                 lock.countDown();
             }

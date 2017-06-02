@@ -215,7 +215,7 @@ public class GPHApiClient implements GPHApi {
     public Future gifsByCategory(@NonNull String categoryEncodedName,
                                  @NonNull String subCategoryEncodedName,
                                  @Nullable Integer limit, @Nullable Integer offset,
-                                 @NonNull final CompletionHandler<ListMediaResponse> completionHandler) {
+                                 RatingType ratingType, LangType langType, @NonNull final CompletionHandler<ListMediaResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
         params.put(API_KEY, apiKey);
         if (limit != null) {

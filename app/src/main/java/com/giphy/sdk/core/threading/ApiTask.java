@@ -30,6 +30,7 @@ import android.util.Log;
 
 import com.giphy.sdk.core.network.api.CompletionHandler;
 
+import java.io.InterruptedIOException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -84,6 +85,12 @@ public class ApiTask<V> {
             public void run() {
                 try {
                     final V value = callable.call();
+
+                    // If thread was interrupted, throw error
+                    if (Thread.currentThread().isInterrupted()) {
+                        throw new InterruptedException();
+                    }
+
                     MAIN_LOOP_HANDLER.post(new Runnable() {
                         @Override
                         public void run() {
@@ -99,7 +106,7 @@ public class ApiTask<V> {
                             completionHandler.onComplete(null, e);
                         }
                     });
-                } catch (InterruptedException e) { // interrupts will naturally occur from cancelling
+                } catch (InterruptedIOException|InterruptedException e) { // interrupts will naturally occur from cancelling
                 } catch (final Exception e) {
                     MAIN_LOOP_HANDLER.post(new Runnable() {
                         @Override
