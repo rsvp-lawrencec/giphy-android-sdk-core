@@ -1,5 +1,6 @@
 /*
- * Created by Bogdan Tirca on 5/8/17.
+ *
+ * Created by Bogdan Tirca on 6/6/17.
  * Copyright (c) 2017 Giphy Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,13 +22,12 @@
  * SOFTWARE.
  */
 
-package com.giphy.sdk.core.models.deserializers;
+package com.giphy.sdk.core.models.json;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Type;
 import java.text.DateFormat;
@@ -35,15 +35,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class BooleanDeserializer implements JsonDeserializer<Boolean> {
-    public Boolean deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-            throws JsonParseException {
-        final JsonPrimitive jsonPrimitive = json.getAsJsonPrimitive();
-        if(jsonPrimitive.isBoolean()) {
-            return json.getAsBoolean();
-        } else if (jsonPrimitive.isNumber()) {
-            return json.getAsInt() != 0;
-        }
-        return false;
+public class DateSerializer implements JsonSerializer<Date> {
+    private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+    public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext context) {
+        return new JsonPrimitive(dateFormat.format(src));
     }
 }

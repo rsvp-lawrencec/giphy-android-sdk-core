@@ -31,6 +31,7 @@ import com.giphy.sdk.core.models.enums.MediaType;
 import com.giphy.sdk.core.models.enums.RatingType;
 import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApiClient;
+import com.giphy.sdk.core.network.engine.DefaultNetworkSession;
 import com.giphy.sdk.core.network.response.ListMediaResponse;
 import com.google.gson.Gson;
 
@@ -417,6 +418,35 @@ public class SearchTest {
                     Media parcelMedia = Media.CREATOR.createFromParcel(parcel);
                     // Compare the initial object with the one obtained from parcel
                     Assert.assertEquals(gson.toJson(parcelMedia), gson.toJson(media));
+                }
+
+                lock.countDown();
+            }
+        });
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Test if json serialization&deserialization is implemeted correctly for the models
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testJson() throws Exception {
+        final CountDownLatch lock = new CountDownLatch(1);
+
+        imp.search("hack", MediaType.gif, 100, null, null, null, new CompletionHandler<ListMediaResponse>() {
+            @Override
+            public void onComplete(ListMediaResponse result, Throwable e) {
+                Assert.assertNull(e);
+                Assert.assertNotNull(result);
+                Assert.assertTrue(result.getData().size() == 100);
+
+                for (Media media : result.getData()) {
+                    final String str1 = DefaultNetworkSession.GSON_INSTANCE.toJson(media);
+                    final Media obj1 = DefaultNetworkSession.GSON_INSTANCE.fromJson(str1, Media.class);
+                    final String str2 = DefaultNetworkSession.GSON_INSTANCE.toJson(obj1);
+                    Assert.assertEquals(str1, str2);
                 }
 
                 lock.countDown();

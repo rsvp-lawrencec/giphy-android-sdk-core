@@ -28,11 +28,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.giphy.sdk.core.models.deserializers.BooleanDeserializer;
-import com.giphy.sdk.core.models.deserializers.DateDeserializer;
-import com.giphy.sdk.core.models.deserializers.IntDeserializer;
-import com.giphy.sdk.core.models.deserializers.MainAdapterFactory;
-import com.giphy.sdk.core.network.api.CompletionHandler;
+import com.giphy.sdk.core.models.json.BooleanDeserializer;
+import com.giphy.sdk.core.models.json.DateDeserializer;
+import com.giphy.sdk.core.models.json.DateSerializer;
+import com.giphy.sdk.core.models.json.IntDeserializer;
+import com.giphy.sdk.core.models.json.MainAdapterFactory;
 import com.giphy.sdk.core.network.response.ErrorResponse;
 import com.giphy.sdk.core.network.response.GenericResponse;
 import com.giphy.sdk.core.threading.ApiTask;
@@ -49,11 +49,11 @@ import java.net.URL;
 import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
 
 public class DefaultNetworkSession implements NetworkSession {
-    private static final Gson GSON_INSTANCE = new GsonBuilder()
+    public static final Gson GSON_INSTANCE = new GsonBuilder()
             .registerTypeHierarchyAdapter(Date.class, new DateDeserializer())
+            .registerTypeHierarchyAdapter(Date.class, new DateSerializer())
             .registerTypeHierarchyAdapter(boolean.class, new BooleanDeserializer())
             .registerTypeHierarchyAdapter(int.class, new IntDeserializer())
             .registerTypeAdapterFactory(new MainAdapterFactory())

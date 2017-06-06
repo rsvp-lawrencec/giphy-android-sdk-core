@@ -1,5 +1,5 @@
 /*
- * Created by Bogdan Tirca on 5/9/17.
+ * Created by Bogdan Tirca on 5/8/17.
  * Copyright (c) 2017 Giphy Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,35 +21,25 @@
  * SOFTWARE.
  */
 
-package com.giphy.sdk.core.models.deserializers;
+package com.giphy.sdk.core.models.json;
 
-import com.giphy.sdk.core.models.Media;
-import com.google.gson.Gson;
-import com.google.gson.TypeAdapter;
-import com.google.gson.TypeAdapterFactory;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
 
-import java.io.IOException;
+import java.lang.reflect.Type;
 
-public class MainAdapterFactory implements TypeAdapterFactory {
-    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-        final TypeAdapter<T> delegateAdapter = gson.getDelegateAdapter(this, type);
-        return new TypeAdapter<T>() {
-            @Override
-            public void write(JsonWriter out, T value) throws IOException {
-                delegateAdapter.write(out, value);
-            }
-
-            @Override
-            public T read(JsonReader in) throws IOException {
-                T obj = delegateAdapter.read(in);
-                if (obj instanceof Media) {
-                    ((Media) obj).postProcess();
-                }
-                return obj;
-            }
-        };
+public class BooleanDeserializer implements JsonDeserializer<Boolean> {
+    public Boolean deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+            throws JsonParseException {
+        final JsonPrimitive jsonPrimitive = json.getAsJsonPrimitive();
+        if(jsonPrimitive.isBoolean()) {
+            return json.getAsBoolean();
+        } else if (jsonPrimitive.isNumber()) {
+            return json.getAsInt() != 0;
+        }
+        return false;
     }
 }

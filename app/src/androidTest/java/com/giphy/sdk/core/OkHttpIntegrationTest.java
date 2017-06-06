@@ -28,13 +28,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.giphy.sdk.core.models.Media;
-import com.giphy.sdk.core.models.deserializers.BooleanDeserializer;
-import com.giphy.sdk.core.models.deserializers.DateDeserializer;
-import com.giphy.sdk.core.models.deserializers.IntDeserializer;
-import com.giphy.sdk.core.models.deserializers.MainAdapterFactory;
+import com.giphy.sdk.core.models.json.BooleanDeserializer;
+import com.giphy.sdk.core.models.json.DateDeserializer;
+import com.giphy.sdk.core.models.json.IntDeserializer;
+import com.giphy.sdk.core.models.json.MainAdapterFactory;
 import com.giphy.sdk.core.models.enums.MediaType;
 import com.giphy.sdk.core.network.api.CompletionHandler;
 import com.giphy.sdk.core.network.api.GPHApiClient;
+import com.giphy.sdk.core.network.engine.DefaultNetworkSession;
 import com.giphy.sdk.core.network.engine.NetworkSession;
 import com.giphy.sdk.core.network.response.GenericResponse;
 import com.giphy.sdk.core.network.response.ListMediaResponse;
@@ -123,13 +124,6 @@ public class OkHttpIntegrationTest {
     }
 
     static class OkHttptNetworkSession implements NetworkSession {
-        private static final Gson GSON_INSTANCE = new GsonBuilder()
-                .registerTypeHierarchyAdapter(Date.class, new DateDeserializer())
-                .registerTypeHierarchyAdapter(boolean.class, new BooleanDeserializer())
-                .registerTypeHierarchyAdapter(int.class, new IntDeserializer())
-                .registerTypeAdapterFactory(new MainAdapterFactory())
-                .create();
-
         @Override
         public <T extends GenericResponse> ApiTask<T> queryStringConnection(@NonNull final Uri serverUrl,
                                                                             @NonNull final String path,
@@ -166,7 +160,7 @@ public class OkHttpIntegrationTest {
                     // Deserialize HTTP response to concrete type.
 
                     final ResponseBody body = response.body();
-                    return GSON_INSTANCE.fromJson(body.string(), responseClass);
+                    return DefaultNetworkSession.GSON_INSTANCE.fromJson(body.string(), responseClass);
                 }
             });
         }
