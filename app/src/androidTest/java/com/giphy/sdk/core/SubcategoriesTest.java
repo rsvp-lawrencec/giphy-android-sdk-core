@@ -56,7 +56,7 @@ public class SubcategoriesTest {
     public void testBase() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.subCategoriesForGifs("actions", null, null, new CompletionHandler<ListCategoryResponse>() {
+        imp.subCategoriesForGifs("actions", null, null, null, new CompletionHandler<ListCategoryResponse>() {
             @Override
             public void onComplete(ListCategoryResponse result, Throwable e) {
                 Assert.assertNull(e);
@@ -78,14 +78,14 @@ public class SubcategoriesTest {
     public void testLimitOffset() throws Exception {
         final CountDownLatch lock = new CountDownLatch(2);
 
-        imp.subCategoriesForGifs("animals", 15, 0, new CompletionHandler<ListCategoryResponse>() {
+        imp.subCategoriesForGifs("animals", 15, 0, null, new CompletionHandler<ListCategoryResponse>() {
             @Override
             public void onComplete(final ListCategoryResponse result1, Throwable e) {
                 Assert.assertNull(e);
                 Assert.assertNotNull(result1);
                 Assert.assertTrue(result1.getData().size() == 15);
 
-                imp.subCategoriesForGifs("animals", 15, 5, new CompletionHandler<ListCategoryResponse>() {
+                imp.subCategoriesForGifs("animals", 15, 5, null, new CompletionHandler<ListCategoryResponse>() {
                     @Override
                     public void onComplete(final ListCategoryResponse result2, Throwable e) {
                         Assert.assertNull(e);
@@ -112,7 +112,7 @@ public class SubcategoriesTest {
     public void testFields() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.subCategoriesForGifs("animals", 15, 0, new CompletionHandler<ListCategoryResponse>() {
+        imp.subCategoriesForGifs("animals", 15, 0, null, new CompletionHandler<ListCategoryResponse>() {
             @Override
             public void onComplete(final ListCategoryResponse result, Throwable e) {
                 Assert.assertNull(e);
@@ -144,7 +144,7 @@ public class SubcategoriesTest {
     public void testParcelable() throws Exception {
         final CountDownLatch lock = new CountDownLatch(1);
 
-        imp.subCategoriesForGifs("animals", 15, 0, new CompletionHandler<ListCategoryResponse>() {
+        imp.subCategoriesForGifs("animals", 15, 0, null, new CompletionHandler<ListCategoryResponse>() {
             @Override
             public void onComplete(ListCategoryResponse result, Throwable e) {
                 Assert.assertNull(e);

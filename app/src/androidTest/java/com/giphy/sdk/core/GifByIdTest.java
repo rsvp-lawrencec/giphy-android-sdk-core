@@ -136,9 +136,6 @@ public class GifByIdTest {
                 Assert.assertNotNull(e);
                 Assert.assertTrue(e instanceof ApiException);
                 Assert.assertNotNull(((ApiException)e).getErrorResponse());
-                Assert.assertNotNull(((ApiException)e).getErrorResponse().getMeta());
-                Assert.assertEquals(((ApiException)e).getErrorResponse().getMeta().getStatus(), HttpURLConnection.HTTP_UNAUTHORIZED);
-
                 lock.countDown();
             }
         });

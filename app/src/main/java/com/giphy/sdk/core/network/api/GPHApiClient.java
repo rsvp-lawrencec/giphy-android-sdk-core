@@ -179,6 +179,7 @@ public class GPHApiClient implements GPHApi {
     @NonNull
     public Future subCategoriesForGifs(@NonNull final String categoryEncodedName,
                                        @Nullable Integer limit, @Nullable Integer offset,
+                                       @Nullable String sort,
                                        @NonNull final CompletionHandler<ListCategoryResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
         params.put(API_KEY, apiKey);
@@ -187,6 +188,9 @@ public class GPHApiClient implements GPHApi {
         }
         if (offset != null) {
             params.put("offset", offset.toString());
+        }
+        if (sort != null) {
+            params.put("sort", sort);
         }
         final CompletionHandler<ListCategoryResponse> completionHandlerWrapper = new CompletionHandler<ListCategoryResponse>() {
             @Override

@@ -66,8 +66,8 @@ public interface GPHApi {
      */
     @NonNull
     public Future trending(@Nullable MediaType type, @Nullable Integer limit,
-                                  @Nullable Integer offset, @Nullable RatingType rating,
-                                  @NonNull final CompletionHandler<ListMediaResponse> completionHandler);
+                           @Nullable Integer offset, @Nullable RatingType rating,
+                           @NonNull final CompletionHandler<ListMediaResponse> completionHandler);
 
     /**
      * The translate API draws on search, but uses the Giphy "special sauce" to handle translating from one vocabulary to another.
@@ -80,8 +80,8 @@ public interface GPHApi {
      */
     @NonNull
     public Future translate(@NonNull String term, @Nullable MediaType type, @Nullable RatingType rating,
-                               @Nullable LangType lang,
-                               @NonNull final CompletionHandler<MediaResponse> completionHandler);
+                            @Nullable LangType lang,
+                            @NonNull final CompletionHandler<MediaResponse> completionHandler);
 
     /**
      * Returns a random GIF, limited by tag. Excluding the tag parameter will return a random GIF from the Giphy catalog.
@@ -93,7 +93,7 @@ public interface GPHApi {
      */
     @NonNull
     public Future random(@NonNull String tag, @Nullable MediaType type, @Nullable RatingType rating,
-                            @NonNull final CompletionHandler<MediaResponse> completionHandler);
+                         @NonNull final CompletionHandler<MediaResponse> completionHandler);
 
 
     /**
@@ -106,21 +106,23 @@ public interface GPHApi {
      */
     @NonNull
     public Future categoriesForGifs(@Nullable Integer limit, @Nullable Integer offset,
-                                       @Nullable String sort,
-                                       @NonNull final CompletionHandler<ListCategoryResponse> completionHandler);
+                                    @Nullable String sort,
+                                    @NonNull final CompletionHandler<ListCategoryResponse> completionHandler);
 
     /**
      * Returns a list of subcategories for a category
      * @param categoryEncodedName
      * @param limit
      * @param offset
+     * @param sort
      * @param completionHandler
      * @return
      */
     @NonNull
     public Future subCategoriesForGifs(@NonNull String categoryEncodedName,
-                                          @Nullable Integer limit, @Nullable Integer offset,
-                                          @NonNull final CompletionHandler<ListCategoryResponse> completionHandler);
+                                       @Nullable Integer limit, @Nullable Integer offset,
+                                       @Nullable String sort,
+                                       @NonNull final CompletionHandler<ListCategoryResponse> completionHandler);
 
     /**
      * Returns a list of gifs based on category & subcategory
@@ -130,7 +132,8 @@ public interface GPHApi {
      * @param offset
      * @param ratingType
      * @param langType
-     * @param completionHandler  @return
+     * @param completionHandler
+     * @return
      */
     @NonNull
     public Future gifsByCategory(@NonNull String categoryEncodedName,
@@ -147,7 +150,7 @@ public interface GPHApi {
      */
     @NonNull
     public Future gifById(@NonNull String gifId,
-                             @NonNull final CompletionHandler<MediaResponse> completionHandler);
+                          @NonNull final CompletionHandler<MediaResponse> completionHandler);
 
     /**
      * Returns meta data about multiple gifs
@@ -156,7 +159,7 @@ public interface GPHApi {
      */
     @NonNull
     public Future gifsByIds(@NonNull List<String> gifIds,
-                               @NonNull final CompletionHandler<ListMediaResponse> completionHandler);
+                            @NonNull final CompletionHandler<ListMediaResponse> completionHandler);
 
     /**
      * Returns meta data about multiple gifs
@@ -166,6 +169,6 @@ public interface GPHApi {
      */
     @NonNull
     public Future termSuggestions(@NonNull String term,
-                                     @NonNull final CompletionHandler<ListTermSuggestionResponse> completionHandler);
+                                  @NonNull final CompletionHandler<ListTermSuggestionResponse> completionHandler);
 }
 
