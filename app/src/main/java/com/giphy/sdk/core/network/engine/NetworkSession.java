@@ -34,6 +34,9 @@ import com.giphy.sdk.core.threading.ApiTask;
 import java.util.Map;
 import java.util.concurrent.Future;
 
+/**
+ * A generic interface that describes all the params of a low level GET request.
+ */
 public interface NetworkSession {
     <T extends GenericResponse> ApiTask<T> queryStringConnection(@NonNull final Uri serverUrl,
                                                                 @NonNull final String path,

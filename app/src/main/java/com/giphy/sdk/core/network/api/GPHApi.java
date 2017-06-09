@@ -37,6 +37,9 @@ import com.giphy.sdk.core.network.response.MediaResponse;
 import java.util.List;
 import java.util.concurrent.Future;
 
+/**
+ * The interface describing all the endpoints supported by the sdk.
+ */
 public interface GPHApi {
     /**
      * Search for gifs or stickers

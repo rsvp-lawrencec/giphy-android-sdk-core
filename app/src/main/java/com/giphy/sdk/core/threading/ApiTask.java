@@ -43,7 +43,7 @@ import java.util.concurrent.TimeUnit;
  * Represents a top level task returned by API calls that can be ran async or immediately
  * with an ExecutorService.
  *
- * @see AsyncTask
+ * @see Future
  * @see ExecutorService
  */
 public class ApiTask<V> {
@@ -120,7 +120,7 @@ public class ApiTask<V> {
     }
 
     /**
-     * Immediately resolves the task on a shared thread pool executor service.
+     * Immediately resolves the task on the same thread.
      *
      * @return The resolved value from running the task.
      * @throws Exception

@@ -43,6 +43,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
 
+/**
+ * Main class that implements all endpoints supported by the sdk.
+ */
 public class GPHApiClient implements GPHApi {
     public static final String HTTP_GET = "GET";
     public static final String API_KEY = "api_key";

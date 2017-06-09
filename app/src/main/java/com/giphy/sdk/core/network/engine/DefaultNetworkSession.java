@@ -50,6 +50,9 @@ import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
+/**
+ * Does the low level GET requests.
+ */
 public class DefaultNetworkSession implements NetworkSession {
     public static final Gson GSON_INSTANCE = new GsonBuilder()
             .registerTypeHierarchyAdapter(Date.class, new DateDeserializer())
