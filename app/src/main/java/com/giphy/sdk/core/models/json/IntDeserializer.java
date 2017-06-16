@@ -23,6 +23,8 @@
 
 package com.giphy.sdk.core.models.json;
 
+import android.text.TextUtils;
+
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -36,7 +38,11 @@ public class IntDeserializer implements JsonDeserializer<Integer> {
             throws JsonParseException {
         final JsonPrimitive jsonPrimitive = json.getAsJsonPrimitive();
         if(jsonPrimitive.isString()) {
-            return Integer.parseInt(json.getAsString());
+            final String numberText = json.getAsString();
+            if (TextUtils.isEmpty(numberText)) {
+                return 0;
+            }
+            return Integer.parseInt(numberText);
         } else if (jsonPrimitive.isNumber()) {
             return json.getAsInt();
         }
