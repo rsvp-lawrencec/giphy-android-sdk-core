@@ -111,41 +111,7 @@ public class TranslateTest {
         });
         lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
-
-    /**
-     * Test if gif returned using two different lang params are different
-     * @throws Exception
-     */
-    @Test
-    public void testTwoLang() throws Exception {
-        final CountDownLatch lock = new CountDownLatch(2);
-
-        imp.translate("hungry", MediaType.gif, RatingType.pg13, LangType.english, new CompletionHandler<MediaResponse>() {
-            @Override
-            public void onComplete(final MediaResponse result1, Throwable e) {
-                Assert.assertNull(e);
-                Assert.assertNotNull(result1);
-                Assert.assertNotNull(result1.getData());
-
-                imp.translate("hungry", MediaType.gif, RatingType.pg13, LangType.chineseSimplified, new CompletionHandler<MediaResponse>() {
-                    @Override
-                    public void onComplete(MediaResponse result2, Throwable e) {
-                        Assert.assertNull(e);
-                        Assert.assertNotNull(result2);
-                        Assert.assertNotNull(result2.getData());
-
-                        Assert.assertFalse(result2.getData().getId().equals(result1.getData().getId()));
-
-                        lock.countDown();
-                    }
-                });
-
-                lock.countDown();
-            }
-        });
-        lock.await(Utils.MEDIUM_DELAY, TimeUnit.MILLISECONDS);
-    }
-
+    
     /**
      * Test if gif returned using two terms are different
      * @throws Exception
