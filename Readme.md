@@ -23,9 +23,9 @@ The **Giphy Core SDK** is a wrapper around [Giphy API](https://github.com/Giphy/
 * [Random Gifs/Stickers](#random-endpoint)
 * [GIF by ID](#get-gif-by-id-endpoint)
 * [GIFs by IDs](#get-gifs-by-ids-endpoint)
-* [Categories for Gifs](#translate-endpoint)
-* [Subcategories for Gifs](#translate-endpoint)
-* [GIFs by Category](#translate-endpoint)
+* [Categories for Gifs](#categories-endpoint)
+* [Subcategories for Gifs](#subcategories-for-gifs)
+* [Subcategory Content Endpoint](#subcategory-content-endpoint)
 * [Query Suggestions](#translate-endpoint)
 
 
@@ -259,7 +259,7 @@ imp.gifsByIds(gifIds, new CompletionHandler<ListMediaResponse>() {
 ```
 
 ### Categories Endpoint
-Fetch giphy categories
+Fetch Giphy categories 
 
 ```java
 /// Categories
@@ -282,7 +282,7 @@ client.categoriesForGifs(null, null, null, new CompletionHandler<ListCategoryRes
 ```
 
 ### Subcategories Endpoint
-Fetch sub categories(tags) for a given category
+Get Subcategories for GIFs given a category. You will need this subcategory object to pull GIFs for this category. 
 
 ```java
 /// Categories
@@ -304,7 +304,7 @@ client.subCategoriesForGifs("actions", null, null, new CompletionHandler<ListCat
 }
 ```
 
-### Gifs by Category Endpoint
+### Subcategory Content Endpoint
 Fetch GIFs with a specific category & subcategory(tags)
 
 ```java
@@ -328,7 +328,7 @@ client.gifsByCategory("animals", "cats", null, null, new CompletionHandler<ListM
 ```
 
 ### Term suggestions Endpoint
-Fetch suggestion for a specific term
+Get term suggestions given a search term, or a substring. 
 
 ```java
 /// Term suggestions
