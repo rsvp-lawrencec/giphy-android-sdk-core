@@ -54,8 +54,7 @@ import java.util.concurrent.Callable;
  * Does the low level GET requests.
  */
 public class DefaultNetworkSession implements NetworkSession {
-    public static final Gson GSON_INSTANCE = new GsonBuilder()
-            .registerTypeHierarchyAdapter(Date.class, new DateDeserializer())
+    public static final Gson GSON_INSTANCE = new GsonBuilder().registerTypeHierarchyAdapter(Date.class, new DateDeserializer())
             .registerTypeHierarchyAdapter(Date.class, new DateSerializer())
             .registerTypeHierarchyAdapter(boolean.class, new BooleanDeserializer())
             .registerTypeHierarchyAdapter(int.class, new IntDeserializer())
@@ -63,16 +62,14 @@ public class DefaultNetworkSession implements NetworkSession {
             .create();
 
     @Override
-    public <T extends GenericResponse> ApiTask<T> queryStringConnection(@NonNull final Uri serverUrl,
-                                                                       @NonNull final String path,
-                                                                       @NonNull final String method,
-                                                                       @NonNull final Class<T> responseClass,
-                                                                       @Nullable final Map<String, String> queryStrings,
-                                                                       @Nullable final Map<String, String> headers) {
+    public <T extends GenericResponse> ApiTask<T> queryStringConnection(@NonNull final Uri serverUrl, @NonNull final String path,
+                                                                        @NonNull final String method, @NonNull final Class<T> responseClass, @Nullable final Map<String, String> queryStrings,
+                                                                        @Nullable final Map<String, String> headers) {
         return new ApiTask<>(new Callable<T>() {
             @Override
             public T call() throws Exception {
                 HttpURLConnection connection = null;
+                URL url = null;
                 try {
                     Uri.Builder uriBuilder = serverUrl.buildUpon().appendEncodedPath(path);
 
@@ -82,7 +79,7 @@ public class DefaultNetworkSession implements NetworkSession {
                         }
                     }
 
-                    URL url = new URL(uriBuilder.build().toString());
+                    url = new URL(uriBuilder.build().toString());
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod(method);
 
@@ -94,8 +91,7 @@ public class DefaultNetworkSession implements NetworkSession {
 
                     connection.connect();
 
-                    return readJsonResponse(connection, responseClass);
-
+                    return readJsonResponse(url, connection, responseClass);
                 } catch (Throwable t) {
                     Log.e(NetworkSession.class.getName(), "Unable to perform network request", t);
                     throw t;
@@ -108,13 +104,13 @@ public class DefaultNetworkSession implements NetworkSession {
         });
     }
 
-    private <T extends GenericResponse> T readJsonResponse(@NonNull HttpURLConnection connection,
-                                                       @NonNull Class<T> responseClass) throws IOException, ApiException {
+    private <T extends GenericResponse> T readJsonResponse(URL url, @NonNull HttpURLConnection connection, @NonNull Class<T> responseClass)
+            throws IOException, ApiException {
 
-
-        boolean succeeded = connection.getResponseCode() == HttpURLConnection.HTTP_OK ||
-                connection.getResponseCode() == HttpURLConnection.HTTP_CREATED ||
-                connection.getResponseCode() == HttpURLConnection.HTTP_ACCEPTED;
+        int responseCode = connection.getResponseCode();
+        boolean succeeded = responseCode == HttpURLConnection.HTTP_OK
+                || responseCode == HttpURLConnection.HTTP_CREATED
+                || responseCode == HttpURLConnection.HTTP_ACCEPTED;
         BufferedReader inputReader;
         if (succeeded) {
             inputReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -127,19 +123,23 @@ public class DefaultNetworkSession implements NetworkSession {
         while ((line = inputReader.readLine()) != null) {
             stringWriter.append(line);
         }
-
         String contents = stringWriter.toString();
         if (succeeded) {
             return GSON_INSTANCE.fromJson(contents, responseClass);
         } else {
-            // Report if an invalid api key is used
-            if (connection.getResponseCode() == HttpURLConnection.HTTP_UNAUTHORIZED) {
-                Log.e(getClass().toString(), "Api key invalid!");
-            }
-            try {
-                throw new ApiException(GSON_INSTANCE.fromJson(contents, ErrorResponse.class));
-            } catch (JsonParseException e) {
-                throw new ApiException("Unable to parse server response", new ErrorResponse(connection.getResponseCode(), contents));
+            switch (responseCode) {
+                case HttpURLConnection.HTTP_UNAVAILABLE:
+                    throw new ApiException("503 Exception : URL : " + url + ": Response Code :" + responseCode, new ErrorResponse(responseCode, null));
+                case HttpURLConnection.HTTP_UNAUTHORIZED:
+                    // Report if an invalid api key is used
+                    Log.e(getClass().toString(), "Api key invalid!");
+                default:
+                    try {
+                        throw new ApiException(GSON_INSTANCE.fromJson(contents, ErrorResponse.class));
+                    } catch (JsonParseException e) {
+                        throw new ApiException("Unable to parse server error response : " + url + " : " + contents + " : " + e.getMessage(),
+                                new ErrorResponse(responseCode, contents));
+                    }
             }
         }
     }
