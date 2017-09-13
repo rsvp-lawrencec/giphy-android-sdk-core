@@ -47,7 +47,7 @@ bintray {
         repo = 'giphy-sdk'
         name = 'core'
         userOrg = 'giphy'
-        licenses = ['Apache-2.0']
+        licenses = ['MPLV2.0']
         vcsUrl = 'https://github.com/bintray/gradle-bintray-plugin.git'
         version {
             name = '1.0.0'
@@ -62,8 +62,8 @@ bintray {
 def pomConfig = {
     licenses {
         license {
-            name "The Apache Software License, Version 2.0"
-            url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+            name "Mozilla Public License Version 2.0"
+            url "https://www.mozilla.org/en-US/MPL/2.0/"
             distribution "repo"
         }
     }
@@ -101,9 +101,9 @@ publishing {
                         dependencyNode.appendNode('version', it.version)
                     }
                 }
-                root.appendNode('description', 'Your description of the lib')
-                root.appendNode('name', 'Your name of the lib')
-                root.appendNode('url', 'https://site_for_lib.tld')
+                root.appendNode('description', 'The Giphy Core SDK is a wrapper around Giphy API.')
+                root.appendNode('name', 'Giphy Core SDK')
+                root.appendNode('url', 'https://developers.giphy.com/docs/')
                 root.children().last() + pomConfig
             }
         }
