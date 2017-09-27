@@ -71,7 +71,7 @@ def pomConfig = {
         developer {
             id "bogdantirca92"
             name "Bogdan Tirca"
-            email "bogdan@tapslash.com"
+            email "bogdan@giphy.com"
         }
     }
 
