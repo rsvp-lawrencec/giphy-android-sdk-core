@@ -31,6 +31,25 @@ The **Giphy Core SDK** is a wrapper around [Giphy API](https://github.com/Giphy/
 
 # Setup
 
+### Maven dependency
+
+Add the following dependency in the module ```build.gradle``` file:
+```
+compile('com.giphy.sdk:core:1.0.0@aar') {
+    transitive=true
+}
+```
+
+And add the following lines in the project ```build.gradle```:
+```
+repositories {
+    maven {
+        url  "https://giphy.bintray.com/giphy-sdk"
+    }
+}
+```
+
+
 ### Local gradle dependency
 
 Clone the sdk into the same folder as your app
@@ -48,8 +67,6 @@ Add the local module as a dependency in your ```build.gradle``` file:
 ```gradle
 compile project(':giphy-android-sdk-core')
 ```
-
-### Maven dependency (to be done)
 
 ### Initialize Giphy SDK
 
