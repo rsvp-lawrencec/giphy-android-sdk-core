@@ -31,6 +31,7 @@ public class Media implements Parcelable {
     @SerializedName("embed_url")
     private String embedUrl;
     private String source;
+    private String title;
     private RatingType rating;
     @SerializedName("content_url")
     private String contentUrl;
@@ -110,6 +111,8 @@ public class Media implements Parcelable {
         isRealtime = in.readByte() != 0;
         isIndexable = in.readByte() != 0;
         isSticker = in.readByte() != 0;
+
+        title = in.readString();
     }
 
     /**
@@ -178,6 +181,13 @@ public class Media implements Parcelable {
      */
     public String getSource() {
         return source;
+    }
+
+    /**
+     * @return title
+     */
+    public String getTitle() {
+        return title;
     }
 
     /**
@@ -387,5 +397,7 @@ public class Media implements Parcelable {
         parcel.writeByte((byte) (isRealtime ? 1 : 0));
         parcel.writeByte((byte) (isIndexable ? 1 : 0));
         parcel.writeByte((byte) (isSticker ? 1 : 0));
+
+        parcel.writeString(title);
     }
 }

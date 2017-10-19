@@ -48,6 +48,7 @@ public class GifByIdTest {
                 Assert.assertNotNull(result);
                 Assert.assertTrue("darAMUceRAs0w".equals(result.getData().getId()));
                 Assert.assertTrue(result.getData().getType() == MediaType.gif);
+                Assert.assertTrue("tesla GIF".equals(result.getData().getTitle()));
                 Assert.assertNotNull(result.getData().getId());
 
                 lock.countDown();
