@@ -2,14 +2,17 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 
+def sdkVersionCode = 2
+def sdkVersionName = "1.0.1"
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode sdkVersionCode
+        versionName sdkVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -50,11 +53,10 @@ bintray {
         licenses = ['MPLV2.0']
         vcsUrl = 'https://github.com/bintray/gradle-bintray-plugin.git'
         version {
-            name = '1.0.0'
+            name = sdkVersionName
             desc = 'Giphy Core SDK'
             released  = new Date()
-            vcsTag = '1.0.0'
-            attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
+            vcsTag = sdkVersionName
         }
     }
 }
@@ -85,7 +87,7 @@ publishing {
         GiphyPublication(MavenPublication) {
             groupId 'com.giphy.sdk'
             artifactId 'core'
-            version '1.0.0'
+            version sdkVersionName
 
             artifact("$buildDir/outputs/aar/app-release.aar")
 
