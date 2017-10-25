@@ -25,10 +25,12 @@ import com.giphy.sdk.core.network.response.ListTermSuggestionResponse;
 import com.giphy.sdk.core.network.response.MediaResponse;
 import com.giphy.sdk.core.network.response.RandomGifResponse;
 import com.giphy.sdk.core.network.response.StickerPackResponse;
+import com.giphy.sdk.core.threading.ApiTask;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
 /**
@@ -40,6 +42,9 @@ public class GPHApiClient implements GPHApi {
 
     private final NetworkSession networkSessionImpl;
     private final String apiKey;
+
+    @Nullable
+    private ExecutorService ephemeralExecutorService;
 
     public GPHApiClient(String apiKey) {
         this(apiKey, new DefaultNetworkSession());
@@ -73,9 +78,12 @@ public class GPHApiClient implements GPHApi {
             params.put("lang", lang.toString());
         }
 
-        return networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
-                String.format(Constants.Paths.SEARCH, mediaTypeToEndpoint(type)), HTTP_GET,
-                ListMediaResponse.class, params, null).executeAsyncTask(completionHandler);
+        return executeApiTask(
+                networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
+                        String.format(Constants.Paths.SEARCH, mediaTypeToEndpoint(type)), HTTP_GET,
+                        ListMediaResponse.class, params, null),
+                completionHandler
+        );
     }
 
     @Override
@@ -94,9 +102,12 @@ public class GPHApiClient implements GPHApi {
         if (rating != null) {
             params.put("rating", rating.toString());
         }
-        return networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
-                String.format(Constants.Paths.TRENDING, mediaTypeToEndpoint(type)), HTTP_GET,
-                ListMediaResponse.class, params, null).executeAsyncTask(completionHandler);
+        return executeApiTask(
+                networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
+                        String.format(Constants.Paths.TRENDING, mediaTypeToEndpoint(type)), HTTP_GET,
+                        ListMediaResponse.class, params, null),
+                completionHandler
+        );
     }
 
     @Override
@@ -113,9 +124,12 @@ public class GPHApiClient implements GPHApi {
         if (lang != null) {
             params.put("lang", lang.toString());
         }
-        return networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
-                String.format(Constants.Paths.TRANSLATE, mediaTypeToEndpoint(type)), HTTP_GET,
-                MediaResponse.class, params, null).executeAsyncTask(completionHandler);
+        return executeApiTask(
+                networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
+                        String.format(Constants.Paths.TRANSLATE, mediaTypeToEndpoint(type)), HTTP_GET,
+                        MediaResponse.class, params, null),
+                completionHandler
+        );
     }
 
     @Override
@@ -140,9 +154,12 @@ public class GPHApiClient implements GPHApi {
             }
         };
 
-        return networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
-                String.format(Constants.Paths.RANDOM, mediaTypeToEndpoint(type)), HTTP_GET,
-                RandomGifResponse.class, params, null).executeAsyncTask(completionHandlerWrapper);
+        return executeApiTask(
+                networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
+                        String.format(Constants.Paths.RANDOM, mediaTypeToEndpoint(type)), HTTP_GET,
+                        RandomGifResponse.class, params, null),
+                completionHandlerWrapper
+        );
     }
 
     @Override
@@ -161,9 +178,11 @@ public class GPHApiClient implements GPHApi {
         if (sort != null) {
             params.put("sort", sort);
         }
-        return networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
-                Constants.Paths.CATEGORIES, HTTP_GET, ListCategoryResponse.class, params, null)
-                .executeAsyncTask(completionHandler);
+        return executeApiTask(
+                networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
+                        Constants.Paths.CATEGORIES, HTTP_GET, ListCategoryResponse.class, params, null),
+                completionHandler
+        );
     }
 
     @Override
@@ -199,10 +218,12 @@ public class GPHApiClient implements GPHApi {
             }
         };
 
-        return networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
-                String.format(Constants.Paths.SUBCATEGORIES, categoryEncodedName), HTTP_GET,
-                ListCategoryResponse.class, params, null)
-                .executeAsyncTask(completionHandlerWrapper);
+        return executeApiTask(
+                networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
+                        String.format(Constants.Paths.SUBCATEGORIES, categoryEncodedName), HTTP_GET,
+                        ListCategoryResponse.class, params, null),
+                completionHandlerWrapper
+        );
     }
 
     @Override
@@ -219,10 +240,12 @@ public class GPHApiClient implements GPHApi {
         if (offset != null) {
             params.put("offset", offset.toString());
         }
-        return networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
-                String.format(Constants.Paths.GIFS_BY_CATEGORY, categoryEncodedName,
-                        subCategoryEncodedName), HTTP_GET, ListMediaResponse.class, params, null)
-                .executeAsyncTask(completionHandler);
+        return executeApiTask(
+                networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
+                        String.format(Constants.Paths.GIFS_BY_CATEGORY, categoryEncodedName,
+                                subCategoryEncodedName), HTTP_GET, ListMediaResponse.class, params, null),
+                completionHandler
+        );
     }
 
     @Override
@@ -231,9 +254,13 @@ public class GPHApiClient implements GPHApi {
                           @NonNull final CompletionHandler<MediaResponse> completionHandler) {
         final Map<String, String> params = new HashMap<>();
         params.put(API_KEY, apiKey);
-        return networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
-                String.format(Constants.Paths.GIF_BY_ID, gifId), HTTP_GET, MediaResponse.class,
-                params, null).executeAsyncTask(completionHandler);
+
+        return executeApiTask(
+                networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
+                        String.format(Constants.Paths.GIF_BY_ID, gifId), HTTP_GET, MediaResponse.class,
+                        params, null),
+                completionHandler
+        );
     }
 
     @Override
@@ -252,9 +279,11 @@ public class GPHApiClient implements GPHApi {
         }
         params.put("ids", str.toString());
 
-        return networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
-                Constants.Paths.GIF_BY_IDS, HTTP_GET, ListMediaResponse.class, params, null)
-                .executeAsyncTask(completionHandler);
+        return executeApiTask(
+                networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
+                        Constants.Paths.GIF_BY_IDS, HTTP_GET, ListMediaResponse.class, params, null),
+                completionHandler
+        );
     }
 
     @NonNull
@@ -263,9 +292,12 @@ public class GPHApiClient implements GPHApi {
         final Map<String, String> params = new HashMap<>();
         params.put(API_KEY, apiKey);
 
-        return networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
-                String.format(Constants.Paths.TERM_SUGGESTIONS, term), HTTP_GET,
-                ListTermSuggestionResponse.class, params, null).executeAsyncTask(completionHandler);
+        return executeApiTask(
+                networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
+                        String.format(Constants.Paths.TERM_SUGGESTIONS, term), HTTP_GET,
+                        ListTermSuggestionResponse.class, params, null),
+                completionHandler
+        );
     }
 
     @NonNull
@@ -274,9 +306,12 @@ public class GPHApiClient implements GPHApi {
         final Map<String, String> params = new HashMap<>();
         params.put(API_KEY, apiKey);
 
-        return networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
-                Constants.Paths.STICKER_PACKS, HTTP_GET,
-                ListStickerPacksResponse.class, params, null).executeAsyncTask(completionHandler);
+        return executeApiTask(
+                networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
+                        Constants.Paths.STICKER_PACKS, HTTP_GET,
+                        ListStickerPacksResponse.class, params, null),
+                completionHandler
+        );
     }
 
 
@@ -286,9 +321,12 @@ public class GPHApiClient implements GPHApi {
         final Map<String, String> params = new HashMap<>();
         params.put(API_KEY, apiKey);
 
-        return networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
-                String.format(Constants.Paths.STICKER_PACK_CHILDREN, packId), HTTP_GET,
-                ListStickerPacksResponse.class, params, null).executeAsyncTask(completionHandler);
+        return executeApiTask(
+                networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
+                        String.format(Constants.Paths.STICKER_PACK_CHILDREN, packId), HTTP_GET,
+                        ListStickerPacksResponse.class, params, null),
+                completionHandler
+        );
     }
 
     @NonNull
@@ -298,9 +336,12 @@ public class GPHApiClient implements GPHApi {
         final Map<String, String> params = new HashMap<>();
         params.put(API_KEY, apiKey);
 
-        return networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
-                String.format(Constants.Paths.STICKER_PACK_BY_ID, packId), HTTP_GET,
-                StickerPackResponse.class, params, null).executeAsyncTask(completionHandler);
+        return executeApiTask(
+                networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
+                        String.format(Constants.Paths.STICKER_PACK_BY_ID, packId), HTTP_GET,
+                        StickerPackResponse.class, params, null),
+                completionHandler
+        );
     }
 
     @NonNull
@@ -317,9 +358,12 @@ public class GPHApiClient implements GPHApi {
             params.put("offset", offset.toString());
         }
 
-        return networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
-                String.format(Constants.Paths.STICKERS_BY_PACK_ID, packId), HTTP_GET,
-                ListMediaResponse.class, params, null).executeAsyncTask(completionHandler);
+        return executeApiTask(
+                networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
+                        String.format(Constants.Paths.STICKERS_BY_PACK_ID, packId), HTTP_GET,
+                        ListMediaResponse.class, params, null),
+                completionHandler
+        );
     }
 
     @NonNull
@@ -329,6 +373,34 @@ public class GPHApiClient implements GPHApi {
         } else {
             return "gifs";
         }
+    }
+
+    private <V> Future executeApiTask(@NonNull ApiTask<V> task,
+                                      @NonNull final CompletionHandler<V> completionHandler) {
+        CompletionHandler<V> wrappedHandler = new CompletionHandler<V>() {
+            @Override
+            public void onComplete(V result, Throwable e) {
+                ephemeralExecutorService = null;
+                completionHandler.onComplete(result, e);
+            }
+        };
+
+        if (this.ephemeralExecutorService != null) {
+            return task.executeAsyncTask(wrappedHandler, ephemeralExecutorService);
+        } else {
+            return task.executeAsyncTask(wrappedHandler);
+        }
+    }
+
+    /**
+     * Sets an executor service to run with the network request. The scope of the service is
+     * ephemeral and will get cleared once execution of the network request has completed.
+     * @param executorService The executor service to use with the request
+     * @return The current object instance
+     */
+    public GPHApiClient withExecutorService(@NonNull ExecutorService executorService) {
+        this.ephemeralExecutorService = executorService;
+        return this;
     }
 
     public NetworkSession getNetworkSession() {

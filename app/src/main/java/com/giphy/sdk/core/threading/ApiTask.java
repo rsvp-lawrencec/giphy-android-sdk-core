@@ -62,11 +62,24 @@ public class ApiTask<V> {
      * Resolves the task on a shared thread pool executor service and returns the result using the
      * completionHandler
      *
-     * @param completionHandler
+     * @param completionHandler A completion handler instance to call when the task is complete
      * @return
      */
     public Future executeAsyncTask(final CompletionHandler<V> completionHandler) {
-        return THREAD_POOL_EXECUTOR_SERVICE.submit(new Runnable() {
+        return executeAsyncTask(completionHandler, THREAD_POOL_EXECUTOR_SERVICE);
+    }
+
+    /**
+     * Resolves the task on a specified thread pool executor service and returns the result
+     * using the completionHandler
+     *
+     * @param completionHandler A completion handler instance to call when the task is complete
+     * @param executorService ExecutorService instance to run the task with
+     * @return
+     */
+    public Future executeAsyncTask(final CompletionHandler<V> completionHandler,
+                                   final ExecutorService executorService) {
+        return executorService.submit(new Runnable() {
             @Override
             public void run() {
                 try {
