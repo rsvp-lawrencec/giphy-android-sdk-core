@@ -40,6 +40,12 @@ public class Category implements Parcelable {
         this.nameEncoded = nameEncoded;
     }
 
+    public Category(String name, String nameEncoded, Media gif) {
+        this.name = name;
+        this.nameEncoded = nameEncoded;
+        this.gif = gif;
+    }
+
     /**
      * @return category name
      */

@@ -17,8 +17,10 @@ import com.giphy.sdk.core.models.enums.MediaType;
 import com.giphy.sdk.core.models.enums.RatingType;
 import com.giphy.sdk.core.network.response.ListCategoryResponse;
 import com.giphy.sdk.core.network.response.ListMediaResponse;
+import com.giphy.sdk.core.network.response.ListStickerPacksResponse;
 import com.giphy.sdk.core.network.response.ListTermSuggestionResponse;
 import com.giphy.sdk.core.network.response.MediaResponse;
+import com.giphy.sdk.core.network.response.StickerPackResponse;
 
 import java.util.List;
 import java.util.concurrent.Future;
@@ -159,5 +161,45 @@ public interface GPHApi {
     @NonNull
     public Future termSuggestions(@NonNull String term,
                                   @NonNull final CompletionHandler<ListTermSuggestionResponse> completionHandler);
+
+
+    /**
+     * Returns all sticker packs
+     * @param completionHandler
+     * @return
+     */
+    @NonNull
+    public Future stickerPacks(@NonNull final CompletionHandler<ListStickerPacksResponse> completionHandler);
+
+    /**
+     * Returns all child sticker packs for a given pack id
+     * @param packId The ID of the sticker pack to get the children of
+     * @param completionHandler
+     * @return
+     */
+    @NonNull
+    public Future stickerPackChildren(@NonNull String packId,
+                                      @NonNull final CompletionHandler<ListStickerPacksResponse> completionHandler);
+
+    /**
+     * Returns an individual sticker pack
+     * @param packId The ID of the sticker pack
+     * @param completionHandler
+     * @return
+     */
+    @NonNull
+    public Future stickerPackById(@NonNull String packId,
+                                  @NonNull final CompletionHandler<StickerPackResponse> completionHandler);
+
+    /**
+     * Gets all individual stickers for a given sticker pack
+     * @param packId The ID of the sticker pack
+     * @param completionHandler
+     * @return
+     */
+    @NonNull
+    public Future stickersByPackId(@NonNull String packId,
+                                   @Nullable Integer limit, @Nullable Integer offset,
+                                   @NonNull final CompletionHandler<ListMediaResponse> completionHandler);
 }
 

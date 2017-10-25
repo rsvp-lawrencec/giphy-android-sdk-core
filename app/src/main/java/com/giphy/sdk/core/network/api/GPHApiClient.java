@@ -20,9 +20,11 @@ import com.giphy.sdk.core.network.engine.DefaultNetworkSession;
 import com.giphy.sdk.core.network.engine.NetworkSession;
 import com.giphy.sdk.core.network.response.ListCategoryResponse;
 import com.giphy.sdk.core.network.response.ListMediaResponse;
+import com.giphy.sdk.core.network.response.ListStickerPacksResponse;
 import com.giphy.sdk.core.network.response.ListTermSuggestionResponse;
 import com.giphy.sdk.core.network.response.MediaResponse;
 import com.giphy.sdk.core.network.response.RandomGifResponse;
+import com.giphy.sdk.core.network.response.StickerPackResponse;
 
 import java.util.HashMap;
 import java.util.List;
@@ -264,6 +266,60 @@ public class GPHApiClient implements GPHApi {
         return networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
                 String.format(Constants.Paths.TERM_SUGGESTIONS, term), HTTP_GET,
                 ListTermSuggestionResponse.class, params, null).executeAsyncTask(completionHandler);
+    }
+
+    @NonNull
+    @Override
+    public Future stickerPacks(@NonNull CompletionHandler<ListStickerPacksResponse> completionHandler) {
+        final Map<String, String> params = new HashMap<>();
+        params.put(API_KEY, apiKey);
+
+        return networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
+                Constants.Paths.STICKER_PACKS, HTTP_GET,
+                ListStickerPacksResponse.class, params, null).executeAsyncTask(completionHandler);
+    }
+
+
+    @NonNull
+    public Future stickerPackChildren(@NonNull String packId,
+                                      @NonNull final CompletionHandler<ListStickerPacksResponse> completionHandler) {
+        final Map<String, String> params = new HashMap<>();
+        params.put(API_KEY, apiKey);
+
+        return networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
+                String.format(Constants.Paths.STICKER_PACK_CHILDREN, packId), HTTP_GET,
+                ListStickerPacksResponse.class, params, null).executeAsyncTask(completionHandler);
+    }
+
+    @NonNull
+    @Override
+    public Future stickerPackById(@NonNull String packId,
+                                  @NonNull CompletionHandler<StickerPackResponse> completionHandler) {
+        final Map<String, String> params = new HashMap<>();
+        params.put(API_KEY, apiKey);
+
+        return networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
+                String.format(Constants.Paths.STICKER_PACK_BY_ID, packId), HTTP_GET,
+                StickerPackResponse.class, params, null).executeAsyncTask(completionHandler);
+    }
+
+    @NonNull
+    @Override
+    public Future stickersByPackId(@NonNull String packId,
+                                   @Nullable Integer limit, @Nullable Integer offset,
+                                   @NonNull final CompletionHandler<ListMediaResponse> completionHandler) {
+        final Map<String, String> params = new HashMap<>();
+        params.put(API_KEY, apiKey);
+        if (limit != null) {
+            params.put("limit", limit.toString());
+        }
+        if (offset != null) {
+            params.put("offset", offset.toString());
+        }
+
+        return networkSessionImpl.queryStringConnection(Constants.SERVER_URL,
+                String.format(Constants.Paths.STICKERS_BY_PACK_ID, packId), HTTP_GET,
+                ListMediaResponse.class, params, null).executeAsyncTask(completionHandler);
     }
 
     @NonNull
