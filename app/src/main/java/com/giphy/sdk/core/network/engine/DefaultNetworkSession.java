@@ -35,6 +35,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.Callable;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 
 /**
@@ -48,14 +49,17 @@ public class DefaultNetworkSession implements NetworkSession {
             .registerTypeAdapterFactory(new MainAdapterFactory())
             .create();
 
-    private ExecutorService executorService;
+    private ExecutorService networkRequestExecutor;
+    private Executor completionExecutor;
 
     public DefaultNetworkSession() {
-        executorService = ApiTask.THREAD_POOL_EXECUTOR_SERVICE;
+        networkRequestExecutor = ApiTask.NETWORK_REQUEST_EXECUTOR;
+        completionExecutor = ApiTask.COMPLETION_EXECUTOR;
     }
 
-    public DefaultNetworkSession(ExecutorService executorService) {
-        this.executorService = executorService;
+    public DefaultNetworkSession(ExecutorService networkRequestExecutor, Executor completionExecutor) {
+        this.networkRequestExecutor = networkRequestExecutor;
+        this.completionExecutor = completionExecutor;
     }
 
     @Override
@@ -98,7 +102,7 @@ public class DefaultNetworkSession implements NetworkSession {
                     }
                 }
             }
-        }, executorService);
+        }, networkRequestExecutor, completionExecutor);
     }
 
     private <T extends GenericResponse> T readJsonResponse(URL url, @NonNull HttpURLConnection connection, @NonNull Class<T> responseClass)

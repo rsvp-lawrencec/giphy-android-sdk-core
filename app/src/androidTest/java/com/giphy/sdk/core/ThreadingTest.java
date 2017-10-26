@@ -25,6 +25,7 @@ import org.junit.Test;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -80,7 +81,7 @@ public class ThreadingTest {
                         Assert.assertTrue(thread == Thread.currentThread());
                         return "test";
                     }
-                }, executorService).executeAsyncTask(new CompletionHandler<String>() {
+                }, executorService, ApiTask.COMPLETION_EXECUTOR).executeAsyncTask(new CompletionHandler<String>() {
                     @Override
                     public void onComplete(String result, Throwable e) {
                         Assert.assertTrue(Looper.getMainLooper().getThread() == Thread.currentThread());
@@ -103,7 +104,8 @@ public class ThreadingTest {
         final CountDownLatch lock = new CountDownLatch(iterations);
 
         final ExecutorService executorService = Executors.newSingleThreadExecutor();
-        final GPHApiClient apiClient = new GPHApiClient("dc6zaTOxFJmzC", new DefaultNetworkSession(executorService));
+        final Executor completionExecutor = ApiTask.COMPLETION_EXECUTOR;
+        final GPHApiClient apiClient = new GPHApiClient("dc6zaTOxFJmzC", new DefaultNetworkSession(executorService, completionExecutor));
 
         class A {
             public boolean triggered = false;
@@ -128,7 +130,7 @@ public class ThreadingTest {
             executorService.execute(new Runnable() {
                 @Override
                 public void run() {
-                    ApiTask.MAIN_LOOP_HANDLER.post(new Runnable() {
+                    completionExecutor.execute(new Runnable() {
                         @Override
                         public void run() {
                             Assert.assertTrue(testObj.triggered);
@@ -143,6 +145,48 @@ public class ThreadingTest {
         // executor and MAIN_LOOP_HANDLER maintains the order of the callbacks.
         // This is not an ideal testcase, but should be enough to test this functionality
         lock.await(Utils.SMALL_DELAY * iterations, TimeUnit.MILLISECONDS);
+    }
+
+    @Test
+    public void testAsyncAndBackgroundCompletionExecutor() throws Exception {
+        final CountDownLatch lock = new CountDownLatch(1);
+
+        // Execute callbacks on a background thread
+        final ExecutorService networkRequestExecutor = Executors.newSingleThreadExecutor();
+        final ExecutorService completionExecutor = Executors.newSingleThreadExecutor();
+
+        completionExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                // Get the thread id and check if it's equal to the thread on which the
+                // completion handler is executed
+                final Thread thread = Thread.currentThread();
+
+                new ApiTask<String>(new Callable<String>() {
+                    @Override
+                    public String call() throws Exception {
+                        Assert.assertTrue(Looper.getMainLooper().getThread() != Thread.currentThread());
+                        return "test 2";
+                    }
+                }, networkRequestExecutor, completionExecutor).executeAsyncTask(new CompletionHandler<String>() {
+                    @Override
+                    public void onComplete(String result, Throwable e) {
+                        // This should be run on a background thread
+                        Assert.assertTrue(Looper.getMainLooper().getThread() != Thread.currentThread());
+                        Assert.assertNotNull(result);
+                        Assert.assertNull(e);
+
+                        Assert.assertEquals(result, "test 2");
+
+                        // Check if the current thread is the same as the initial thread
+                        Assert.assertTrue(thread == Thread.currentThread());
+                        lock.countDown();
+                    }
+                });
+            }
+        });
+
+        lock.await(Utils.SMALL_DELAY, TimeUnit.MILLISECONDS);
     }
 
     @Test
