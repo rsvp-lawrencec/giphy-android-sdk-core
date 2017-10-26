@@ -35,6 +35,8 @@ import java.net.URL;
 import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.Callable;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 
 /**
  * Does the low level GET requests.
@@ -46,6 +48,19 @@ public class DefaultNetworkSession implements NetworkSession {
             .registerTypeHierarchyAdapter(int.class, new IntDeserializer())
             .registerTypeAdapterFactory(new MainAdapterFactory())
             .create();
+
+    private ExecutorService networkRequestExecutor;
+    private Executor completionExecutor;
+
+    public DefaultNetworkSession() {
+        networkRequestExecutor = ApiTask.NETWORK_REQUEST_EXECUTOR;
+        completionExecutor = ApiTask.COMPLETION_EXECUTOR;
+    }
+
+    public DefaultNetworkSession(ExecutorService networkRequestExecutor, Executor completionExecutor) {
+        this.networkRequestExecutor = networkRequestExecutor;
+        this.completionExecutor = completionExecutor;
+    }
 
     @Override
     public <T extends GenericResponse> ApiTask<T> queryStringConnection(@NonNull final Uri serverUrl, @NonNull final String path,
@@ -87,7 +102,7 @@ public class DefaultNetworkSession implements NetworkSession {
                     }
                 }
             }
-        });
+        }, networkRequestExecutor, completionExecutor);
     }
 
     private <T extends GenericResponse> T readJsonResponse(URL url, @NonNull HttpURLConnection connection, @NonNull Class<T> responseClass)

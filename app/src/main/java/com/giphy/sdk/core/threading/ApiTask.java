@@ -9,7 +9,6 @@
 
 package com.giphy.sdk.core.threading;
 
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -19,6 +18,7 @@ import com.giphy.sdk.core.network.api.CompletionHandler;
 import java.io.InterruptedIOException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -42,7 +42,8 @@ public class ApiTask<V> {
     public static final int THREAD_POOL_CORE_SIZE = CPU_COUNT + 2;
     public static final int THREAD_POOL_MAX_SIZE = CPU_COUNT * 2 + 2;
     public static final long THREAD_POOL_KEEP_ALIVE_TIME = 1L;
-    public static final ExecutorService THREAD_POOL_EXECUTOR_SERVICE = new ThreadPoolExecutor(
+
+    public static final ExecutorService NETWORK_REQUEST_EXECUTOR = new ThreadPoolExecutor(
             THREAD_POOL_CORE_SIZE,
             THREAD_POOL_MAX_SIZE,
             THREAD_POOL_KEEP_ALIVE_TIME,
@@ -50,12 +51,22 @@ public class ApiTask<V> {
             new LinkedBlockingQueue<Runnable>()
     );
 
-    public static final Handler MAIN_LOOP_HANDLER = new Handler(Looper.getMainLooper());
+    public static final Executor COMPLETION_EXECUTOR = new HandlerExecutor(new Handler(Looper.getMainLooper()));
 
     private final Callable<V> callable;
+    private final ExecutorService networkRequestExecutor;
+    private final Executor completionExecutor;
 
     public ApiTask(Callable<V> callable) {
         this.callable = callable;
+        this.networkRequestExecutor = NETWORK_REQUEST_EXECUTOR;
+        this.completionExecutor = COMPLETION_EXECUTOR;
+    }
+
+    public ApiTask(Callable<V> callable, ExecutorService networkRequestExecutor, Executor completionExecutor) {
+        this.callable = callable;
+        this.networkRequestExecutor = networkRequestExecutor;
+        this.completionExecutor = completionExecutor;
     }
 
     /**
@@ -66,7 +77,7 @@ public class ApiTask<V> {
      * @return
      */
     public Future executeAsyncTask(final CompletionHandler<V> completionHandler) {
-        return THREAD_POOL_EXECUTOR_SERVICE.submit(new Runnable() {
+        return networkRequestExecutor.submit(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -77,7 +88,7 @@ public class ApiTask<V> {
                         throw new InterruptedException();
                     }
 
-                    MAIN_LOOP_HANDLER.post(new Runnable() {
+                    completionExecutor.execute(new Runnable() {
                         @Override
                         public void run() {
                             completionHandler.onComplete(value, null);
@@ -86,15 +97,15 @@ public class ApiTask<V> {
                 } catch (final ExecutionException e) {
                     Log.e(ApiTask.class.getName(), "Unable to perform async task, cancelling…", e);
 
-                    MAIN_LOOP_HANDLER.post(new Runnable() {
+                    completionExecutor.execute(new Runnable() {
                         @Override
                         public void run() {
                             completionHandler.onComplete(null, e);
                         }
                     });
                 } catch (InterruptedIOException|InterruptedException e) { // interrupts will naturally occur from cancelling
-                } catch (final Exception e) {
-                    MAIN_LOOP_HANDLER.post(new Runnable() {
+                } catch (final Throwable e) {
+                    completionExecutor.execute(new Runnable() {
                         @Override
                         public void run() {
                             completionHandler.onComplete(null, e);
