@@ -9,7 +9,6 @@
 
 package com.giphy.sdk.core.threading;
 
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -53,9 +52,16 @@ public class ApiTask<V> {
     public static final Handler MAIN_LOOP_HANDLER = new Handler(Looper.getMainLooper());
 
     private final Callable<V> callable;
+    private final ExecutorService executorService;
 
     public ApiTask(Callable<V> callable) {
         this.callable = callable;
+        this.executorService = THREAD_POOL_EXECUTOR_SERVICE;
+    }
+
+    public ApiTask(Callable<V> callable, ExecutorService executorService) {
+        this.callable = callable;
+        this.executorService = executorService;
     }
 
     /**
@@ -66,7 +72,7 @@ public class ApiTask<V> {
      * @return
      */
     public Future executeAsyncTask(final CompletionHandler<V> completionHandler) {
-        return THREAD_POOL_EXECUTOR_SERVICE.submit(new Runnable() {
+        return executorService.submit(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -93,7 +99,7 @@ public class ApiTask<V> {
                         }
                     });
                 } catch (InterruptedIOException|InterruptedException e) { // interrupts will naturally occur from cancelling
-                } catch (final Exception e) {
+                } catch (final Throwable e) {
                     MAIN_LOOP_HANDLER.post(new Runnable() {
                         @Override
                         public void run() {
