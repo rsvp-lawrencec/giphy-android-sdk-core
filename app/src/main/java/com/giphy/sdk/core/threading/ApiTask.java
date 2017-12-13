@@ -43,15 +43,29 @@ public class ApiTask<V> {
     public static final int THREAD_POOL_MAX_SIZE = CPU_COUNT * 2 + 2;
     public static final long THREAD_POOL_KEEP_ALIVE_TIME = 1L;
 
-    public static final ExecutorService NETWORK_REQUEST_EXECUTOR = new ThreadPoolExecutor(
-            THREAD_POOL_CORE_SIZE,
-            THREAD_POOL_MAX_SIZE,
-            THREAD_POOL_KEEP_ALIVE_TIME,
-            TimeUnit.SECONDS,
-            new LinkedBlockingQueue<Runnable>()
-    );
+    private static ExecutorService NETWORK_REQUEST_EXECUTOR;
 
-    public static final Executor COMPLETION_EXECUTOR = new HandlerExecutor(new Handler(Looper.getMainLooper()));
+    public static ExecutorService getNetworkRequestExecutor() {
+        if (NETWORK_REQUEST_EXECUTOR == null) {
+            NETWORK_REQUEST_EXECUTOR = new ThreadPoolExecutor(
+                    THREAD_POOL_CORE_SIZE,
+                    THREAD_POOL_MAX_SIZE,
+                    THREAD_POOL_KEEP_ALIVE_TIME,
+                    TimeUnit.SECONDS,
+                    new LinkedBlockingQueue<Runnable>()
+            );
+        }
+        return NETWORK_REQUEST_EXECUTOR;
+    }
+
+    private static Executor COMPLETION_EXECUTOR;
+
+    public static Executor getCompletionExecutor() {
+        if (COMPLETION_EXECUTOR == null) {
+            COMPLETION_EXECUTOR = new HandlerExecutor(new Handler(Looper.getMainLooper()));
+        }
+        return COMPLETION_EXECUTOR;
+    }
 
     private final Callable<V> callable;
     private final ExecutorService networkRequestExecutor;
@@ -59,8 +73,8 @@ public class ApiTask<V> {
 
     public ApiTask(Callable<V> callable) {
         this.callable = callable;
-        this.networkRequestExecutor = NETWORK_REQUEST_EXECUTOR;
-        this.completionExecutor = COMPLETION_EXECUTOR;
+        this.networkRequestExecutor = getNetworkRequestExecutor();
+        this.completionExecutor = getCompletionExecutor();
     }
 
     public ApiTask(Callable<V> callable, ExecutorService networkRequestExecutor, Executor completionExecutor) {

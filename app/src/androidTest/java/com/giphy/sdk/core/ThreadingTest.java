@@ -81,7 +81,7 @@ public class ThreadingTest {
                         Assert.assertTrue(thread == Thread.currentThread());
                         return "test";
                     }
-                }, executorService, ApiTask.COMPLETION_EXECUTOR).executeAsyncTask(new CompletionHandler<String>() {
+                }, executorService, ApiTask.getCompletionExecutor()).executeAsyncTask(new CompletionHandler<String>() {
                     @Override
                     public void onComplete(String result, Throwable e) {
                         Assert.assertTrue(Looper.getMainLooper().getThread() == Thread.currentThread());
@@ -104,7 +104,7 @@ public class ThreadingTest {
         final CountDownLatch lock = new CountDownLatch(iterations);
 
         final ExecutorService executorService = Executors.newSingleThreadExecutor();
-        final Executor completionExecutor = ApiTask.COMPLETION_EXECUTOR;
+        final Executor completionExecutor = ApiTask.getCompletionExecutor();
         final GPHApiClient apiClient = new GPHApiClient("dc6zaTOxFJmzC", new DefaultNetworkSession(executorService, completionExecutor));
 
         class A {

@@ -53,8 +53,8 @@ public class DefaultNetworkSession implements NetworkSession {
     private Executor completionExecutor;
 
     public DefaultNetworkSession() {
-        networkRequestExecutor = ApiTask.NETWORK_REQUEST_EXECUTOR;
-        completionExecutor = ApiTask.COMPLETION_EXECUTOR;
+        networkRequestExecutor = ApiTask.getNetworkRequestExecutor();
+        completionExecutor = ApiTask.getCompletionExecutor();
     }
 
     public DefaultNetworkSession(ExecutorService networkRequestExecutor, Executor completionExecutor) {
